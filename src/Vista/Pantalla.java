@@ -182,7 +182,7 @@ public class Pantalla extends JFrame {
         tiempo.setBounds(5, 5, 500, 50);
         tiempo.setFont(codigo.getFont());
         tiempo.setForeground(Color.WHITE);
-        
+
         panel.add(tiempo);
         panel.add(scrollCont);
         panel.add(tituloContadores);
