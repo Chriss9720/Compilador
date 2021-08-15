@@ -9,7 +9,7 @@ import Vista.Pantalla;
 public class main {
     
     public static void main(String[] args) {
-        Pantalla vista = new Pantalla();
+        new Pantalla();
     }
     
 }

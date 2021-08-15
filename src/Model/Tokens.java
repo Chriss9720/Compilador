@@ -238,5 +238,10 @@ public class Tokens {
     public String getLexema() {
         return lexema;
     }
+    
+    @Override
+    public String toString() {
+        return "Lexema: " + getLexema() + " Linea: " + getLiena();
+    }
 
 }

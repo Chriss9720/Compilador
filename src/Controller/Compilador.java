@@ -2,14 +2,11 @@ package Controller;
 
 import Model.*;
 import Vista.Pantalla;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -23,11 +20,19 @@ import javax.swing.table.DefaultTableModel;
 public class Compilador implements ActionListener {
 
     private boolean time;
+    private boolean ARR = false;
+    private boolean ALMT = false;
+    private boolean D = false;
+    private boolean VALOR = false;
+    private boolean REVISAR = false;
     private final Pantalla pantalla;
+    private final Gestor gestor = new Gestor();
+    private LinkedList<Integer> enAmb;
     private LinkedList<Tokens> tonk;
     private LinkedList<Errores> err;
     private LinkedList<Contadores> cont;
     private LinkedList<Reservadas> reservadas;
+    private LinkedList<Producciones> producciones;
     private final String[] regex = {
         "e", "E", "[a-zA-Z]", "\\_", "\\/", "\\*", "\\n", "[0-9]", "\\\"",
         "\\'", "\\+", "\\-", "\\%", "\\^", "\\!", "\\&", "\\|", "\\#", "\\<",
@@ -161,7 +166,6 @@ public class Compilador implements ActionListener {
         {617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 103, 617, 617, 104, 105, 106, 107, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617},
         {627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 108, 109, 110, 111, 112, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 127, 114, 113, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 627, 126}
     };
-    private LinkedList<Producciones> producciones;
 
     public Compilador(Pantalla pantalla) {
         this.pantalla = pantalla;
@@ -173,28 +177,28 @@ public class Compilador implements ActionListener {
         producciones = new LinkedList();
         producciones.add(new Producciones("PROGRAMA", "A1 main ( ) { ESTATUTOS A2 }"));
         producciones.add(new Producciones("A2", "; ESTATUTOS A2"));
-        producciones.add(new Producciones("A1", "reg id { TIPO id A3 } A1"));
-        producciones.add(new Producciones("A3", ", TIPO id A3"));
-        producciones.add(new Producciones("A1", "id = DECLARACION_DE_CONSTANTES A4 A1"));
-        producciones.add(new Producciones("A4", ", id = DECLARACION_DE_CONSTANTES A4"));
-        producciones.add(new Producciones("A1", "TIPO A5 ; A1"));
-        producciones.add(new Producciones("A5", "id LISTA_DE_PARAMETROS PROGRAMA"));
-        producciones.add(new Producciones("A5", "∶ id A6"));
-        producciones.add(new Producciones("A6", ", id A6"));
+        producciones.add(new Producciones("A1", "ALMT reg D id DT { ALMT TIPO D id DT A3 } A1"));
+        producciones.add(new Producciones("A3", ", ALMT TIPO D id DT A3"));
+        producciones.add(new Producciones("A1", "D id = VALOR DECLARACION_DE_CONSTANTES DT A4 A1"));
+        producciones.add(new Producciones("A4", ", D id = VALOR DECLARACION_DE_CONSTANTES DT A4"));
+        producciones.add(new Producciones("A1", "ALMT TIPO A5 ; A1"));
+        producciones.add(new Producciones("A5", "D id enAmb LISTA_DE_PARAMETROS PROGRAMA finAmb")); //Funciones
+        producciones.add(new Producciones("A5", "∶ D id A6 DT"));
+        producciones.add(new Producciones("A6", ", D id A6"));
         producciones.add(new Producciones("all", "ε"));
         producciones.add(new Producciones("TIPO", "CHAR B1"));
         producciones.add(new Producciones("TIPO", "INT B1"));
         producciones.add(new Producciones("TIPO", "REAL B1"));
         producciones.add(new Producciones("TIPO", "BOOL B1"));
         producciones.add(new Producciones("TIPO", "EXP B1"));
-        producciones.add(new Producciones("TIPO", "REG id B1"));
+        producciones.add(new Producciones("TIPO", "REG D id B1"));
         producciones.add(new Producciones("TIPO", "VOID"));
         producciones.add(new Producciones("TIPO", "FILE"));
-        producciones.add(new Producciones("B1", "[ Cont_entero ] B2"));
-        producciones.add(new Producciones("B2", ", [ Cont_entero ] B2"));
-        producciones.add(new Producciones("LISTA_DE_PARAMETROS", "( TIPO id C1 )"));
-        producciones.add(new Producciones("C1", ", id C1"));
-        producciones.add(new Producciones("C1", "; TIPO id C1"));
+        producciones.add(new Producciones("B1", "[ ARR Cont_entero ] B2"));
+        producciones.add(new Producciones("B2", ", [ ARR Cont_entero ] B2"));
+        producciones.add(new Producciones("LISTA_DE_PARAMETROS", "( ALMT TIPO D id C1 DT )"));
+        producciones.add(new Producciones("C1", ", D id C1"));
+        producciones.add(new Producciones("C1", "DT ; ALMT TIPO D id C1"));
         producciones.add(new Producciones("DECLARACION_DE_CONSTANTES", "+ D1"));
         producciones.add(new Producciones("DECLARACION_DE_CONSTANTES", "- D1"));
         producciones.add(new Producciones("DECLARACION_DE_CONSTANTES", "CONSTANTE_S/SIGNO"));
@@ -213,10 +217,10 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("FACTOR_PASCAL", "( EXP_PASCAL )"));
         producciones.add(new Producciones("FACTOR_PASCAL", "! EXP_PASCAL"));
         producciones.add(new Producciones("FACTOR_PASCAL", "FUNCIONES"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "++ id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "-- id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "** id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "++ REVISAR id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "-- REVISAR id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "** REVISAR id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "REVISAR id F1"));
         producciones.add(new Producciones("F1", "( F2"));
         producciones.add(new Producciones("F2", ". FACTOR_PASCAL"));
         producciones.add(new Producciones("F2", ")"));
@@ -250,11 +254,11 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("J1", "% FACTOR_PASCAL J1"));
         producciones.add(new Producciones("J1", "&& FACTOR_PASCAL J1"));
         producciones.add(new Producciones("ESTATUTOS", ">> I1 EXP_PASCAL I2"));
-        producciones.add(new Producciones("I1", "∶ id"));
+        producciones.add(new Producciones("I1", "∶ REVISAR id"));
         producciones.add(new Producciones("I2", ", EXP_PASCAL I2"));
-        producciones.add(new Producciones("ESTATUTOS", "<< I1 id I3 I4"));
+        producciones.add(new Producciones("ESTATUTOS", "<< I1 REVISAR id I3 I4"));
         producciones.add(new Producciones("I3", "ARREGLO"));
-        producciones.add(new Producciones("I4", ", id I3 I4"));
+        producciones.add(new Producciones("I4", ", REVISAR id I3 I4"));
         producciones.add(new Producciones("ESTATUTOS", "if ( EXP_PASCAL ) ESTATUTOS I5"));
         producciones.add(new Producciones("I5", "else ESTATUTOS"));
         producciones.add(new Producciones("ESTATUTOS", "{ ESTATUTOS I6 }"));
@@ -296,8 +300,8 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("FUNCIONES", "setcolorf ( EXP_PASCAL )"));
         producciones.add(new Producciones("FUNCIONES", "getcolorb ( )"));
         producciones.add(new Producciones("FUNCIONES", "getcolorf ( )"));
-        producciones.add(new Producciones("FUNCIONES", "$ id . EXP_PASCAL , Cont_cadena"));
-        producciones.add(new Producciones("FUNCIONES", "~ id"));
+        producciones.add(new Producciones("FUNCIONES", "$ REVISAR id . EXP_PASCAL , Cont_cadena"));
+        producciones.add(new Producciones("FUNCIONES", "~ REVISAR id"));
         producciones.add(new Producciones("E2", "<"));
     }
 
@@ -413,6 +417,7 @@ public class Compilador implements ActionListener {
                     String text = pantalla.getCodigo().getText() + "\n";
                     tonk = new LinkedList();
                     err = new LinkedList();
+                    gestor.BorrarTodo();
                     LlenarCont();
                     String c;
                     int col;
@@ -425,14 +430,6 @@ public class Compilador implements ActionListener {
                         col = sacarColumna(c);
                         est = tI(matriz[est][col]);
                         if (est < 0) {
-                            switch (lex) {
-                                case "int":
-                                    JOptionPane.showMessageDialog(pantalla, "int cambio a INT", "cambios", JOptionPane.INFORMATION_MESSAGE);
-                                    break;
-                                case "char":
-                                    JOptionPane.showMessageDialog(pantalla, "char cambio a CHAR", "cambios", JOptionPane.INFORMATION_MESSAGE);
-                                    break;
-                            }
                             if (est == -29 || est == -16 || est == -14 || est == -13
                                     || est == -9 || est == - 10 || est == -7 || est == -9
                                     || est == -12 || est == -15) {
@@ -500,9 +497,9 @@ public class Compilador implements ActionListener {
                     cargarTokens();
                     carcarContadores();
                     //codido de sintaxis
-                    String prod = "";
-                    prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
-                    System.out.println("La produccion final es: " + prod.replace(" ", ""));
+                    //String prod = "";
+                    //prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
+                    //System.out.println("La produccion final es: " + prod);
                     int entradaDePila, entradaDeTokens;
                     for (int i = tonk.size() - 1; i > -1; i--) {
                         if (tonk.get(i).getToken() == -2
@@ -522,28 +519,90 @@ public class Compilador implements ActionListener {
                         }
                     }
                     LinkedList<String> pila = voltear(producciones.get(0).getProduce());
-                    for (String p : pila) {
+                    /*for (String p : pila) {
                         System.out.print(p + " ");
                     }
-                    System.out.println();
+                    System.out.println();*/
                     int valor;
                     boolean EFB = true;
-                    while (!pila.isEmpty() && !tonk.isEmpty() && EFB) {
+                    boolean VR = true;
+                    enAmb = new LinkedList();
+                    enAmb.add(0);
+                    Datos d = new Datos();
+                    while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
+                        switch (pila.getLast()) {
+                            case "enAmb"://Aqui se guardam
+                                pila.removeLast();
+                                d.setAmbito(enAmb.getLast());
+                                d.setValor("FUNCION");
+                                if (gestor.guadarV(d)) {
+                                    System.out.println("Se guardo la variable");
+                                } else {
+                                    VR = false;
+                                    err.add(new Errores(d.getLinea(), 700,
+                                            d.getId().getFirst(), "Se repitio el id", "Ambito"));
+                                }
+                                d = new Datos();
+                                enAmb.add((enAmb.getLast() + 1));
+                                break;
+                            case "finAmb": //Aqui se borra de la bd el ambito en el que estamos
+                                pila.removeLast();
+//                                if (gestor.eliminarAmbito(enAmb.getLast())) {
+//                                    System.out.println("Se elimino el ambito: " + enAmb.getLast());
+//                                } else {
+//                                    System.out.println("*****No elimino el ambito: " + enAmb.getLast());
+//                                }
+                                enAmb.removeLast();
+                                break;
+                            case "ARR":
+                                pila.removeLast();
+                                ARR = true;
+                                break;
+                            case "ALMT":
+                                pila.removeLast();
+                                ALMT = true;
+                                break;
+                            case "D":
+                                pila.removeLast();
+                                D = true;
+                                break;
+                            case "DT"://Aqui se guardam
+                                pila.removeLast();
+                                d.setAmbito(enAmb.getLast());
+                                if (gestor.guadarV(d)) {
+                                    System.out.println("Se guardo la variable");
+                                } else {
+                                    VR = false;
+                                    err.add(new Errores(d.getLinea(), 700,
+                                            d.getId().getFirst(), "Se repitio el id", "Ambito"));
+                                }
+                                d = new Datos();
+                                break;
+                            case "VALOR":
+                                d.setTipo("CONSTANTE");
+                                VALOR = true;
+                                pila.removeLast();
+                                break;
+                            case "REVISAR":
+                                pila.removeLast();
+                                REVISAR = true;
+                                break;
+                        }
                         entradaDePila = entrada(pila.getLast());
                         entradaDeTokens = entrada(tonk.getFirst().getSintaxis());
                         if (entradaDePila < 0 && entradaDeTokens >= 0) {
                             valor = matrizSintaxis[getFila(pila.getLast())][entradaDeTokens];
                             if (valor > 0 && valor < 599 && valor != 11) {
                                 --valor;
-                                System.out.println("Convertir: " + pila.getLast() + " -> " + producciones.get(valor).getProduce());
+                                //System.out.println("Convertir: " + pila.getLast() + " -> " + producciones.get(valor).getProduce());
                                 pila.removeLast();
                                 pila = juntar(pila, voltear(producciones.get(valor).getProduce()));
-                                for (String p : pila) {
+                                /*for (String p : pila) {
                                     System.out.print(p + " ");
                                 }
-                                System.out.println("");
+                                System.out.println("");*/
                             } else if (valor == 11) {
-                                System.out.println("Se va de la pila: " + pila.getLast());
+                                //System.out.println("Se va de la pila: " + pila.getLast());
                                 pila.removeLast();
                             } else if (valor > 599) {
                                 String desc = "";
@@ -702,13 +761,43 @@ public class Compilador implements ActionListener {
                                 }
                                 err.add(new Errores(tonk.getFirst().getLiena(), valor,
                                         tonk.getFirst().getLexema(), desc, "Sintaxis"));
-                                System.out.println("Error " + pila.getLast() + " vs " + tonk.getFirst().getSintaxis() + " " + valor);
+                                //System.out.println("Error " + pila.getLast() + " vs " + tonk.getFirst().getSintaxis() + " " + valor);
                                 pila.removeLast();
                                 tonk.removeFirst();
                             }
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
                                 && entradaDePila == entradaDeTokens) {
-                            System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
+                            //System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
+                            String aux = tonk.getFirst().getLexema();
+                            if (ARR) {
+                                ARR = false;
+                                if (d.getExpansion() != 0) {
+                                    d.setExpansion((int) Math.pow(d.getExpansion(), tI(aux)));
+                                } else {
+                                    d.setExpansion(tI(aux));
+                                }
+                            }
+                            if (ALMT) {
+                                ALMT = false;
+                                d.setTipo(aux);
+                            }
+                            if (D) {
+                                D = false;
+                                d.setId(aux);
+                                d.setLinea(tonk.getFirst().getLiena());
+                            }
+                            if (VALOR) {
+                                VALOR = false;
+                                d.setValor(aux);
+                            }
+                            if (REVISAR) {
+                                REVISAR = false;
+                                if (!gestor.existe(tonk.getFirst().getLexema(), enAmb.getLast())) {
+                                    err.add(new Errores(tonk.getFirst().getLiena(), 701,
+                                            tonk.getFirst().getLexema(), "La variable no fue declarada", "Ambito"));
+                                    VR = false;
+                                }
+                            }
                             pila.removeLast();
                             tonk.removeFirst();
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
@@ -718,8 +807,8 @@ public class Compilador implements ActionListener {
                             EFB = false;
                             err.add(new Errores(tonk.getFirst().getLiena(), 628,
                                     tonk.getFirst().getLexema(), "Error de fuerza bruta", "Sintaxis"));
-                            System.out.println("FB");
-                            System.out.println(pila.getLast() + " " + tonk.getFirst().getSintaxis());
+                            //System.out.println("FB");
+                            //System.out.println(pila.getLast() + " " + tonk.getFirst().getSintaxis());
                         }
                     }
                     if (!pila.isEmpty() && EFB) {
@@ -736,7 +825,7 @@ public class Compilador implements ActionListener {
                     if (err.isEmpty()) {
                         JOptionPane.showMessageDialog(pantalla, "Procesado con exito, sin errores", "Exito", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(pantalla, "Se encontraron errores", "Error", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(pantalla, "Se encontraron errores", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (Exception e) {
                     time = false;

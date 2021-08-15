@@ -18,13 +18,53 @@ public class Gestor {
     private final Connect Connect = new Connect();
     private String sql;
 
-    public boolean insertar(int[] v) {
+    public void BorrarTodo() {
         con = Connect.abrir();
         try {
-            sql = "INSERT INTO UNO(ok, ok2) VALUES (?,?)";
-            pst = con.prepareStatement(sql);
-            pst.setInt(1, v[0]);
-            pst.setInt(2, v[1]);
+            sql = "DELETE FROM DATOS";
+            pst = con.prepareCall(sql);
+            if (pst.executeUpdate() > 0) {
+                cerrar();
+            } else {
+                cerrar();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al resert: " + e);
+        }
+    }
+
+    public boolean guadarV(Datos d) {
+        con = Connect.abrir();
+        try {
+            do {
+                sql = "INSERT INTO DATOS (TIPO, ID, AMBITO, EXPANSION, VALOR) VALUES (?,?,?,?,?)";
+                pst = con.prepareCall(sql);
+                pst.setString(1, d.getTipo());
+                pst.setString(2, d.getId().getFirst());
+                pst.setInt(3, d.getAmbito());
+                pst.setInt(4, d.getExpansion());
+                pst.setString(5, d.getValor());
+                if (pst.executeUpdate() > 0) {
+                    d.getId().removeFirst();
+                } else {
+                    System.out.println("Error al guardar");
+                    cerrar();
+                    return false;
+                }
+            } while (!d.getId().isEmpty());
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        cerrar();
+        return d.getId().isEmpty();
+    }
+
+    public boolean eliminarAmbito(int ambito) {
+        con = Connect.abrir();
+        try {
+            sql = "DELETE FROM DATOS WHERE AMBITO = ?";
+            pst = con.prepareCall(sql);
+            pst.setInt(1, ambito);
             if (pst.executeUpdate() > 0) {
                 cerrar();
                 return true;
@@ -33,7 +73,23 @@ public class Gestor {
                 return false;
             }
         } catch (SQLException e) {
-            System.out.println("Error al insertar: " + e);
+            System.out.println("Error al eliminar el ambito: " + e);
+        }
+        cerrar();
+        return false;
+    }
+
+    public boolean existe(String id, int ambito) {
+        con = Connect.abrir();
+        try {
+            sql = "SELECT * FROM DATOS WHERE ID = ? AND AMBITO = ?";
+            pst = con.prepareCall(sql);
+            pst.setString(1, id);
+            pst.setInt(2, ambito);
+            rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println("Erorr al buscar la id: " + e);
         }
         cerrar();
         return false;
@@ -43,23 +99,6 @@ public class Gestor {
         if (con != null) {
             con = Connect.cerrar();
         }
-    }
-
-    public LinkedList<int[]> all() {
-        LinkedList<int[]> resultado = new LinkedList();
-        con = Connect.abrir();
-        try {
-            sql = "SELECT * FROM OK.UNO";
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                resultado.add(new int[]{rs.getInt(1), rs.getInt(2), rs.getInt(3)});
-            }
-        } catch (SQLException e) {
-            System.out.println("Eror al selecionar todos: " + e);
-        }
-        con = Connect.cerrar();
-        return resultado;
     }
 
 }
