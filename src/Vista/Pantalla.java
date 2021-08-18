@@ -69,6 +69,7 @@ public class Pantalla extends JFrame {
         codigo.setFont(new Font("Times New Roman", Font.PLAIN, 24));
         codigo.setBounds(60, 0, d.width, d.height);
         codigo.setCaretColor(Color.RED);
+        codigo.setTabSize(4);
         panelCodigo.add(codigo);
 
         numeroLinea = new JTextArea("1\n");

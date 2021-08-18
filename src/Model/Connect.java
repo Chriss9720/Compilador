@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class Connect {
 
     private Connection con;
-    private final String bd = "ok", usuario = "root", passw = "root",
+    private final String bd = "a18130159", usuario = "root", passw = "root",
             ulr = "jdbc:mysql://localhost/" + bd + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     public Connection abrir() {

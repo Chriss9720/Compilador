@@ -20,14 +20,8 @@ import javax.swing.table.DefaultTableModel;
 public class Compilador implements ActionListener {
 
     private boolean time;
-    private boolean ARR = false;
-    private boolean ALMT = false;
-    private boolean D = false;
-    private boolean VALOR = false;
-    private boolean REVISAR = false;
     private final Pantalla pantalla;
     private final Gestor gestor = new Gestor();
-    private LinkedList<Integer> enAmb;
     private LinkedList<Tokens> tonk;
     private LinkedList<Errores> err;
     private LinkedList<Contadores> cont;
@@ -177,28 +171,28 @@ public class Compilador implements ActionListener {
         producciones = new LinkedList();
         producciones.add(new Producciones("PROGRAMA", "A1 main ( ) { ESTATUTOS A2 }"));
         producciones.add(new Producciones("A2", "; ESTATUTOS A2"));
-        producciones.add(new Producciones("A1", "ALMT reg D id DT { ALMT TIPO D id DT A3 } A1"));
-        producciones.add(new Producciones("A3", ", ALMT TIPO D id DT A3"));
-        producciones.add(new Producciones("A1", "D id = VALOR DECLARACION_DE_CONSTANTES DT A4 A1"));
-        producciones.add(new Producciones("A4", ", D id = VALOR DECLARACION_DE_CONSTANTES DT A4"));
-        producciones.add(new Producciones("A1", "ALMT TIPO A5 ; A1"));
-        producciones.add(new Producciones("A5", "D id enAmb LISTA_DE_PARAMETROS PROGRAMA finAmb")); //Funciones
-        producciones.add(new Producciones("A5", "∶ D id A6 DT"));
-        producciones.add(new Producciones("A6", ", D id A6"));
+        producciones.add(new Producciones("A1", "REGISTRO reg IDREG id { ParamsTipoReg TIPO GID id A3 } GREG A1"));
+        producciones.add(new Producciones("A3", ", ParamsTipoReg TIPO GID id A3"));
+        producciones.add(new Producciones("A1", "CONST id = DECLARACION_DE_CONSTANTES A4 A1"));
+        producciones.add(new Producciones("A4", ", CONST id = DECLARACION_DE_CONSTANTES A4"));
+        producciones.add(new Producciones("A1", "GT TIPO A5 ; A1"));
+        producciones.add(new Producciones("A5", "FUNC id LISTA_DE_PARAMETROS GFUNC PROGRAMA finFunc")); //Funciones
+        producciones.add(new Producciones("A5", "∶ GIDSIMPLE id A6 GBDIDSIMPLE"));
+        producciones.add(new Producciones("A6", ", GIDSIMPLE id A6"));
         producciones.add(new Producciones("all", "ε"));
         producciones.add(new Producciones("TIPO", "CHAR B1"));
         producciones.add(new Producciones("TIPO", "INT B1"));
         producciones.add(new Producciones("TIPO", "REAL B1"));
         producciones.add(new Producciones("TIPO", "BOOL B1"));
         producciones.add(new Producciones("TIPO", "EXP B1"));
-        producciones.add(new Producciones("TIPO", "REG D id B1"));
+        producciones.add(new Producciones("TIPO", "REG IDTIPO id B1"));
         producciones.add(new Producciones("TIPO", "VOID"));
         producciones.add(new Producciones("TIPO", "FILE"));
-        producciones.add(new Producciones("B1", "[ ARR Cont_entero ] B2"));
-        producciones.add(new Producciones("B2", ", [ ARR Cont_entero ] B2"));
-        producciones.add(new Producciones("LISTA_DE_PARAMETROS", "( ALMT TIPO D id C1 DT )"));
-        producciones.add(new Producciones("C1", ", D id C1"));
-        producciones.add(new Producciones("C1", "DT ; ALMT TIPO D id C1"));
+        producciones.add(new Producciones("B1", "[ DimARR Cont_entero ] B2"));
+        producciones.add(new Producciones("B2", ", [ DimARR Cont_entero ] B2"));
+        producciones.add(new Producciones("LISTA_DE_PARAMETROS", "( ParamsFunc TIPO IDDF id C1 )"));
+        producciones.add(new Producciones("C1", ", IDDF id C1"));
+        producciones.add(new Producciones("C1", "; ParamsFunc TIPO IDDF id C1"));
         producciones.add(new Producciones("DECLARACION_DE_CONSTANTES", "+ D1"));
         producciones.add(new Producciones("DECLARACION_DE_CONSTANTES", "- D1"));
         producciones.add(new Producciones("DECLARACION_DE_CONSTANTES", "CONSTANTE_S/SIGNO"));
@@ -217,10 +211,10 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("FACTOR_PASCAL", "( EXP_PASCAL )"));
         producciones.add(new Producciones("FACTOR_PASCAL", "! EXP_PASCAL"));
         producciones.add(new Producciones("FACTOR_PASCAL", "FUNCIONES"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "++ REVISAR id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "-- REVISAR id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "** REVISAR id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "REVISAR id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "++ id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "-- id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "** id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", " id F1"));
         producciones.add(new Producciones("F1", "( F2"));
         producciones.add(new Producciones("F2", ". FACTOR_PASCAL"));
         producciones.add(new Producciones("F2", ")"));
@@ -254,11 +248,11 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("J1", "% FACTOR_PASCAL J1"));
         producciones.add(new Producciones("J1", "&& FACTOR_PASCAL J1"));
         producciones.add(new Producciones("ESTATUTOS", ">> I1 EXP_PASCAL I2"));
-        producciones.add(new Producciones("I1", "∶ REVISAR id"));
+        producciones.add(new Producciones("I1", "∶ id"));
         producciones.add(new Producciones("I2", ", EXP_PASCAL I2"));
-        producciones.add(new Producciones("ESTATUTOS", "<< I1 REVISAR id I3 I4"));
+        producciones.add(new Producciones("ESTATUTOS", "<< I1 id I3 I4"));
         producciones.add(new Producciones("I3", "ARREGLO"));
-        producciones.add(new Producciones("I4", ", REVISAR id I3 I4"));
+        producciones.add(new Producciones("I4", ", id I3 I4"));
         producciones.add(new Producciones("ESTATUTOS", "if ( EXP_PASCAL ) ESTATUTOS I5"));
         producciones.add(new Producciones("I5", "else ESTATUTOS"));
         producciones.add(new Producciones("ESTATUTOS", "{ ESTATUTOS I6 }"));
@@ -300,8 +294,8 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("FUNCIONES", "setcolorf ( EXP_PASCAL )"));
         producciones.add(new Producciones("FUNCIONES", "getcolorb ( )"));
         producciones.add(new Producciones("FUNCIONES", "getcolorf ( )"));
-        producciones.add(new Producciones("FUNCIONES", "$ REVISAR id . EXP_PASCAL , Cont_cadena"));
-        producciones.add(new Producciones("FUNCIONES", "~ REVISAR id"));
+        producciones.add(new Producciones("FUNCIONES", "$ id . EXP_PASCAL , Cont_cadena"));
+        producciones.add(new Producciones("FUNCIONES", "~ id"));
         producciones.add(new Producciones("E2", "<"));
     }
 
@@ -450,32 +444,7 @@ public class Compilador implements ActionListener {
                             int aux = esReservada(lex + c);
                             if (aux == -1) {
                                 if (!pat1.matcher(lex + c).matches()) {
-                                    String desc;
-                                    switch (est) {
-                                        case 500:
-                                            desc = "Caracter no reconocido";
-                                            break;
-                                        case 501:
-                                            desc = "Se esperaba un digito";
-                                            break;
-                                        case 502:
-                                            desc = "Se esperaba una barra / o un asterisco";
-                                            break;
-                                        case 503:
-                                            desc = "Se esparaba una comilla doble(\")";
-                                            break;
-                                        case 504:
-                                            desc = "Se esparaba un caracter valido";
-                                            break;
-                                        case 505:
-                                            desc = "Se esparaba una comilla simple '";
-                                            break;
-                                        case 506:
-                                            desc = "Se esperaba un digito, un + ó un -";
-                                            break;
-                                        default:
-                                            desc = "Error no registrado";
-                                    }
+                                    String desc = erroresLexico(est);
                                     err.add(new Errores(line, est, lex + " " + c, desc, "Léxico"));
                                     contar(est);
                                 }
@@ -501,23 +470,7 @@ public class Compilador implements ActionListener {
                     //prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
                     //System.out.println("La produccion final es: " + prod);
                     int entradaDePila, entradaDeTokens;
-                    for (int i = tonk.size() - 1; i > -1; i--) {
-                        if (tonk.get(i).getToken() == -2
-                                || tonk.get(i).getToken() == -3
-                                || tonk.get(i).getToken() == -40
-                                || tonk.get(i).getToken() == -29
-                                || tonk.get(i).getToken() == -5
-                                || tonk.get(i).getToken() == -7
-                                || tonk.get(i).getToken() == -9
-                                || tonk.get(i).getToken() == -10
-                                || tonk.get(i).getToken() == -12
-                                || tonk.get(i).getToken() == -13
-                                || tonk.get(i).getToken() == -14
-                                || tonk.get(i).getToken() == -15
-                                || tonk.get(i).getToken() == -16) {
-                            tonk.remove(i);
-                        }
-                    }
+                    remover();
                     LinkedList<String> pila = voltear(producciones.get(0).getProduce());
                     /*for (String p : pila) {
                         System.out.print(p + " ");
@@ -526,66 +479,119 @@ public class Compilador implements ActionListener {
                     int valor;
                     boolean EFB = true;
                     boolean VR = true;
-                    enAmb = new LinkedList();
-                    enAmb.add(0);
-                    Datos d = new Datos();
+                    boolean IDREG = false;
+                    boolean ParamsTipoReg = false;
+                    boolean ParamsTipoRegAUX = false;
+                    boolean GID = false;
+                    boolean IDTIPO = false;
+                    boolean DimARR = false;
+                    boolean CONST = false;
+                    boolean GT = false;
+                    boolean GIDSIMPLE = false;
+                    boolean tempAux = false;
+                    boolean FUNC = false;
+                    boolean ParamsFunc = false;
+                    boolean ParamsFuncAUX = false;
+                    boolean IDDF = false;
+                    ObjTemp temp = new ObjTemp();
+                    Registro reg = new Registro();
+                    Variable var = new Variable();
+                    Variable simple = new Variable();
+                    Funcion func = new Funcion();
+                    LinkedList<Integer> ambitosTotales = new LinkedList();
+                    LinkedList<Integer> amb = new LinkedList();
+                    ambitosTotales.add(0);
+                    amb.add(ambitosTotales.getLast());
                     while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
                         switch (pila.getLast()) {
-                            case "enAmb"://Aqui se guardam
+                            case "REGISTRO":
                                 pila.removeLast();
-                                d.setAmbito(enAmb.getLast());
-                                d.setValor("FUNCION");
-                                if (gestor.guadarV(d)) {
-                                    System.out.println("Se guardo la variable");
-                                } else {
-                                    VR = false;
-                                    err.add(new Errores(d.getLinea(), 700,
-                                            d.getId().getFirst(), "Se repitio el id", "Ambito"));
+                                reg = new Registro();
+                                reg.setAmb(amb.getLast());
+                                ambitosTotales.add(ambitosTotales.size());
+                                amb.add(ambitosTotales.getLast());
+                                break;
+                            case "IDREG":
+                                pila.removeLast();
+                                IDREG = true;
+                                break;
+                            case "ParamsTipoReg":
+                                pila.removeLast();
+                                ParamsTipoReg = true;
+                                break;
+                            case "GID":
+                                pila.removeLast();
+                                GID = true;
+                                break;
+                            case "IDTIPO":
+                                pila.removeLast();
+                                IDTIPO = true;
+                                break;
+                            case "GREG":
+                                pila.removeLast();
+                                System.out.println(reg.toString());
+                                amb.removeLast();
+                                break;
+                            case "DimARR":
+                                pila.removeLast();
+                                DimARR = true;
+                                break;
+                            case "CONST":
+                                pila.removeLast();
+                                CONST = true;
+                                var = new Variable();
+                                break;
+                            case "GT":
+                                pila.removeLast();
+                                GT = true;
+                                temp = new ObjTemp();
+                                break;
+                            case "GIDSIMPLE":
+                                pila.removeLast();
+                                simple.setTipo(temp.getTipo());
+                                simple.setAmb(temp.getAmb());
+                                simple.setDimArr(temp.getDimArr());
+                                simple.settArr(temp.gettArr());
+                                simple.setClase(temp.getClase());
+                                if (!temp.getId().isEmpty()) {
+                                    simple.setId(temp.getId());
                                 }
-                                d = new Datos();
-                                enAmb.add((enAmb.getLast() + 1));
+                                GIDSIMPLE = true;
                                 break;
-                            case "finAmb": //Aqui se borra de la bd el ambito en el que estamos
+                            case "GBDIDSIMPLE":
                                 pila.removeLast();
-//                                if (gestor.eliminarAmbito(enAmb.getLast())) {
-//                                    System.out.println("Se elimino el ambito: " + enAmb.getLast());
-//                                } else {
-//                                    System.out.println("*****No elimino el ambito: " + enAmb.getLast());
-//                                }
-                                enAmb.removeLast();
+                                System.out.println(simple.toString());
+                                simple = new Variable();
                                 break;
-                            case "ARR":
+                            case "FUNC":
                                 pila.removeLast();
-                                ARR = true;
-                                break;
-                            case "ALMT":
-                                pila.removeLast();
-                                ALMT = true;
-                                break;
-                            case "D":
-                                pila.removeLast();
-                                D = true;
-                                break;
-                            case "DT"://Aqui se guardam
-                                pila.removeLast();
-                                d.setAmbito(enAmb.getLast());
-                                if (gestor.guadarV(d)) {
-                                    System.out.println("Se guardo la variable");
-                                } else {
-                                    VR = false;
-                                    err.add(new Errores(d.getLinea(), 700,
-                                            d.getId().getFirst(), "Se repitio el id", "Ambito"));
+                                func = new Funcion();
+                                func.setTipo(temp.getTipo());
+                                func.setAmb(temp.getAmb());
+                                func.setDimArr(temp.getDimArr());
+                                func.settArr(temp.gettArr());
+                                ambitosTotales.add(ambitosTotales.size());
+                                amb.add(ambitosTotales.getLast());
+                                if (!temp.getId().isEmpty()) {
+                                    func.setId(temp.getId());
                                 }
-                                d = new Datos();
+                                FUNC = true;
                                 break;
-                            case "VALOR":
-                                d.setTipo("CONSTANTE");
-                                VALOR = true;
+                            case "finFunc":
                                 pila.removeLast();
+                                amb.removeLast();
                                 break;
-                            case "REVISAR":
+                            case "ParamsFunc":
                                 pila.removeLast();
-                                REVISAR = true;
+                                ParamsFunc = true;
+                                break;
+                            case "GFUNC":
+                                pila.removeLast();
+                                System.out.println(func.toString());
+                                break;
+                            case "IDDF":
+                                pila.removeLast();
+                                IDDF = true;
                                 break;
                         }
                         entradaDePila = entrada(pila.getLast());
@@ -605,160 +611,7 @@ public class Compilador implements ActionListener {
                                 //System.out.println("Se va de la pila: " + pila.getLast());
                                 pila.removeLast();
                             } else if (valor > 599) {
-                                String desc = "";
-                                switch (valor) {
-                                    case 600:
-                                        desc = "Erro de sincronizacion";
-                                        break;
-                                    case 601:
-                                        desc = "Se esperaba un reg id main o TIPO";
-                                        break;
-                                    case 602:
-                                        desc = "Se esperaba un reg id o TIPO";
-                                        break;
-                                    case 603:
-                                        desc = "Se esperaba un ;";
-                                        break;
-                                    case 604:
-                                        desc = "Se esperaba una ,";
-                                        break;
-                                    case 605:
-                                        desc = "Se esperaba un id o :";
-                                        break;
-                                    case 606:
-                                        desc = "Se esperaba un TIPO";
-                                        break;
-                                    case 607:
-                                        desc = "Se esperaba un [";
-                                        break;
-                                    case 608:
-                                        desc = "Se esperaba un (";
-                                        break;
-                                    case 609:
-                                        desc = "Se esperaba un , o :";
-                                        break;
-                                    case 610:
-                                        desc = "Se esperaba un + - o una constante";
-                                        break;
-                                    case 611:
-                                        desc = "Se esperaba una consante real o entero";
-                                        break;
-                                    case 612:
-                                        desc = "\"Se esperaba un Cont_real  Cont_cadena  Cont_caracter\n"
-                                                + "Cont_entero  Cont_true  Cont_false\n"
-                                                + "Cont_exponencial\n"
-                                                + "( ¡ id+ -\n"
-                                                + "++ \n"
-                                                + "-- \n"
-                                                + "**\n"
-                                                + "clean sqrt sqr pow sqrtv ins conv up \n"
-                                                + "low len asc val setcolorb setcolorg\n"
-                                                + " getcolorf getcolorb $ ~\n"
-                                                + "<+ \n"
-                                                + ">+\"";
-                                        break;
-                                    case 613:
-                                        desc = "Se esperaba ≥ => ≤ =<!= = >";
-                                        break;
-                                    case 614:
-                                        desc = "\"Se esperaba Cont_real  Cont_cadena  Cont_caracter\n"
-                                                + " Cont_entero  Cont_true  Cont_false\n"
-                                                + "Cont_exponencial\n"
-                                                + "( ! ++ -- **id\n"
-                                                + "clean sqrt sqr pow sqrtv ins conv up \n"
-                                                + "low len asc val setcolorb setcolorg\n"
-                                                + " getcolorf getcolorb $ ~\n"
-                                                + "<+ \n"
-                                                + ">+\n"
-                                                + "\"";
-                                        break;
-                                    case 615:
-                                        desc = "Se esperaba ( [   = += /= *= -=";
-                                        break;
-                                    case 616:
-                                        desc = "\"se esperaba Cont_real  Cont_cadena  Cont_caracter\n"
-                                                + " Cont_entero  Cont_true  Cont_false\n"
-                                                + "Cont_exponencial\n"
-                                                + "( ¡ id+ - .)\n"
-                                                + "++ \n"
-                                                + "-- \n"
-                                                + "**\n"
-                                                + "clean sqrt sqr pow sqrtv ins conv up \n"
-                                                + "low len asc val setcolorb setcolorg\n"
-                                                + " getcolorf getcolorb $ ~\n"
-                                                + "<+ \n"
-                                                + ">+\n"
-                                                + "\"";
-                                        break;
-                                    case 617:
-                                        desc = "Se esperaba = += /= *= -=";
-                                        break;
-                                    case 618:
-                                        desc = "\"Se esperaba Cont_real  Cont_cadena  Cont_caracter\n"
-                                                + " Cont_entero  Cont_true  Cont_false\n"
-                                                + "Cont_exponencial\n"
-                                                + "\"";
-                                        break;
-                                    case 619:
-                                        desc = "Se esperaba + o -";
-                                        break;
-                                    case 620:
-                                        desc = "Se esperaba + - || o |";
-                                        break;
-                                    case 621:
-                                        desc = "Se esperaba *# & && % /";
-                                        break;
-                                    case 622:
-                                        desc = "\"Se esperaba ≫ ≪ if { repeat for while switch  return \n"
-                                                + "Cont_real  Cont_cadena  Cont_caracter\n"
-                                                + " Cont_entero  Cont_true  Cont_false\n"
-                                                + "Cont_exponencial\n"
-                                                + "( ¡ id+ -\n"
-                                                + "++ \n"
-                                                + "-- \n"
-                                                + "**\n"
-                                                + "clean sqrt sqr pow sqrtv ins conv up \n"
-                                                + "low len asc val setcolorb setcolorg\n"
-                                                + " getcolorf getcolorb $ ~\n"
-                                                + "<+ \n"
-                                                + ">+\n"
-                                                + "\"";
-                                        break;
-                                    case 623:
-                                        desc = "Se esperaban :";
-                                        break;
-                                    case 624:
-                                        desc = "Se esperaba un else";
-                                        break;
-                                    case 625:
-                                        desc = "\"Se esperaba ) ,\n"
-                                                + ": ≪ if { repeat for while switch  return \n"
-                                                + "Cont_real  Cont_cadena  Cont_caracter\n"
-                                                + " Cont_entero  Cont_true  Cont_false\n"
-                                                + "Cont_exponencial\n"
-                                                + "( ¡ id+ -\n"
-                                                + "++ \n"
-                                                + "-- \n"
-                                                + "**\n"
-                                                + "clean sqrt sqr pow sqrtv ins conv up \n"
-                                                + "low len asc val setcolorb setcolorg\n"
-                                                + " getcolorf getcolorb $ ~\n"
-                                                + "<+ \n"
-                                                + ">+\n"
-                                                + "\"";
-                                        break;
-                                    case 626:
-                                        desc = "Se esperaba default o break";
-                                        break;
-                                    case 627:
-                                        desc = "\"Se esperaba clean sqrt sqr pow sqrtv ins conv up \n"
-                                                + "low len asc val setcolorb setcolorg\n"
-                                                + " getcolorf getcolorb $ ~\n"
-                                                + "<+ \n"
-                                                + ">+\n"
-                                                + "\"";
-                                        break;
-                                }
+                                String desc = erroresSintaxis(valor);
                                 err.add(new Errores(tonk.getFirst().getLiena(), valor,
                                         tonk.getFirst().getLexema(), desc, "Sintaxis"));
                                 //System.out.println("Error " + pila.getLast() + " vs " + tonk.getFirst().getSintaxis() + " " + valor);
@@ -769,34 +622,113 @@ public class Compilador implements ActionListener {
                                 && entradaDePila == entradaDeTokens) {
                             //System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
                             String aux = tonk.getFirst().getLexema();
-                            if (ARR) {
-                                ARR = false;
-                                if (d.getExpansion() != 0) {
-                                    d.setExpansion((int) Math.pow(d.getExpansion(), tI(aux)));
+                            if (IDDF) {
+                                IDDF = false;
+                                func.getParams().getLast().setId(aux);
+                            }
+                            if (FUNC) {
+                                FUNC = false;
+                                if (!temp.getClase().isEmpty()) {
+                                    func.setClase(func.getClase() + "/" + temp.getClase());
+                                }
+                                func.setId(aux);
+                            }
+                            if (GIDSIMPLE) {
+                                simple.getId().add(aux);
+                                GIDSIMPLE = false;
+                            }
+                            if (GT) {
+                                GT = false;
+                                temp.setTipo(aux);
+                                temp.setAmb(amb.getLast());
+                                tempAux = true;
+                            }
+                            if (CONST) {
+                                CONST = false;
+                                var.setId(aux);
+                                var.setClase("Constante");
+                                var.setAmb(amb.getLast());
+                                System.out.println(var.toString());
+                            }
+                            if (IDREG) {
+                                reg.setId(aux);
+                                IDREG = false;
+                            }
+                            if (IDTIPO) {
+                                if (ParamsTipoRegAUX) {
+                                    reg.getParams().getLast().setId(aux);
+                                } else if (ParamsFuncAUX) {
+                                    func.getParams().getLast().setId(aux);
                                 } else {
-                                    d.setExpansion(tI(aux));
+                                    temp.setId(aux);
                                 }
+                                IDTIPO = false;
                             }
-                            if (ALMT) {
-                                ALMT = false;
-                                d.setTipo(aux);
-                            }
-                            if (D) {
-                                D = false;
-                                d.setId(aux);
-                                d.setLinea(tonk.getFirst().getLiena());
-                            }
-                            if (VALOR) {
-                                VALOR = false;
-                                d.setValor(aux);
-                            }
-                            if (REVISAR) {
-                                REVISAR = false;
-                                if (!gestor.existe(tonk.getFirst().getLexema(), enAmb.getLast())) {
-                                    err.add(new Errores(tonk.getFirst().getLiena(), 701,
-                                            tonk.getFirst().getLexema(), "La variable no fue declarada", "Ambito"));
-                                    VR = false;
+                            if (DimARR) {
+                                String dim;
+                                if (ParamsTipoRegAUX) {
+                                    reg.getParams().getLast().setClase("Item/Arr");
+                                    dim = reg.getParams().getLast().getDimArr();
+                                    if (dim.isEmpty()) {
+                                        dim = aux;
+                                        reg.getParams().getLast().settArr(1);
+                                    } else {
+                                        dim += "," + aux;
+                                        reg.getParams().getLast().settArr(dim.split(",").length);
+                                    }
+                                    reg.getParams().getLast().setDimArr(dim);
+                                } else if (tempAux) {
+                                    temp.setClase("Arr");
+                                    dim = temp.getDimArr();
+                                    if (dim.isEmpty()) {
+                                        dim = aux;
+                                        temp.settArr(1);
+                                    } else {
+                                        dim += "," + aux;
+                                        temp.settArr(dim.split(",").length);
+                                    }
+                                    temp.setDimArr(dim);
+                                } else if (ParamsFuncAUX) {
+                                    func.getParams().getLast().setClase("Item/Arr");
+                                    dim = func.getParams().getLast().getDimArr();
+                                    if (dim.isEmpty()) {
+                                        dim = aux;
+                                        func.getParams().getLast().settArr(1);
+                                    } else {
+                                        dim += "," + aux;
+                                        func.getParams().getLast().settArr(dim.split(",").length);
+                                    }
+                                    func.getParams().getLast().setDimArr(dim);
                                 }
+                                DimARR = false;
+                            }
+                            if (GID) {
+                                if (ParamsTipoRegAUX) {
+                                    reg.getParams().getLast().setId(aux);
+                                    reg.getParams().getLast().setNoPar(reg.getParams().size());
+                                    reg.getParams().getLast().setAmb(amb.getLast());
+                                }
+                                GID = false;
+                                ParamsTipoRegAUX = false;
+                                ParamsFuncAUX = false;
+                            }
+                            if (ParamsTipoReg) {
+                                reg.getParams().add(new Variable());
+                                reg.getParams().getLast().setTipo(aux);
+                                reg.getParams().getLast().settPar(reg.getId());
+                                reg.getParams().getLast().setClase("Item");
+                                ParamsTipoReg = false;
+                                ParamsTipoRegAUX = true;
+                            }
+                            if (ParamsFunc) {
+                                func.getParams().add(new Variable());
+                                func.getParams().getLast().setTipo(aux);
+                                func.getParams().getLast().settPar(func.getId());
+                                func.getParams().getLast().setClase("Param");
+                                func.getParams().getLast().setNoPar(func.getParams().size());
+                                func.getParams().getLast().setAmb(amb.getLast());
+                                ParamsFunc = false;
+                                ParamsFuncAUX = true;
                             }
                             pila.removeLast();
                             tonk.removeFirst();
@@ -811,7 +743,8 @@ public class Compilador implements ActionListener {
                             //System.out.println(pila.getLast() + " " + tonk.getFirst().getSintaxis());
                         }
                     }
-                    if (!pila.isEmpty() && EFB) {
+                    if (!pila.isEmpty()
+                            && EFB && err.isEmpty()) {
                         int linea = tI(tS(pantalla.getTokens().getValueAt(pantalla.getTokens().getModel().getRowCount() - 1, 2)));
                         String v = tS(pantalla.getTokens().getValueAt(pantalla.getTokens().getModel().getRowCount() - 1, 1));
                         String m1 = "Falta: ";
@@ -827,13 +760,214 @@ public class Compilador implements ActionListener {
                     } else {
                         JOptionPane.showMessageDialog(pantalla, "Se encontraron errores", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (Exception e) {
+                } finally {
                     time = false;
-                    JOptionPane.showMessageDialog(pantalla, "Excepcion: " + e, "Error en el codigo", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
         e.start();
+    }
+
+    private void remover() {
+        for (int i = tonk.size() - 1; i > -1; i--) {
+            if (tonk.get(i).getToken() == -2 || tonk.get(i).getToken() == -3
+                    || tonk.get(i).getToken() == -40 || tonk.get(i).getToken() == -29
+                    || tonk.get(i).getToken() == -5 || tonk.get(i).getToken() == -7
+                    || tonk.get(i).getToken() == -9 || tonk.get(i).getToken() == -10
+                    || tonk.get(i).getToken() == -12 || tonk.get(i).getToken() == -13
+                    || tonk.get(i).getToken() == -14 || tonk.get(i).getToken() == -15
+                    || tonk.get(i).getToken() == -16) {
+                tonk.remove(i);
+            }
+        }
+    }
+
+    private String erroresLexico(int valor) {
+        String desc;
+        switch (valor) {
+            case 500:
+                desc = "Caracter no reconocido";
+                break;
+            case 501:
+                desc = "Se esperaba un digito";
+                break;
+            case 502:
+                desc = "Se esperaba una barra / o un asterisco";
+                break;
+            case 503:
+                desc = "Se esparaba una comilla doble(\")";
+                break;
+            case 504:
+                desc = "Se esparaba un caracter valido";
+                break;
+            case 505:
+                desc = "Se esparaba una comilla simple '";
+                break;
+            case 506:
+                desc = "Se esperaba un digito, un + ó un -";
+                break;
+            default:
+                desc = "Error no registrado";
+        }
+        return desc;
+    }
+
+    private String erroresSintaxis(int valor) {
+        String desc = "";
+        switch (valor) {
+            case 600:
+                desc = "Erro de sincronizacion";
+                break;
+            case 601:
+                desc = "Se esperaba un reg id main o TIPO";
+                break;
+            case 602:
+                desc = "Se esperaba un reg id o TIPO";
+                break;
+            case 603:
+                desc = "Se esperaba un ;";
+                break;
+            case 604:
+                desc = "Se esperaba una ,";
+                break;
+            case 605:
+                desc = "Se esperaba un id o :";
+                break;
+            case 606:
+                desc = "Se esperaba un TIPO";
+                break;
+            case 607:
+                desc = "Se esperaba un [";
+                break;
+            case 608:
+                desc = "Se esperaba un (";
+                break;
+            case 609:
+                desc = "Se esperaba un , o :";
+                break;
+            case 610:
+                desc = "Se esperaba un + - o una constante";
+                break;
+            case 611:
+                desc = "Se esperaba una consante real o entero";
+                break;
+            case 612:
+                desc = "\"Se esperaba un Cont_real  Cont_cadena  Cont_caracter\n"
+                        + "Cont_entero  Cont_true  Cont_false\n"
+                        + "Cont_exponencial\n"
+                        + "( ¡ id+ -\n"
+                        + "++ \n"
+                        + "-- \n"
+                        + "**\n"
+                        + "clean sqrt sqr pow sqrtv ins conv up \n"
+                        + "low len asc val setcolorb setcolorg\n"
+                        + " getcolorf getcolorb $ ~\n"
+                        + "<+ \n"
+                        + ">+\"";
+                break;
+            case 613:
+                desc = "Se esperaba ≥ => ≤ =<!= = >";
+                break;
+            case 614:
+                desc = "\"Se esperaba Cont_real  Cont_cadena  Cont_caracter\n"
+                        + " Cont_entero  Cont_true  Cont_false\n"
+                        + "Cont_exponencial\n"
+                        + "( ! ++ -- **id\n"
+                        + "clean sqrt sqr pow sqrtv ins conv up \n"
+                        + "low len asc val setcolorb setcolorg\n"
+                        + " getcolorf getcolorb $ ~\n"
+                        + "<+ \n"
+                        + ">+\n"
+                        + "\"";
+                break;
+            case 615:
+                desc = "Se esperaba ( [   = += /= *= -=";
+                break;
+            case 616:
+                desc = "\"se esperaba Cont_real  Cont_cadena  Cont_caracter\n"
+                        + " Cont_entero  Cont_true  Cont_false\n"
+                        + "Cont_exponencial\n"
+                        + "( ¡ id+ - .)\n"
+                        + "++ \n"
+                        + "-- \n"
+                        + "**\n"
+                        + "clean sqrt sqr pow sqrtv ins conv up \n"
+                        + "low len asc val setcolorb setcolorg\n"
+                        + " getcolorf getcolorb $ ~\n"
+                        + "<+ \n"
+                        + ">+\n"
+                        + "\"";
+                break;
+            case 617:
+                desc = "Se esperaba = += /= *= -=";
+                break;
+            case 618:
+                desc = "\"Se esperaba Cont_real  Cont_cadena  Cont_caracter\n"
+                        + " Cont_entero  Cont_true  Cont_false\n"
+                        + "Cont_exponencial\n"
+                        + "\"";
+                break;
+            case 619:
+                desc = "Se esperaba + o -";
+                break;
+            case 620:
+                desc = "Se esperaba + - || o |";
+                break;
+            case 621:
+                desc = "Se esperaba *# & && % /";
+                break;
+            case 622:
+                desc = "\"Se esperaba ≫ ≪ if { repeat for while switch  return \n"
+                        + "Cont_real  Cont_cadena  Cont_caracter\n"
+                        + " Cont_entero  Cont_true  Cont_false\n"
+                        + "Cont_exponencial\n"
+                        + "( ¡ id+ -\n"
+                        + "++ \n"
+                        + "-- \n"
+                        + "**\n"
+                        + "clean sqrt sqr pow sqrtv ins conv up \n"
+                        + "low len asc val setcolorb setcolorg\n"
+                        + " getcolorf getcolorb $ ~\n"
+                        + "<+ \n"
+                        + ">+\n"
+                        + "\"";
+                break;
+            case 623:
+                desc = "Se esperaban :";
+                break;
+            case 624:
+                desc = "Se esperaba un else";
+                break;
+            case 625:
+                desc = "\"Se esperaba ) ,\n"
+                        + ": ≪ if { repeat for while switch  return \n"
+                        + "Cont_real  Cont_cadena  Cont_caracter\n"
+                        + " Cont_entero  Cont_true  Cont_false\n"
+                        + "Cont_exponencial\n"
+                        + "( ¡ id+ -\n"
+                        + "++ \n"
+                        + "-- \n"
+                        + "**\n"
+                        + "clean sqrt sqr pow sqrtv ins conv up \n"
+                        + "low len asc val setcolorb setcolorg\n"
+                        + " getcolorf getcolorb $ ~\n"
+                        + "<+ \n"
+                        + ">+\n"
+                        + "\"";
+                break;
+            case 626:
+                desc = "Se esperaba default o break";
+                break;
+            case 627:
+                desc = "\"Se esperaba clean sqrt sqr pow sqrtv ins conv up \n"
+                        + "low len asc val setcolorb setcolorg\n"
+                        + " getcolorf getcolorb $ ~\n"
+                        + "<+ \n"
+                        + ">+\n"
+                        + "\"";
+                break;
+        }
+        return desc;
     }
 
     private LinkedList<String> juntar(LinkedList<String> lista1,
