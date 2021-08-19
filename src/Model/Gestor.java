@@ -178,9 +178,10 @@ public class Gestor {
         try {
             do {
                 if (amb.isEmpty()) {
+                    cerrar();
                     return false;
                 }
-                sql = " select * from ids where id = ? and amb = ?";
+                sql = "select * from ids where id = ? and amb = ?";
                 pst = con.prepareCall(sql);
                 pst.setString(1, id);
                 pst.setString(2, tS(amb.getLast()));
@@ -191,6 +192,31 @@ public class Gestor {
             cerrar();
         } catch (Exception e) {
             System.out.println("Fallo al verificar si existe: " + e);
+        }
+        cerrar();
+        return r;
+    }
+
+    public boolean validarREG(String id, LinkedList<Integer> amb) {
+        abrir();
+        boolean r = false;
+        try {
+            do {
+                if (amb.isEmpty()) {
+                    cerrar();
+                    return false;
+                }
+                sql = "select * from ids where id = ? and amb = ? and clase = ?";
+                pst = con.prepareCall(sql);
+                pst.setString(1, id);
+                pst.setString(2, tS(amb.getLast()));
+                pst.setString(3, "reg");
+                rs = pst.executeQuery();
+                r = rs.next();
+                amb.removeLast();
+            } while (!r);
+        } catch (Exception e) {
+            System.out.println("Error al buscar el reg: " + e);
         }
         cerrar();
         return r;

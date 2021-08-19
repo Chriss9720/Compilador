@@ -718,16 +718,25 @@ public class Compilador implements ActionListener {
                                 IDREG = false;
                             }
                             if (IDTIPO) {
-                                if (ParamsTipoRegAUX) {
-                                    reg.getParams().getLast().setId(aux);
-                                    reg.getParams().getLast().setLinea(linea);
-                                } else if (ParamsFuncAUX) {
-                                    func.getParams().getLast().setId(aux);
-                                    func.getParams().getLast().setLinea(linea);
+                                LinkedList<Integer> auxAmb = new LinkedList();
+                                amb.forEach(i -> auxAmb.add(i));
+                                if (gestor.validarREG(aux, auxAmb)) {
+                                    System.out.println("TODO ok");
                                 } else {
-                                    temp.setId(aux);
-                                    temp.setLinea(linea);
+                                    err.add(new Errores(linea, 707,
+                                            aux, "No esta declarado el registro",
+                                            "Sintaxis:Ambito"));
                                 }
+//                                if (ParamsTipoRegAUX) {
+//                                    reg.getParams().getLast().setId(aux);
+//                                    reg.getParams().getLast().setLinea(linea);
+//                                } else if (ParamsFuncAUX) {
+//                                    func.getParams().getLast().setId(aux);
+//                                    func.getParams().getLast().setLinea(linea);
+//                                } else {
+//                                    temp.setId(aux);
+//                                    temp.setLinea(linea);
+//                                }
                                 IDTIPO = false;
                             }
                             if (DimARR) {
