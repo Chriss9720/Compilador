@@ -172,16 +172,22 @@ public class Gestor {
         return new Object[]{false, func};
     }
 
-    public boolean existe(String id, int amb) {
+    public boolean existe(String id, LinkedList<Integer> amb) {
         abrir();
         boolean r = false;
         try {
-            sql = " select * from ids where id = ? and amb = ?";
-            pst = con.prepareCall(sql);
-            pst.setString(1, id);
-            pst.setString(2, tS(amb));
-            rs = pst.executeQuery();
-            r = rs.next();
+            do {
+                if (amb.isEmpty()) {
+                    return false;
+                }
+                sql = " select * from ids where id = ? and amb = ?";
+                pst = con.prepareCall(sql);
+                pst.setString(1, id);
+                pst.setString(2, tS(amb.getLast()));
+                rs = pst.executeQuery();
+                r = rs.next();
+                amb.removeLast();
+            } while (!r);
             cerrar();
         } catch (Exception e) {
             System.out.println("Fallo al verificar si existe: " + e);

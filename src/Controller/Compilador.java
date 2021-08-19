@@ -512,6 +512,7 @@ public class Compilador implements ActionListener {
                                 reg.setAmb(amb.getLast());
                                 ambitosTotales.add(ambitosTotales.size());
                                 amb.add(ambitosTotales.getLast());
+                                reg.settPar(tS(ambitosTotales.getLast()));
                                 break;
                             case "IDREG":
                                 pila.removeLast();
@@ -599,6 +600,7 @@ public class Compilador implements ActionListener {
                                 func.settArr(temp.gettArr());
                                 ambitosTotales.add(ambitosTotales.size());
                                 amb.add(ambitosTotales.getLast());
+                                func.settPar(tS(ambitosTotales.getLast()));
                                 if (!temp.getId().isEmpty()) {
                                     func.setId(temp.getId());
                                 }
@@ -796,7 +798,9 @@ public class Compilador implements ActionListener {
                             }
                             if (REVISAR) {
                                 REVISAR = false;
-                                if (gestor.existe(aux, amb.getLast())) {
+                                LinkedList<Integer> auxAmb = new LinkedList();
+                                amb.forEach(i -> auxAmb.add(i));
+                                if (gestor.existe(aux, auxAmb)) {
                                     System.out.println("ok");
                                 } else {
                                     err.add(new Errores(linea, 706,
