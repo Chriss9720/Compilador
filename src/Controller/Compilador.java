@@ -129,9 +129,9 @@ public class Compilador implements ActionListener {
         {612, 30, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 30, 612, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 30},
         {613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 11, 11, 613, 11, 613, 613, 11, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 31, 31, 31, 31, 31, 31, 31, 31, 11, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 11, 613, 613, 613, 613, 613, 613, 613, 613, 613, 11, 11, 613, 613, 613, 11},
         {613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 600, 600, 613, 600, 613, 613, 600, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 128, 32, 33, 34, 35, 36, 37, 38, 600, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 600, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 600},
-        {614, 46, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 40, 614, 614, 614, 39, 39, 39, 39, 39, 39, 39, 43, 44, 41, 45, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 11, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 42},
-        {615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 615, 11, 52, 47, 11, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 11, 11, 11, 11, 53, 615, 11, 53, 53, 53, 53, 11, 11, 11, 11, 11, 11, 11, 11, 11, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615},
-        {616, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 49, 616, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 48, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 48},
+        {614, 46, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 40, 614, 614, 614, 39, 39, 39, 39, 39, 39, 39, 43, 44, 41, 45, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 42},
+        {615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 615, 11, 52, 47, 11, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 11, 11, 11, 11, 53, 615, 11, 53, 53, 53, 53, 11, 11, 11, 11, 11, 11, 11, 11, 11, 48, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615},
+        {616, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 49, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 50},
         {604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 51, 604, 604, 604, 604, 11, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604},
         {617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 617, 11, 617, 617, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 11, 11, 11, 11, 54, 617, 617, 54, 54, 54, 54, 11, 11, 11, 11, 11, 11, 11, 11, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617},
         {618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 55, 56, 57, 58, 59, 60, 61, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618},
@@ -140,7 +140,7 @@ public class Compilador implements ActionListener {
         {612, 64, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 64, 612, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 64},
         {619, 11, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 11, 619, 65, 66, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 11},
         {620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 620, 11, 620, 620, 11, 69, 69, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 11, 11, 11, 11, 11, 11, 11, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 67, 68, 11, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 620, 620, 620, 620},
-        {619, 600, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 600, 619, 70, 71, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619},
+        {619, 600, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 600, 619, 70, 71, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 600},
         {614, 72, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 72, 614, 614, 614, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 72},
         {621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 11, 11, 621, 11, 621, 621, 11, 11, 11, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 621, 11, 11, 11, 11, 11, 11, 11, 11, 11, 621, 621, 621, 621, 73, 75, 76, 78, 77, 74, 11, 11, 11, 621, 621, 621, 621, 621, 621, 621, 621, 621, 11, 11, 621, 621, 621, 621},
         {622, 101, 622, 622, 622, 622, 622, 622, 622, 622, 622, 11, 11, 622, 11, 622, 101, 11, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 622, 87, 622, 79, 82, 85, 89, 90, 96, 100, 102, 11, 11, 11, 11, 622, 101},
@@ -211,12 +211,12 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("FACTOR_PASCAL", "( EXP_PASCAL )"));
         producciones.add(new Producciones("FACTOR_PASCAL", "! EXP_PASCAL"));
         producciones.add(new Producciones("FACTOR_PASCAL", "FUNCIONES"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "++ id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "-- id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", "** id F1"));
-        producciones.add(new Producciones("FACTOR_PASCAL", " id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "++ REVISAR id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "-- REVISAR id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "** REVISAR id F1"));
+        producciones.add(new Producciones("FACTOR_PASCAL", "REVISAR id F1"));
         producciones.add(new Producciones("F1", "( F2"));
-        producciones.add(new Producciones("F2", ". FACTOR_PASCAL"));
+        producciones.add(new Producciones("F1", ". FACTOR_PASCAL"));
         producciones.add(new Producciones("F2", ")"));
         producciones.add(new Producciones("F2", "EXP_PASCAL F3 )"));
         producciones.add(new Producciones("F3", ", EXP_PASCAL F3"));
@@ -248,11 +248,11 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("J1", "% FACTOR_PASCAL J1"));
         producciones.add(new Producciones("J1", "&& FACTOR_PASCAL J1"));
         producciones.add(new Producciones("ESTATUTOS", ">> I1 EXP_PASCAL I2"));
-        producciones.add(new Producciones("I1", "∶ id"));
+        producciones.add(new Producciones("I1", "∶ REVISAR id"));
         producciones.add(new Producciones("I2", ", EXP_PASCAL I2"));
-        producciones.add(new Producciones("ESTATUTOS", "<< I1 id I3 I4"));
+        producciones.add(new Producciones("ESTATUTOS", "<< I1 REVISAR id I3 I4"));
         producciones.add(new Producciones("I3", "ARREGLO"));
-        producciones.add(new Producciones("I4", ", id I3 I4"));
+        producciones.add(new Producciones("I4", ", REVISAR id I3 I4"));
         producciones.add(new Producciones("ESTATUTOS", "if ( EXP_PASCAL ) ESTATUTOS I5"));
         producciones.add(new Producciones("I5", "else ESTATUTOS"));
         producciones.add(new Producciones("ESTATUTOS", "{ ESTATUTOS I6 }"));
@@ -294,8 +294,8 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("FUNCIONES", "setcolorf ( EXP_PASCAL )"));
         producciones.add(new Producciones("FUNCIONES", "getcolorb ( )"));
         producciones.add(new Producciones("FUNCIONES", "getcolorf ( )"));
-        producciones.add(new Producciones("FUNCIONES", "$ id . EXP_PASCAL , Cont_cadena"));
-        producciones.add(new Producciones("FUNCIONES", "~ id"));
+        producciones.add(new Producciones("FUNCIONES", "$ REVISAR id . EXP_PASCAL , Cont_cadena"));
+        producciones.add(new Producciones("FUNCIONES", "~ REVISAR id"));
         producciones.add(new Producciones("E2", "<"));
     }
 
@@ -493,6 +493,7 @@ public class Compilador implements ActionListener {
                     boolean ParamsFunc = false;
                     boolean ParamsFuncAUX = false;
                     boolean IDDF = false;
+                    boolean REVISAR = false;
                     ObjTemp temp = new ObjTemp();
                     Registro reg = new Registro();
                     Variable var = new Variable();
@@ -502,6 +503,7 @@ public class Compilador implements ActionListener {
                     LinkedList<Integer> amb = new LinkedList();
                     ambitosTotales.add(0);
                     amb.add(ambitosTotales.getLast());
+                    Object[] o;
                     while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
                         switch (pila.getLast()) {
                             case "REGISTRO":
@@ -529,7 +531,22 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GREG":
                                 pila.removeLast();
-                                System.out.println(reg.toString());
+                                o = gestor.gudarRegistro(reg);
+                                if (Boolean.parseBoolean(tS(o[0]))) {
+                                    System.out.println("Registro exitosos");
+                                } else {
+                                    if (o[1] instanceof Registro) {
+                                        Registro aux = (Registro) o[1];
+                                        err.add(new Errores(aux.getLinea(),
+                                                700, aux.getId(),
+                                                "Se repitio el registro", "Sintaxis:Ambito"));
+                                    } else if (o[1] instanceof Variable) {
+                                        Variable aux = (Variable) o[1];
+                                        err.add(new Errores(aux.getLinea(),
+                                                701, aux.getId().getFirst(),
+                                                "Se repitio el item", "Sintaxis:Ambito"));
+                                    }
+                                }
                                 amb.removeLast();
                                 break;
                             case "DimARR":
@@ -560,7 +577,17 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GBDIDSIMPLE":
                                 pila.removeLast();
-                                System.out.println(simple.toString());
+                                o = gestor.guadarSimples(simple);
+                                if (Boolean.parseBoolean(tS(o[0]))) {
+                                    System.out.println("Variable simple exitoso");
+                                } else {
+                                    if (o[1] instanceof Variable) {
+                                        Variable aux = (Variable) o[1];
+                                        err.add(new Errores(aux.getLinea(),
+                                                702, aux.getId().getFirst(),
+                                                "Se repitio la variable", "Sintaxis:Ambito"));
+                                    }
+                                }
                                 simple = new Variable();
                                 break;
                             case "FUNC":
@@ -587,11 +614,31 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GFUNC":
                                 pila.removeLast();
-                                System.out.println(func.toString());
+                                o = gestor.guardarFuncion(func);
+                                if (Boolean.parseBoolean(tS(o[0]))) {
+                                    System.out.println("Registro de la funcion exitoso");
+                                } else {
+                                    if (o[1] instanceof Funcion) {
+                                        Funcion aux = (Funcion) o[1];
+                                        err.add(new Errores(aux.getLinea(),
+                                                704, aux.getId(),
+                                                "Se repitio el item", "Sintaxis:Ambito"));
+                                    } else if (o[1] instanceof Variable) {
+                                        Variable aux = (Variable) o[1];
+                                        err.add(new Errores(aux.getLinea(),
+                                                705, aux.getId().getFirst(),
+                                                "Se repitio el item", "Sintaxis:Ambito"));
+                                    }
+                                }
+                                func = new Funcion();
                                 break;
                             case "IDDF":
                                 pila.removeLast();
                                 IDDF = true;
+                                break;
+                            case "REVISAR":
+                                pila.removeLast();
+                                REVISAR = true;
                                 break;
                         }
                         entradaDePila = entrada(pila.getLast());
@@ -622,9 +669,12 @@ public class Compilador implements ActionListener {
                                 && entradaDePila == entradaDeTokens) {
                             //System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
                             String aux = tonk.getFirst().getLexema();
+                            int linea = tonk.getFirst().getLiena();
                             if (IDDF) {
                                 IDDF = false;
                                 func.getParams().getLast().setId(aux);
+                                func.getParams().getLast().setLinea(linea);
+                                ParamsFuncAUX = false;
                             }
                             if (FUNC) {
                                 FUNC = false;
@@ -632,9 +682,12 @@ public class Compilador implements ActionListener {
                                     func.setClase(func.getClase() + "/" + temp.getClase());
                                 }
                                 func.setId(aux);
+                                func.setLinea(linea);
+                                tempAux = false;
                             }
                             if (GIDSIMPLE) {
                                 simple.getId().add(aux);
+                                simple.setLinea(linea);
                                 GIDSIMPLE = false;
                             }
                             if (GT) {
@@ -646,21 +699,32 @@ public class Compilador implements ActionListener {
                             if (CONST) {
                                 CONST = false;
                                 var.setId(aux);
+                                var.setLinea(linea);
                                 var.setClase("Constante");
                                 var.setAmb(amb.getLast());
-                                System.out.println(var.toString());
+                                if (gestor.guardarConstante(var)) {
+                                    System.out.println("Exito en la constante");
+                                } else {
+                                    err.add(new Errores(var.getLinea(),
+                                            703, var.getId().getFirst(),
+                                            "Se repitio la constante", "Sintaxis:Ambito"));
+                                }
                             }
                             if (IDREG) {
+                                reg.setLinea(linea);
                                 reg.setId(aux);
                                 IDREG = false;
                             }
                             if (IDTIPO) {
                                 if (ParamsTipoRegAUX) {
                                     reg.getParams().getLast().setId(aux);
+                                    reg.getParams().getLast().setLinea(linea);
                                 } else if (ParamsFuncAUX) {
                                     func.getParams().getLast().setId(aux);
+                                    func.getParams().getLast().setLinea(linea);
                                 } else {
                                     temp.setId(aux);
+                                    temp.setLinea(linea);
                                 }
                                 IDTIPO = false;
                             }
@@ -689,7 +753,7 @@ public class Compilador implements ActionListener {
                                     }
                                     temp.setDimArr(dim);
                                 } else if (ParamsFuncAUX) {
-                                    func.getParams().getLast().setClase("Item/Arr");
+                                    func.getParams().getLast().setClase("Param/Arr");
                                     dim = func.getParams().getLast().getDimArr();
                                     if (dim.isEmpty()) {
                                         dim = aux;
@@ -705,12 +769,12 @@ public class Compilador implements ActionListener {
                             if (GID) {
                                 if (ParamsTipoRegAUX) {
                                     reg.getParams().getLast().setId(aux);
+                                    reg.getParams().getLast().setLinea(linea);
                                     reg.getParams().getLast().setNoPar(reg.getParams().size());
                                     reg.getParams().getLast().setAmb(amb.getLast());
                                 }
                                 GID = false;
                                 ParamsTipoRegAUX = false;
-                                ParamsFuncAUX = false;
                             }
                             if (ParamsTipoReg) {
                                 reg.getParams().add(new Variable());
@@ -729,6 +793,16 @@ public class Compilador implements ActionListener {
                                 func.getParams().getLast().setAmb(amb.getLast());
                                 ParamsFunc = false;
                                 ParamsFuncAUX = true;
+                            }
+                            if (REVISAR) {
+                                REVISAR = false;
+                                if (gestor.existe(aux, amb.getLast())) {
+                                    System.out.println("ok");
+                                } else {
+                                    err.add(new Errores(linea, 706,
+                                            aux, "No esta declarada la variable",
+                                            "Sintaxis:Ambito"));
+                                }
                             }
                             pila.removeLast();
                             tonk.removeFirst();

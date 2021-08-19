@@ -13,6 +13,7 @@ public class Registro {
     private int amb;
     private String tPar;
     private final LinkedList<Variable> params;
+    private int linea;
 
     public Registro() {
         this.id = "";
@@ -20,6 +21,14 @@ public class Registro {
         this.amb = 0;
         this.tPar = "1";
         this.params = new LinkedList();
+    }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public void setLinea(int linea) {
+        this.linea = linea;
     }
 
     public LinkedList<Variable> getParams() {
@@ -68,8 +77,7 @@ public class Registro {
         para = params.stream().map(v -> "\n" + v.toString()).reduce(para, String::concat);
         return "ID: " + this.getId() + "\nClase: " + this.getClase()
                 + "\nAmbito: " + this.getAmb() + "\nNoPar: " + this.getNoPar()
-                + "\nTPar: " + this.gettPar()
-                + "\nParametros: " + para;
+                + "\nTPar: " + this.gettPar() + "\nParametros: " + para;
     }
 
 }

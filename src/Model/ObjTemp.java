@@ -12,6 +12,7 @@ public class ObjTemp {
     private String dimArr;
     private String clase;
     private String id;
+    private int linea;
 
     public ObjTemp() {
         this.tipo = "";
@@ -20,6 +21,14 @@ public class ObjTemp {
         this.dimArr = "";
         this.clase = "";
         this.id = "";
+    }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public void setLinea(int linea) {
+        this.linea = linea;
     }
 
     public String getId() {

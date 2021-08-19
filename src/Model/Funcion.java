@@ -16,6 +16,7 @@ public class Funcion {
     private String dimArr;
     private String tPar;
     private final LinkedList<Variable> params;
+    private int linea;
 
     public Funcion() {
         this.id = "";
@@ -24,6 +25,14 @@ public class Funcion {
         this.tPar = "1";
         this.params = new LinkedList();
         this.tipo = "";
+    }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public void setLinea(int linea) {
+        this.linea = linea;
     }
 
     public String getTipo() {

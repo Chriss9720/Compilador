@@ -16,7 +16,8 @@ public class Variable {
     private String dimArr;
     private int noPar;
     private String tPar;
-
+    private int linea;
+    
     public Variable() {
         this.id = new LinkedList();
         this.tipo = "";
@@ -26,6 +27,14 @@ public class Variable {
         this.dimArr = "";
         this.noPar = 0;
         this.tPar = "";
+    }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public void setLinea(int linea) {
+        this.linea = linea;
     }
 
     public LinkedList<String> getId() {

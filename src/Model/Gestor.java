@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Gestor {
     private String sql;
 
     public void BorrarTodo() {
-        con = Connect.abrir();
+        abrir();
         try {
             sql = "DELETE FROM ids";
             pst = con.prepareCall(sql);
@@ -31,65 +32,163 @@ public class Gestor {
             System.out.println("Error al resert: " + e);
         }
     }
-//
-//    public Object[] guardarRegistro(Registro reg) {
-//        con = Connect.abrir();
-//        try {
-//            sql = "INSERT INTO ids(id, clase, amb, noPar, tPar) values (?,?,?,?,?)";
-//            pst = con.prepareCall(sql);
-//            pst.setString(1, reg.getId());
-//            pst.setString(2, reg.getClase());
-//            pst.setString(3, tS(reg.getAmb()));
-//            pst.setString(4, reg.getNoPar());
-//            pst.setString(5, tS(reg.gettParr()));
-//            if (pst.executeUpdate() > 0) {
-//                cerrar();
-//                return registroParametros(reg);
-//            } else {
-//                cerrar();
-//                return new Object[]{false, reg};
-//            }
-//        } catch (SQLException e) {
-//            cerrar();
-//            return new Object[]{false, reg};
-//        }
-//    }
-//
-//    public Object[] registroParametros(Registro reg) {
-//        abrir();
-//        try {
-//            do {
-//                Variables params = reg.getParams().getFirst();
-//                do {
-//                    String id = params.getId().getFirst();
-//                    sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, dimArr, noPar, tPar)"
-//                            + " values (?,?,?,?,?,?,?,?)";
-//                    pst = con.prepareCall(sql);
-//                    pst.setString(1, id);
-//                    pst.setString(2, params.getTipo());
-//                    pst.setString(3, params.getClase());
-//                    pst.setString(4, tS(params.getAmb()));
-//                    pst.setString(5, params.gettArr());
-//                    pst.setString(6, params.getDimArr());
-//                    pst.setString(7, params.getNoPar());
-//                    pst.setString(8, reg.getId());
-//                    if (pst.executeUpdate() > 0) {
-//                        params.getId().removeFirst();
-//                    } else {
-//                        System.out.println("Fallo al registrar un parametro");
-//                        return new Object[]{false, params};
-//                    }
-//                } while (!params.getId().isEmpty());
-//                reg.getParams().removeFirst();
-//            } while (!reg.getParams().isEmpty());
-//            return new Object[]{true};
-//        } catch (Exception e) {
-//            cerrar();
-//            System.out.println("Fallo en el parametro: " + e);
-//        }
-//        cerrar();
-//        return new Object[]{false, reg.getParams().getFirst()};
-//    }
+
+    public Object[] gudarRegistro(Registro reg) {
+        abrir();
+        try {
+            sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                    + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+            pst = con.prepareCall(sql);
+            pst.setString(1, reg.getId());
+            pst.setString(2, "");
+            pst.setString(3, reg.getClase());
+            pst.setString(4, tS(reg.getAmb()));
+            pst.setString(5, "");
+            pst.setString(6, "");
+            pst.setString(7, tS(reg.getNoPar()));
+            pst.setString(8, reg.gettPar());
+            if (pst.executeUpdate() > 0) {
+                cerrar();
+                return guadarItemRegistro(reg.getParams());
+            } else {
+                System.out.println("Fallo al registrar");
+            }
+        } catch (Exception e) {
+            System.out.println("Fallo al hacer el registro: " + e);
+        }
+        cerrar();
+        return new Object[]{false, reg};
+    }
+
+    private Object[] guadarItemRegistro(LinkedList<Variable> lista) {
+        abrir();
+        try {
+            int param = 1;
+            do {
+                do {
+                    sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                            + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+                    pst = con.prepareCall(sql);
+                    pst.setString(1, lista.getFirst().getId().getFirst());
+                    pst.setString(2, lista.getFirst().getTipo());
+                    pst.setString(3, lista.getFirst().getClase());
+                    pst.setString(4, tS(lista.getFirst().getAmb()));
+                    pst.setString(5, tS(lista.getFirst().gettArr()));
+                    pst.setString(6, lista.getFirst().getDimArr());
+                    pst.setString(7, tS(param));
+                    pst.setString(8, lista.getFirst().gettPar());
+                    if (pst.executeUpdate() > 0) {
+                        lista.getFirst().getId().removeFirst();
+                    } else {
+                        return new Object[]{false, lista.getFirst()};
+                    }
+                    param++;
+                } while (!lista.getFirst().getId().isEmpty());
+                lista.removeFirst();
+            } while (!lista.isEmpty());
+            return new Object[]{true};
+        } catch (Exception e) {
+            System.out.println("Fallo al registrar el parametro: " + e);
+        }
+        cerrar();
+        return new Object[]{false, lista.getFirst()};
+    }
+
+    public Object[] guadarSimples(Variable v) {
+        abrir();
+        try {
+            sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                    + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+            do {
+                pst = con.prepareCall(sql);
+                pst.setString(1, v.getId().getFirst());
+                pst.setString(2, v.getTipo());
+                pst.setString(3, v.getClase());
+                pst.setString(4, tS(v.getAmb()));
+                pst.setString(5, tS(v.gettArr()));
+                pst.setString(6, v.getDimArr());
+                pst.setString(7, tS(v.getNoPar()));
+                pst.setString(8, v.gettPar());
+                if (pst.executeUpdate() > 0) {
+                    v.getId().removeFirst();
+                } else {
+                    return new Object[]{false, v};
+                }
+            } while (!v.getId().isEmpty());
+            return new Object[]{true};
+        } catch (Exception e) {
+            System.out.println("Fallo al guardarSimple: " + e);
+        }
+        cerrar();
+        return new Object[]{false, v};
+    }
+
+    public boolean guardarConstante(Variable v) {
+        abrir();
+        try {
+            sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                    + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+            pst = con.prepareCall(sql);
+            pst.setString(1, v.getId().getFirst());
+            pst.setString(2, v.getTipo());
+            pst.setString(3, v.getClase());
+            pst.setString(4, tS(v.getAmb()));
+            pst.setString(5, tS(v.gettArr()));
+            pst.setString(6, v.getDimArr());
+            pst.setString(7, tS(v.getNoPar()));
+            pst.setString(8, v.gettPar());
+            return (pst.executeUpdate() > 0);
+        } catch (Exception e) {
+            System.out.println("Fallo al guardar la constante: " + v);
+        }
+        cerrar();
+        return false;
+    }
+
+    public Object[] guardarFuncion(Funcion func) {
+        abrir();
+        try {
+            sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                    + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+            pst = con.prepareCall(sql);
+            pst.setString(1, func.getId());
+            pst.setString(2, "");
+            pst.setString(3, func.getClase());
+            pst.setString(4, tS(func.getAmb()));
+            pst.setString(5, tS(func.gettArr()));
+            pst.setString(6, func.getDimArr());
+            pst.setString(7, tS(func.getNoPar()));
+            pst.setString(8, func.gettPar());
+            if (pst.executeUpdate() > 0) {
+                cerrar();
+                return guadarItemRegistro(func.getParams());
+            } else {
+                System.out.println("Fallo al registrar");
+            }
+        } catch (Exception e) {
+            System.out.println("Fallo al registrar la funcion: " + e);
+        }
+        cerrar();
+        return new Object[]{false, func};
+    }
+
+    public boolean existe(String id, int amb) {
+        abrir();
+        boolean r = false;
+        try {
+            sql = " select * from ids where id = ? and amb = ?";
+            pst = con.prepareCall(sql);
+            pst.setString(1, id);
+            pst.setString(2, tS(amb));
+            rs = pst.executeQuery();
+            r = rs.next();
+            cerrar();
+        } catch (Exception e) {
+            System.out.println("Fallo al verificar si existe: " + e);
+        }
+        cerrar();
+        return r;
+    }
 
     private void abrir() {
         con = Connect.abrir();
