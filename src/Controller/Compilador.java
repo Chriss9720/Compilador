@@ -27,6 +27,7 @@ public class Compilador implements ActionListener {
     private LinkedList<Contadores> cont;
     private LinkedList<Reservadas> reservadas;
     private LinkedList<Producciones> producciones;
+    LinkedList<Integer> ambitosTotales = new LinkedList();
     private final String[] regex = {
         "e", "E", "[a-zA-Z]", "\\_", "\\/", "\\*", "\\n", "[0-9]", "\\\"",
         "\\'", "\\+", "\\-", "\\%", "\\^", "\\!", "\\&", "\\|", "\\#", "\\<",
@@ -499,7 +500,6 @@ public class Compilador implements ActionListener {
                     Variable var = new Variable();
                     Variable simple = new Variable();
                     Funcion func = new Funcion();
-                    LinkedList<Integer> ambitosTotales = new LinkedList();
                     LinkedList<Integer> amb = new LinkedList();
                     ambitosTotales.add(0);
                     amb.add(ambitosTotales.getLast());
@@ -683,6 +683,7 @@ public class Compilador implements ActionListener {
                                 if (!temp.getClase().isEmpty()) {
                                     func.setClase(func.getClase() + "/" + temp.getClase());
                                 }
+                                func.setTipo(temp.getTipo());
                                 func.setId(aux);
                                 func.setLinea(linea);
                                 tempAux = false;
@@ -706,6 +707,7 @@ public class Compilador implements ActionListener {
                                 var.setAmb(amb.getLast());
                                 if (gestor.guardarConstante(var)) {
                                     System.out.println("Exito en la constante");
+                                    var = new Variable();
                                 } else {
                                     err.add(new Errores(var.getLinea(),
                                             703, var.getId().getFirst(),
@@ -849,6 +851,7 @@ public class Compilador implements ActionListener {
                     }
                 } finally {
                     time = false;
+                    new GenerarExcelAmbito(ambitosTotales);
                 }
             }
         };

@@ -6,17 +6,9 @@ import java.util.LinkedList;
  *
  * @author Gonza
  */
-public class Variable {
+public class Variable extends Ids {
 
     private final LinkedList<String> id;
-    private String tipo;
-    private String clase;
-    private int amb;
-    private int tArr;
-    private String dimArr;
-    private int noPar;
-    private String tPar;
-    private int linea;
     
     public Variable() {
         this.id = new LinkedList();
@@ -29,76 +21,12 @@ public class Variable {
         this.tPar = "";
     }
 
-    public int getLinea() {
-        return linea;
-    }
-
-    public void setLinea(int linea) {
-        this.linea = linea;
-    }
-
     public LinkedList<String> getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id.add(id);
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getClase() {
-        return clase;
-    }
-
-    public void setClase(String clase) {
-        this.clase = clase;
-    }
-
-    public int getAmb() {
-        return amb;
-    }
-
-    public void setAmb(int amb) {
-        this.amb = amb;
-    }
-
-    public int gettArr() {
-        return tArr;
-    }
-
-    public void settArr(int tArr) {
-        this.tArr = tArr;
-    }
-
-    public String getDimArr() {
-        return dimArr;
-    }
-
-    public void setDimArr(String dimArr) {
-        this.dimArr = dimArr;
-    }
-
-    public int getNoPar() {
-        return noPar;
-    }
-
-    public void setNoPar(int noPar) {
-        this.noPar = noPar;
-    }
-
-    public String gettPar() {
-        return tPar;
-    }
-
-    public void settPar(String tPar) {
-        this.tPar = tPar;
     }
 
     @Override

@@ -6,14 +6,10 @@ import java.util.LinkedList;
  *
  * @author Gonza
  */
-public class Registro {
+public class Registro extends Ids {
 
     private String id;
-    private String clase;
-    private int amb;
-    private String tPar;
     private final LinkedList<Variable> params;
-    private int linea;
 
     public Registro() {
         this.id = "";
@@ -21,14 +17,6 @@ public class Registro {
         this.amb = 0;
         this.tPar = "1";
         this.params = new LinkedList();
-    }
-
-    public int getLinea() {
-        return linea;
-    }
-
-    public void setLinea(int linea) {
-        this.linea = linea;
     }
 
     public LinkedList<Variable> getParams() {
@@ -43,32 +31,9 @@ public class Registro {
         this.id = id;
     }
 
-    public String getClase() {
-        return clase;
-    }
-
-    public void setClase(String clase) {
-        this.clase = clase;
-    }
-
-    public int getAmb() {
-        return amb;
-    }
-
-    public void setAmb(int amb) {
-        this.amb = amb;
-    }
-
+    @Override
     public int getNoPar() {
         return this.getParams().size();
-    }
-
-    public String gettPar() {
-        return tPar;
-    }
-
-    public void settPar(String tPar) {
-        this.tPar = tPar;
     }
 
     @Override

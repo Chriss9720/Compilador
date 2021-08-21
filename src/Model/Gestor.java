@@ -80,12 +80,14 @@ public class Gestor {
                     if (pst.executeUpdate() > 0) {
                         lista.getFirst().getId().removeFirst();
                     } else {
+                        cerrar();
                         return new Object[]{false, lista.getFirst()};
                     }
                     param++;
                 } while (!lista.getFirst().getId().isEmpty());
                 lista.removeFirst();
             } while (!lista.isEmpty());
+            cerrar();
             return new Object[]{true};
         } catch (Exception e) {
             System.out.println("Fallo al registrar el parametro: " + e);
@@ -115,6 +117,7 @@ public class Gestor {
                     return new Object[]{false, v};
                 }
             } while (!v.getId().isEmpty());
+            cerrar();
             return new Object[]{true};
         } catch (Exception e) {
             System.out.println("Fallo al guardarSimple: " + e);
@@ -137,7 +140,9 @@ public class Gestor {
             pst.setString(6, v.getDimArr());
             pst.setString(7, tS(v.getNoPar()));
             pst.setString(8, v.gettPar());
-            return (pst.executeUpdate() > 0);
+            boolean aux = (pst.executeUpdate() > 0);
+            cerrar();
+            return aux;
         } catch (Exception e) {
             System.out.println("Fallo al guardar la constante: " + v);
         }
@@ -152,7 +157,7 @@ public class Gestor {
                     + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
             pst = con.prepareCall(sql);
             pst.setString(1, func.getId());
-            pst.setString(2, "");
+            pst.setString(2, func.getTipo());
             pst.setString(3, func.getClase());
             pst.setString(4, tS(func.getAmb()));
             pst.setString(5, tS(func.gettArr()));
@@ -220,6 +225,86 @@ public class Gestor {
         }
         cerrar();
         return r;
+    }
+
+    public int getTotal(int ambito, String tipo) {
+        abrir();
+        try {
+            sql = "SELECT COUNT(*) AS TOTAL FROM ids WHERE tipo = ? AND amb = ?";
+            pst = con.prepareCall(sql);
+            pst.setString(1, tipo);
+            pst.setString(2, tS(ambito));
+            rs = pst.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (Exception e) {
+            System.out.println("Fallo al sacar el tipo: " + tipo + " del hambito: " + ambito + "\n" + e);
+        }
+        cerrar();
+        return 0;
+    }
+
+    public int getTotalChar(int ambito) {
+        abrir();
+        try {
+            sql = "select count(*) as total from ids where tipo like \"char\""
+                    + " and clase not like \"%arr%\""
+                    + " and amb = ?;";
+            pst = con.prepareCall(sql);
+            pst.setString(1, tS(ambito));
+            rs = pst.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (Exception e) {
+            System.out.println("Fallo al sacar el tipo: char del hambito: " + ambito + "\n" + e);
+        }
+        cerrar();
+        return 0;
+    }
+
+    public int getTotalString(int ambito) {
+        abrir();
+        try {
+            sql = "select count(*) as total from ids where tipo like \"char\""
+                    + " and clase like \"%arr%\""
+                    + " and amb = ?;";
+            pst = con.prepareCall(sql);
+            pst.setString(1, tS(ambito));
+            rs = pst.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (Exception e) {
+            System.out.println("Fallo al sacar el tipo: char del hambito: " + ambito + "\n" + e);
+        }
+        cerrar();
+        return 0;
+    }
+
+    public int totalTipoAmb(int amb) {
+        abrir();
+        try {
+            sql = "select count(*) as total from ids where amb = ?;";
+            pst = con.prepareCall(sql);
+            pst.setString(1, tS(amb));
+            rs = pst.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (Exception e) {
+            System.out.println("Fallo al sacar el total de datos: " + e);
+        }
+        cerrar();
+        return 0;
+    }
+
+    public int totalRegistros(int amb) {
+        abrir();
+        try {
+            sql = "select count(*) as total from ids where amb = ? and clase = \"reg\";";
+            pst = con.prepareCall(sql);
+            pst.setString(1, tS(amb));
+            rs = pst.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (Exception e) {
+            System.out.println("Fallo al sacar el total de datos: " + e);
+        }
+        cerrar();
+        return 0;
     }
 
     private void abrir() {
