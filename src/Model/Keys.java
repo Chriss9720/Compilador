@@ -40,7 +40,7 @@ public class Keys implements KeyListener {
                 new Compilador(pantalla).ejecutar();
                 break;
             case KeyEvent.VK_F3:
-                new GenerarExcel(pantalla.getContadores(), pantalla.getErrores(), pantalla.getErrores()).ejecutar();
+                new GenerarExcel(pantalla).ejecutar();
                 break;
             case KeyEvent.VK_F4:
                 pantalla.getCodigo().setText("");

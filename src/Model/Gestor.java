@@ -36,6 +36,7 @@ public class Gestor {
     public Object[] gudarRegistro(Registro reg) {
         abrir();
         try {
+            System.out.println(reg.gettPar());
             sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
                     + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
             pst = con.prepareCall(sql);
@@ -246,7 +247,7 @@ public class Gestor {
     public int getTotalChar(int ambito) {
         abrir();
         try {
-            sql = "select count(*) as total from ids where tipo like \"char\""
+            sql = "select count(*) as total from ids where tipo like \"CHAR\""
                     + " and clase not like \"%arr%\""
                     + " and amb = ?;";
             pst = con.prepareCall(sql);

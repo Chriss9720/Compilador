@@ -27,7 +27,7 @@ public class Compilador implements ActionListener {
     private LinkedList<Contadores> cont;
     private LinkedList<Reservadas> reservadas;
     private LinkedList<Producciones> producciones;
-    LinkedList<Integer> ambitosTotales = new LinkedList();
+    LinkedList<Ambito> ambitosTotales = new LinkedList();
     private final String[] regex = {
         "e", "E", "[a-zA-Z]", "\\_", "\\/", "\\*", "\\n", "[0-9]", "\\\"",
         "\\'", "\\+", "\\-", "\\%", "\\^", "\\!", "\\&", "\\|", "\\#", "\\<",
@@ -393,7 +393,7 @@ public class Compilador implements ActionListener {
                                 t = "" + i;
                         }
                         pantalla.getTiempo().setText(t);
-                    } catch (Exception e) {
+                    } catch (InterruptedException e) {
                         System.out.println(e);
                     }
                 }
@@ -501,8 +501,9 @@ public class Compilador implements ActionListener {
                     Variable simple = new Variable();
                     Funcion func = new Funcion();
                     LinkedList<Integer> amb = new LinkedList();
-                    ambitosTotales.add(0);
-                    amb.add(ambitosTotales.getLast());
+                    ambitosTotales = new LinkedList();
+                    ambitosTotales.add(new Ambito(0));
+                    amb.add(ambitosTotales.getLast().getAmbito());
                     Object[] o;
                     while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
                         switch (pila.getLast()) {
@@ -510,9 +511,9 @@ public class Compilador implements ActionListener {
                                 pila.removeLast();
                                 reg = new Registro();
                                 reg.setAmb(amb.getLast());
-                                ambitosTotales.add(ambitosTotales.size());
-                                amb.add(ambitosTotales.getLast());
-                                reg.settPar(tS(ambitosTotales.getLast()));
+                                ambitosTotales.add(new Ambito(ambitosTotales.size()));
+                                amb.add(ambitosTotales.getLast().getAmbito());
+                                reg.settPar(tS(ambitosTotales.getLast().getAmbito()));
                                 break;
                             case "IDREG":
                                 pila.removeLast();
@@ -541,11 +542,13 @@ public class Compilador implements ActionListener {
                                         err.add(new Errores(aux.getLinea(),
                                                 700, aux.getId(),
                                                 "Se repitio el registro", "Sintaxis:Ambito"));
+                                        ambitosTotales.get(aux.getAmb()).setErrores();
                                     } else if (o[1] instanceof Variable) {
                                         Variable aux = (Variable) o[1];
                                         err.add(new Errores(aux.getLinea(),
                                                 701, aux.getId().getFirst(),
                                                 "Se repitio el item", "Sintaxis:Ambito"));
+                                        ambitosTotales.get(aux.getAmb()).setErrores();
                                     }
                                 }
                                 amb.removeLast();
@@ -579,9 +582,7 @@ public class Compilador implements ActionListener {
                             case "GBDIDSIMPLE":
                                 pila.removeLast();
                                 o = gestor.guadarSimples(simple);
-                                if (Boolean.parseBoolean(tS(o[0]))) {
-                                    System.out.println("Variable simple exitoso");
-                                } else {
+                                if (!Boolean.parseBoolean(tS(o[0]))) {
                                     if (o[1] instanceof Variable) {
                                         Variable aux = (Variable) o[1];
                                         err.add(new Errores(aux.getLinea(),
@@ -598,9 +599,9 @@ public class Compilador implements ActionListener {
                                 func.setAmb(temp.getAmb());
                                 func.setDimArr(temp.getDimArr());
                                 func.settArr(temp.gettArr());
-                                ambitosTotales.add(ambitosTotales.size());
-                                amb.add(ambitosTotales.getLast());
-                                func.settPar(tS(ambitosTotales.getLast()));
+                                ambitosTotales.add(new Ambito(ambitosTotales.size()));
+                                amb.add(ambitosTotales.getLast().getAmbito());
+                                func.settPar(tS(ambitosTotales.getLast().getAmbito()));
                                 if (!temp.getId().isEmpty()) {
                                     func.setId(temp.getId());
                                 }
@@ -625,11 +626,13 @@ public class Compilador implements ActionListener {
                                         err.add(new Errores(aux.getLinea(),
                                                 704, aux.getId(),
                                                 "Se repitio el item", "Sintaxis:Ambito"));
+                                        ambitosTotales.get(aux.getAmb()).setErrores();
                                     } else if (o[1] instanceof Variable) {
                                         Variable aux = (Variable) o[1];
                                         err.add(new Errores(aux.getLinea(),
                                                 705, aux.getId().getFirst(),
                                                 "Se repitio el item", "Sintaxis:Ambito"));
+                                        ambitosTotales.get(aux.getAmb()).setErrores();
                                     }
                                 }
                                 func = new Funcion();
@@ -712,6 +715,7 @@ public class Compilador implements ActionListener {
                                     err.add(new Errores(var.getLinea(),
                                             703, var.getId().getFirst(),
                                             "Se repitio la constante", "Sintaxis:Ambito"));
+                                    ambitosTotales.get(var.getAmb()).setErrores();
                                 }
                             }
                             if (IDREG) {
@@ -728,17 +732,8 @@ public class Compilador implements ActionListener {
                                     err.add(new Errores(linea, 707,
                                             aux, "No esta declarado el registro",
                                             "Sintaxis:Ambito"));
+                                    ambitosTotales.getLast().setErrores();
                                 }
-//                                if (ParamsTipoRegAUX) {
-//                                    reg.getParams().getLast().setId(aux);
-//                                    reg.getParams().getLast().setLinea(linea);
-//                                } else if (ParamsFuncAUX) {
-//                                    func.getParams().getLast().setId(aux);
-//                                    func.getParams().getLast().setLinea(linea);
-//                                } else {
-//                                    temp.setId(aux);
-//                                    temp.setLinea(linea);
-//                                }
                                 IDTIPO = false;
                             }
                             if (DimARR) {
@@ -817,6 +812,7 @@ public class Compilador implements ActionListener {
                                     err.add(new Errores(linea, 706,
                                             aux, "No esta declarada la variable",
                                             "Sintaxis:Ambito"));
+                                    ambitosTotales.getLast().setErrores();
                                 }
                             }
                             pila.removeLast();
@@ -851,7 +847,7 @@ public class Compilador implements ActionListener {
                     }
                 } finally {
                     time = false;
-                    new GenerarExcelAmbito(ambitosTotales);
+                    pantalla.setAmb(ambitosTotales);
                 }
             }
         };

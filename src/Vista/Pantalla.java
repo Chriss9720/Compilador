@@ -3,14 +3,16 @@ package Vista;
 import Controller.Area;
 import Controller.Cargar;
 import Controller.Compilador;
-import Controller.GenerarExcel;
 import Controller.Limpiar;
+import Model.Action;
+import Model.Ambito;
 import Model.Keys;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,6 +34,7 @@ public class Pantalla extends JFrame {
     private JTable contadores, errores, tokens;
     private JPanel panelCodigo;
     private final JLabel tiempo = new JLabel("0000");
+    private LinkedList<Ambito> amb = new LinkedList();
 
     public Pantalla() {
         init();
@@ -55,7 +58,6 @@ public class Pantalla extends JFrame {
     }
 
     private void codigo() {
-
         JScrollPane scrollCodigo = new JScrollPane();
         panelCodigo = new JPanel();
         panelCodigo.setLayout(null);
@@ -166,9 +168,10 @@ public class Pantalla extends JFrame {
                 tituloContadores.getBounds().width, scrollErrores.getSize().height);
         scrollCont.setViewportView(contadores);
 
-        ejecutar.addActionListener(new Compilador(this));
-        generar.addActionListener(new GenerarExcel(contadores, errores, tokens));
         codigo.addKeyListener(new Area(codigo, numeroLinea, panelCodigo, d));
+        ejecutar.addActionListener(new Compilador(this));
+        generar.addActionListener(new Action(this));
+        //generar.addActionListener(new GenerarExcel(this));
         cargar.setPreferredSize(new Dimension(cargar.getBounds().width, cargar.getBounds().height));
         cargar.addActionListener(new Cargar(codigo, numeroLinea, panelCodigo, d));
         limpiar.addActionListener(new Limpiar(this, d));
@@ -235,6 +238,14 @@ public class Pantalla extends JFrame {
 
     public JLabel getTiempo() {
         return tiempo;
+    }
+
+    public LinkedList<Ambito> getAmb() {
+        return amb;
+    }
+
+    public void setAmb(LinkedList<Ambito> amb) {
+        this.amb = amb;
     }
 
 }

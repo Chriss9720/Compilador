@@ -34,7 +34,11 @@ public class Funcion extends Ids {
 
     @Override
     public int getNoPar() {
-        return this.getParams().size();
+        int total = 0;
+        for (Variable v : getParams()) {
+            total = v.getId().stream().map(x -> 1).reduce(total, Integer::sum);
+        }
+        return total;
     }
 
     @Override
