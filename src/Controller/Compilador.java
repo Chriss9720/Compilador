@@ -174,8 +174,8 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("A2", "; ESTATUTOS A2"));
         producciones.add(new Producciones("A1", "REGISTRO reg IDREG id { ParamsTipoReg TIPO GID id A3 } GREG A1"));
         producciones.add(new Producciones("A3", ", ParamsTipoReg TIPO GID id A3"));
-        producciones.add(new Producciones("A1", "CONST id = DECLARACION_DE_CONSTANTES A4 A1"));
-        producciones.add(new Producciones("A4", ", CONST id = DECLARACION_DE_CONSTANTES A4"));
+        producciones.add(new Producciones("A1", "CONST id = DECLARACION_DE_CONSTANTES GConst A4 A1"));
+        producciones.add(new Producciones("A4", ", CONST id = DECLARACION_DE_CONSTANTES GConst A4"));
         producciones.add(new Producciones("A1", "GT TIPO A5 ; A1"));
         producciones.add(new Producciones("A5", "FUNC id LISTA_DE_PARAMETROS GFUNC PROGRAMA finFunc")); //Funciones
         producciones.add(new Producciones("A5", "∶ GIDSIMPLE id A6 GBDIDSIMPLE"));
@@ -429,7 +429,7 @@ public class Compilador implements ActionListener {
                                     || est == -9 || est == - 10 || est == -7 || est == -9
                                     || est == -12 || est == -15) {
                                 String desc = "Caracter cambiado para la sintaxis";
-                                err.add(new Errores(line, est, lex, desc, "Léxico"));
+                                err.add(new Errores(line, est, lex, desc, "Léxico", 0));
                                 contar(500);
                             } else {
                                 if (est == -1) {
@@ -446,7 +446,7 @@ public class Compilador implements ActionListener {
                             if (aux == -1) {
                                 if (!pat1.matcher(lex + c).matches()) {
                                     String desc = erroresLexico(est);
-                                    err.add(new Errores(line, est, lex + " " + c, desc, "Léxico"));
+                                    err.add(new Errores(line, est, lex + " " + c, desc, "Léxico", 0));
                                     contar(est);
                                 }
                             } else {
@@ -495,6 +495,7 @@ public class Compilador implements ActionListener {
                     boolean ParamsFuncAUX = false;
                     boolean IDDF = false;
                     boolean REVISAR = false;
+                    LinkedList<Errores> listaAux;
                     ObjTemp temp = new ObjTemp();
                     Registro reg = new Registro();
                     Variable var = new Variable();
@@ -504,7 +505,6 @@ public class Compilador implements ActionListener {
                     ambitosTotales = new LinkedList();
                     ambitosTotales.add(new Ambito(0));
                     amb.add(ambitosTotales.getLast().getAmbito());
-                    Object[] o;
                     while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
                         switch (pila.getLast()) {
                             case "REGISTRO":
@@ -533,23 +533,19 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GREG":
                                 pila.removeLast();
-                                o = gestor.gudarRegistro(reg);
-                                if (Boolean.parseBoolean(tS(o[0]))) {
-                                    System.out.println("Registro exitosos");
-                                } else {
-                                    if (o[1] instanceof Registro) {
-                                        Registro aux = (Registro) o[1];
-                                        err.add(new Errores(aux.getLinea(),
-                                                700, aux.getId(),
-                                                "Se repitio el registro", "Sintaxis:Ambito"));
-                                        ambitosTotales.get(aux.getAmb()).setErrores();
-                                    } else if (o[1] instanceof Variable) {
-                                        Variable aux = (Variable) o[1];
-                                        err.add(new Errores(aux.getLinea(),
-                                                701, aux.getId().getFirst(),
-                                                "Se repitio el item", "Sintaxis:Ambito"));
-                                        ambitosTotales.get(aux.getAmb()).setErrores();
+                                listaAux = gestor.gudarRegistro(reg);
+                                if (listaAux.isEmpty()) {
+                                    listaAux = gestor.guadarItemRegistro(reg.getParams());
+                                    for (Errores item : listaAux) {
+                                        err.add(new Errores(item));
+                                        ambitosTotales.get(item.getAmb()).setErrores();
                                     }
+                                } else {
+                                    for (Errores item : listaAux) {
+                                        err.add(new Errores(item));
+                                        ambitosTotales.get(item.getAmb()).setErrores();
+                                    }
+                                    ambitosTotales.removeLast();
                                 }
                                 amb.removeLast();
                                 break;
@@ -581,13 +577,11 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GBDIDSIMPLE":
                                 pila.removeLast();
-                                o = gestor.guadarSimples(simple);
-                                if (!Boolean.parseBoolean(tS(o[0]))) {
-                                    if (o[1] instanceof Variable) {
-                                        Variable aux = (Variable) o[1];
-                                        err.add(new Errores(aux.getLinea(),
-                                                702, aux.getId().getFirst(),
-                                                "Se repitio la variable", "Sintaxis:Ambito"));
+                                listaAux = gestor.guadarSimples(simple);
+                                if (!listaAux.isEmpty()) {
+                                    for (Errores item : listaAux) {
+                                        err.add(new Errores(item));
+                                        ambitosTotales.get(item.getAmb()).setErrores();
                                     }
                                 }
                                 simple = new Variable();
@@ -617,23 +611,19 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GFUNC":
                                 pila.removeLast();
-                                o = gestor.guardarFuncion(func);
-                                if (Boolean.parseBoolean(tS(o[0]))) {
-                                    System.out.println("Registro de la funcion exitoso");
-                                } else {
-                                    if (o[1] instanceof Funcion) {
-                                        Funcion aux = (Funcion) o[1];
-                                        err.add(new Errores(aux.getLinea(),
-                                                704, aux.getId(),
-                                                "Se repitio el item", "Sintaxis:Ambito"));
-                                        ambitosTotales.get(aux.getAmb()).setErrores();
-                                    } else if (o[1] instanceof Variable) {
-                                        Variable aux = (Variable) o[1];
-                                        err.add(new Errores(aux.getLinea(),
-                                                705, aux.getId().getFirst(),
-                                                "Se repitio el item", "Sintaxis:Ambito"));
-                                        ambitosTotales.get(aux.getAmb()).setErrores();
+                                listaAux = gestor.guardarFuncion(func);
+                                if (listaAux.isEmpty()) {
+                                    listaAux = gestor.guadarItemRegistro(func.getParams());
+                                    for (Errores item : listaAux) {
+                                        err.add(new Errores(item));
+                                        ambitosTotales.get(item.getAmb()).setErrores();
                                     }
+                                } else {
+                                    for (Errores item : listaAux) {
+                                        err.add(new Errores(item));
+                                        ambitosTotales.get(item.getAmb()).setErrores();
+                                    }
+                                    ambitosTotales.removeLast();
                                 }
                                 func = new Funcion();
                                 break;
@@ -644,6 +634,35 @@ public class Compilador implements ActionListener {
                             case "REVISAR":
                                 pila.removeLast();
                                 REVISAR = true;
+                                break;
+                            case "GConst":
+                                pila.removeLast();
+                                listaAux = gestor.guardarConstante(var);
+                                if (!listaAux.isEmpty()) {
+                                    for (Errores item : listaAux) {
+                                        err.add(item);
+                                        ambitosTotales.get(var.getAmb()).setErrores();
+                                    }
+                                }
+                                var = new Variable();
+                                break;
+                            case "Cont_real":
+                            case "Cont_exponencial":
+                                var.setTipo("REAL");
+                                break;
+                            case "Cont_cadena":
+                                var.setTipo("CHAR");
+                                var.setClase("Constante/Arr");
+                                break;
+                            case "Cont_caracter":
+                                var.setTipo("CHAR");
+                                break;
+                            case "Cont_entero":
+                                var.setTipo("INT");
+                                break;
+                            case "Cont_true":
+                            case "Cont_false":
+                                var.setTipo("BOOL");
                                 break;
                         }
                         entradaDePila = entrada(pila.getLast());
@@ -665,7 +684,7 @@ public class Compilador implements ActionListener {
                             } else if (valor > 599) {
                                 String desc = erroresSintaxis(valor);
                                 err.add(new Errores(tonk.getFirst().getLiena(), valor,
-                                        tonk.getFirst().getLexema(), desc, "Sintaxis"));
+                                        tonk.getFirst().getLexema(), desc, "Sintaxis", 0));
                                 //System.out.println("Error " + pila.getLast() + " vs " + tonk.getFirst().getSintaxis() + " " + valor);
                                 pila.removeLast();
                                 tonk.removeFirst();
@@ -708,15 +727,6 @@ public class Compilador implements ActionListener {
                                 var.setLinea(linea);
                                 var.setClase("Constante");
                                 var.setAmb(amb.getLast());
-                                if (gestor.guardarConstante(var)) {
-                                    System.out.println("Exito en la constante");
-                                    var = new Variable();
-                                } else {
-                                    err.add(new Errores(var.getLinea(),
-                                            703, var.getId().getFirst(),
-                                            "Se repitio la constante", "Sintaxis:Ambito"));
-                                    ambitosTotales.get(var.getAmb()).setErrores();
-                                }
                             }
                             if (IDREG) {
                                 reg.setLinea(linea);
@@ -727,11 +737,12 @@ public class Compilador implements ActionListener {
                                 LinkedList<Integer> auxAmb = new LinkedList();
                                 amb.forEach(i -> auxAmb.add(i));
                                 if (gestor.validarREG(aux, auxAmb)) {
-                                    System.out.println("TODO ok");
+                                    temp.setClase("REG");
+                                    temp.setTipo(aux);
                                 } else {
                                     err.add(new Errores(linea, 707,
                                             aux, "No esta declarado el registro",
-                                            "Sintaxis:Ambito"));
+                                            "Sintaxis:Ambito", amb.getLast()));
                                     ambitosTotales.getLast().setErrores();
                                 }
                                 IDTIPO = false;
@@ -811,7 +822,7 @@ public class Compilador implements ActionListener {
                                 } else {
                                     err.add(new Errores(linea, 706,
                                             aux, "No esta declarada la variable",
-                                            "Sintaxis:Ambito"));
+                                            "Sintaxis:Ambito", amb.getLast()));
                                     ambitosTotales.getLast().setErrores();
                                 }
                             }
@@ -823,7 +834,8 @@ public class Compilador implements ActionListener {
                                     "Error", JOptionPane.ERROR_MESSAGE);
                             EFB = false;
                             err.add(new Errores(tonk.getFirst().getLiena(), 628,
-                                    tonk.getFirst().getLexema(), "Error de fuerza bruta", "Sintaxis"));
+                                    tonk.getFirst().getLexema(),
+                                    "Error de fuerza bruta", "Sintaxis", amb.getLast()));
                             //System.out.println("FB");
                             //System.out.println(pila.getLast() + " " + tonk.getFirst().getSintaxis());
                         }
@@ -836,7 +848,7 @@ public class Compilador implements ActionListener {
                         for (String p : pila) {
                             m1 += p + " ";
                         }
-                        err.add(new Errores(linea, 629, v, m1, "Sintaxis"));
+                        err.add(new Errores(linea, 629, v, m1, "Sintaxis", 0));
                     }
                     cargarErrores();
                     time = false;
