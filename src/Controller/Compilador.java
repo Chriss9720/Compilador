@@ -570,6 +570,7 @@ public class Compilador implements ActionListener {
                                 simple.setDimArr(temp.getDimArr());
                                 simple.settArr(temp.gettArr());
                                 simple.setClase(temp.getClase());
+                                simple.setError(temp.isError());
                                 if (!temp.getId().isEmpty()) {
                                     simple.setId(temp.getId());
                                 }
@@ -647,8 +648,10 @@ public class Compilador implements ActionListener {
                                 var = new Variable();
                                 break;
                             case "Cont_real":
-                            case "Cont_exponencial":
                                 var.setTipo("REAL");
+                                break;
+                            case "Cont_exponencial":
+                                var.setTipo("EXP");
                                 break;
                             case "Cont_cadena":
                                 var.setTipo("CHAR");
@@ -706,6 +709,7 @@ public class Compilador implements ActionListener {
                                     func.setClase(func.getClase() + "/" + temp.getClase());
                                 }
                                 func.setTipo(temp.getTipo());
+                                func.setError(temp.isError());
                                 func.setId(aux);
                                 func.setLinea(linea);
                                 tempAux = false;
@@ -739,11 +743,13 @@ public class Compilador implements ActionListener {
                                 if (gestor.validarREG(aux, auxAmb)) {
                                     temp.setClase("REG");
                                     temp.setTipo(aux);
+                                    temp.setError(false);
                                 } else {
                                     err.add(new Errores(linea, 707,
                                             aux, "No esta declarado el registro",
                                             "Sintaxis:Ambito", amb.getLast()));
                                     ambitosTotales.getLast().setErrores();
+                                    temp.setError(true);
                                 }
                                 IDTIPO = false;
                             }
@@ -791,6 +797,7 @@ public class Compilador implements ActionListener {
                                     reg.getParams().getLast().setLinea(linea);
                                     reg.getParams().getLast().setNoPar(reg.getParams().size());
                                     reg.getParams().getLast().setAmb(amb.getLast());
+                                    reg.getParams().getLast().setError(temp.isError());
                                 }
                                 GID = false;
                                 ParamsTipoRegAUX = false;

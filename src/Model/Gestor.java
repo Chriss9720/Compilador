@@ -76,33 +76,37 @@ public class Gestor {
                 do {
                     LinkedList<Integer> auxAmb = new LinkedList();
                     auxAmb.add(lista.getFirst().getAmb());
-                    if (this.existe(lista.getFirst().getId().getFirst(), auxAmb)) {
-                        err.add(new Errores(lista.getFirst().getLinea(),
-                                701, lista.getFirst().getId().getFirst(),
-                                "Se repitio el item", "Sintaxis:Ambito", lista.getFirst().getAmb()));
+                    if (lista.getFirst().isError()) {
                         lista.getFirst().getId().removeFirst();
                     } else {
-                        abrir();
-                        sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
-                                + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
-                        pst = con.prepareCall(sql);
-                        pst.setString(1, lista.getFirst().getId().getFirst());
-                        pst.setString(2, lista.getFirst().getTipo());
-                        pst.setString(3, lista.getFirst().getClase());
-                        pst.setString(4, tS(lista.getFirst().getAmb()));
-                        pst.setString(5, tS(lista.getFirst().gettArr()));
-                        pst.setString(6, lista.getFirst().getDimArr());
-                        pst.setString(7, tS(param));
-                        pst.setString(8, lista.getFirst().gettPar());
-                        if (pst.executeUpdate() > 0) {
-                            lista.getFirst().getId().removeFirst();
-                        } else {
-                            lista.getFirst().getId().removeFirst();
+                        if (this.existe(lista.getFirst().getId().getFirst(), auxAmb)) {
                             err.add(new Errores(lista.getFirst().getLinea(),
                                     701, lista.getFirst().getId().getFirst(),
                                     "Se repitio el item", "Sintaxis:Ambito", lista.getFirst().getAmb()));
+                            lista.getFirst().getId().removeFirst();
+                        } else {
+                            abrir();
+                            sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                                    + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+                            pst = con.prepareCall(sql);
+                            pst.setString(1, lista.getFirst().getId().getFirst());
+                            pst.setString(2, lista.getFirst().getTipo());
+                            pst.setString(3, lista.getFirst().getClase());
+                            pst.setString(4, tS(lista.getFirst().getAmb()));
+                            pst.setString(5, tS(lista.getFirst().gettArr()));
+                            pst.setString(6, lista.getFirst().getDimArr());
+                            pst.setString(7, tS(param));
+                            pst.setString(8, lista.getFirst().gettPar());
+                            if (pst.executeUpdate() > 0) {
+                                lista.getFirst().getId().removeFirst();
+                            } else {
+                                lista.getFirst().getId().removeFirst();
+                                err.add(new Errores(lista.getFirst().getLinea(),
+                                        701, lista.getFirst().getId().getFirst(),
+                                        "Se repitio el item", "Sintaxis:Ambito", lista.getFirst().getAmb()));
+                            }
+                            param++;
                         }
-                        param++;
                     }
                     cerrar();
                 } while (!lista.getFirst().getId().isEmpty());
@@ -122,28 +126,32 @@ public class Gestor {
             do {
                 LinkedList<Integer> auxAmb = new LinkedList();
                 auxAmb.add(v.getAmb());
-                if (this.existe(v.getId().getFirst(), auxAmb)) {
-                    err.add(new Errores(v.getLinea(), 702, v.getId().getFirst(),
-                            "Se repitio la variable", "Sintaxis:Ambito", v.getAmb()));
+                if (v.isError()) {
                     v.getId().removeFirst();
                 } else {
-                    abrir();
-                    sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
-                            + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
-                    pst = con.prepareCall(sql);
-                    pst.setString(1, v.getId().getFirst());
-                    pst.setString(2, v.getTipo());
-                    pst.setString(3, v.getClase());
-                    pst.setString(4, tS(v.getAmb()));
-                    pst.setString(5, tS(v.gettArr()));
-                    pst.setString(6, v.getDimArr());
-                    pst.setString(7, tS(v.getNoPar()));
-                    pst.setString(8, v.gettPar());
-                    if (pst.executeUpdate() > 0) {
-                        v.getId().removeFirst();
-                    } else {
+                    if (this.existe(v.getId().getFirst(), auxAmb)) {
                         err.add(new Errores(v.getLinea(), 702, v.getId().getFirst(),
                                 "Se repitio la variable", "Sintaxis:Ambito", v.getAmb()));
+                        v.getId().removeFirst();
+                    } else {
+                        abrir();
+                        sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                                + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+                        pst = con.prepareCall(sql);
+                        pst.setString(1, v.getId().getFirst());
+                        pst.setString(2, v.getTipo());
+                        pst.setString(3, v.getClase());
+                        pst.setString(4, tS(v.getAmb()));
+                        pst.setString(5, tS(v.gettArr()));
+                        pst.setString(6, v.getDimArr());
+                        pst.setString(7, tS(v.getNoPar()));
+                        pst.setString(8, v.gettPar());
+                        if (pst.executeUpdate() > 0) {
+                            v.getId().removeFirst();
+                        } else {
+                            err.add(new Errores(v.getLinea(), 702, v.getId().getFirst(),
+                                    "Se repitio la variable", "Sintaxis:Ambito", v.getAmb()));
+                        }
                     }
                 }
             } while (!v.getId().isEmpty());
@@ -194,33 +202,35 @@ public class Gestor {
         err = new LinkedList();
         LinkedList<Integer> auxAmb = new LinkedList();
         auxAmb.add(func.amb);
-        if (existe(func.getId(), auxAmb)) {
-            err.add(new Errores(func.getLinea(), 704, func.getId(),
-                    "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
-        } else {
-            abrir();
-            try {
-                sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
-                        + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
-                pst = con.prepareCall(sql);
-                pst.setString(1, func.getId());
-                pst.setString(2, func.getTipo());
-                pst.setString(3, func.getClase());
-                pst.setString(4, tS(func.getAmb()));
-                pst.setString(5, tS(func.gettArr()));
-                pst.setString(6, func.getDimArr());
-                pst.setString(7, tS(func.getNoPar()));
-                pst.setString(8, func.gettPar());
-                if (pst.executeUpdate() > 0) {
-                    cerrar();
-                } else {
-                    err.add(new Errores(func.getLinea(), 704, func.getId(),
-                            "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
+        if (!func.isError()) {
+            if (existe(func.getId(), auxAmb)) {
+                err.add(new Errores(func.getLinea(), 704, func.getId(),
+                        "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
+            } else {
+                abrir();
+                try {
+                    sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                            + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+                    pst = con.prepareCall(sql);
+                    pst.setString(1, func.getId());
+                    pst.setString(2, func.getTipo());
+                    pst.setString(3, func.getClase());
+                    pst.setString(4, tS(func.getAmb()));
+                    pst.setString(5, tS(func.gettArr()));
+                    pst.setString(6, func.getDimArr());
+                    pst.setString(7, tS(func.getNoPar()));
+                    pst.setString(8, func.gettPar());
+                    if (pst.executeUpdate() > 0) {
+                        cerrar();
+                    } else {
+                        err.add(new Errores(func.getLinea(), 704, func.getId(),
+                                "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
+                    }
+                } catch (Exception e) {
+                    System.out.println("Fallo al registrar la funcion: " + e);
                 }
-            } catch (Exception e) {
-                System.out.println("Fallo al registrar la funcion: " + e);
+                cerrar();
             }
-            cerrar();
         }
         return err;
     }

@@ -14,6 +14,15 @@ public class Ids {
     protected int tArr;
     protected int noPar;
     protected String tPar;
+    protected boolean error;
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
 
     public String gettPar() {
         return tPar;
