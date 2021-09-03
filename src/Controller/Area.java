@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
@@ -16,12 +17,14 @@ public class Area extends KeyAdapter {
     private final JTextArea area, num;
     private final JPanel panelCodigo;
     private final Dimension d;
+    private JScrollPane scrollCodigo;
 
-    public Area(JTextArea area, JTextArea num, JPanel panelCodigo, Dimension d) {
+    public Area(JTextArea area, JTextArea num, JPanel panelCodigo, Dimension d, JScrollPane scrollCodigo) {
         this.area = area;
         this.num = num;
         this.panelCodigo = panelCodigo;
         this.d = d;
+        this.scrollCodigo = scrollCodigo;
     }
 
     @Override
@@ -41,15 +44,15 @@ public class Area extends KeyAdapter {
         }
         for (int i = 1; i < texts.length; i++) {
             txt += String.valueOf(++line) + "\n";
-            if (space < texts[i].length() * 12)
+            if (space < texts[i].length() * 12) {
                 space = texts[i].length() * 12;
+            }
         }
         num.setText(txt);
         line = line * 28;
         panelCodigo.setPreferredSize(new Dimension(d));
         if (line > panelCodigo.getPreferredSize().height) {
-            panelCodigo.setPreferredSize(new Dimension(panelCodigo.getPreferredSize().width,
-                    line));
+            panelCodigo.setPreferredSize(new Dimension(panelCodigo.getPreferredSize().width, line));
             Rectangle r = area.getBounds();
             r.height = panelCodigo.getPreferredSize().height;
             area.setBounds(r);

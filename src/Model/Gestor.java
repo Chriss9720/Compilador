@@ -207,27 +207,29 @@ public class Gestor {
                 err.add(new Errores(func.getLinea(), 704, func.getId(),
                         "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
             } else {
-                abrir();
-                try {
-                    sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
-                            + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
-                    pst = con.prepareCall(sql);
-                    pst.setString(1, func.getId());
-                    pst.setString(2, func.getTipo());
-                    pst.setString(3, func.getClase());
-                    pst.setString(4, tS(func.getAmb()));
-                    pst.setString(5, tS(func.gettArr()));
-                    pst.setString(6, func.getDimArr());
-                    pst.setString(7, tS(func.getNoPar()));
-                    pst.setString(8, func.gettPar());
-                    if (pst.executeUpdate() > 0) {
-                        cerrar();
-                    } else {
-                        err.add(new Errores(func.getLinea(), 704, func.getId(),
-                                "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
+                if (!func.isError()) {
+                    abrir();
+                    try {
+                        sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
+                                + "dimArr, noPar, tPar) values(?,?,?,?,?,?,?,?)";
+                        pst = con.prepareCall(sql);
+                        pst.setString(1, func.getId());
+                        pst.setString(2, func.getTipo());
+                        pst.setString(3, func.getClase());
+                        pst.setString(4, tS(func.getAmb()));
+                        pst.setString(5, tS(func.gettArr()));
+                        pst.setString(6, func.getDimArr());
+                        pst.setString(7, tS(func.getNoPar()));
+                        pst.setString(8, func.gettPar());
+                        if (pst.executeUpdate() > 0) {
+                            cerrar();
+                        } else {
+                            err.add(new Errores(func.getLinea(), 704, func.getId(),
+                                    "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Fallo al registrar la funcion: " + e);
                     }
-                } catch (Exception e) {
-                    System.out.println("Fallo al registrar la funcion: " + e);
                 }
                 cerrar();
             }
@@ -244,7 +246,7 @@ public class Gestor {
                     cerrar();
                     return false;
                 }
-                sql = "select * from ids where id = ? and amb = ?";
+                sql = "select * from ids where id = ? and amb = ? and tipo is not null";
                 pst = con.prepareCall(sql);
                 pst.setString(1, id);
                 pst.setString(2, tS(amb.getLast()));
@@ -265,9 +267,9 @@ public class Gestor {
         boolean r = false;
         try {
             do {
-                if (amb.isEmpty()) {
+                if (amb.isEmpty() || r) {
                     cerrar();
-                    return false;
+                    return r;
                 }
                 sql = "select * from ids where id = ? and amb = ? and clase = ?";
                 pst = con.prepareCall(sql);
@@ -353,7 +355,7 @@ public class Gestor {
     public int totalRegistros(int amb) {
         abrir();
         try {
-            sql = "select count(*) as total from ids where amb = ? and tipo not like \"\" and clase LIKE \"REG\";";
+            sql = "select count(*) as total from ids where amb = ? and tipo not like \"\" and clase LIKE \"%REG%\";";
             pst = con.prepareCall(sql);
             pst.setString(1, tS(amb));
             rs = pst.executeQuery();

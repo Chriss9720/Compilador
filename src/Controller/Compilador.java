@@ -131,7 +131,7 @@ public class Compilador implements ActionListener {
         {613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 11, 11, 613, 11, 613, 613, 11, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 31, 31, 31, 31, 31, 31, 31, 31, 11, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 11, 613, 613, 613, 613, 613, 613, 613, 613, 613, 11, 11, 613, 613, 613, 11},
         {613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 600, 600, 613, 600, 613, 613, 600, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 128, 32, 33, 34, 35, 36, 37, 38, 600, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 600, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 613, 600},
         {614, 46, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 40, 614, 614, 614, 39, 39, 39, 39, 39, 39, 39, 43, 44, 41, 45, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 614, 42},
-        {615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 615, 11, 52, 47, 11, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 11, 11, 11, 11, 53, 615, 11, 53, 53, 53, 53, 11, 11, 11, 11, 11, 11, 11, 11, 11, 48, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615},
+        {615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 615, 11, 52, 47, 11, 11, 11, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 11, 11, 11, 11, 53, 615, 11, 53, 53, 53, 53, 11, 11, 11, 11, 11, 11, 11, 11, 11, 48, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615},
         {616, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 49, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 50},
         {604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 51, 604, 604, 604, 604, 11, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604},
         {617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 617, 11, 617, 617, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 11, 11, 11, 11, 54, 617, 617, 54, 54, 54, 54, 11, 11, 11, 11, 11, 11, 11, 11, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617},
@@ -467,9 +467,9 @@ public class Compilador implements ActionListener {
                     cargarTokens();
                     carcarContadores();
                     //codido de sintaxis
-                    //String prod = "";
-                    //prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
-                    //System.out.println("La produccion final es: " + prod);
+                    String prod = "";
+                    prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
+                    System.out.println("La produccion final es: " + prod);
                     int entradaDePila, entradaDeTokens;
                     remover();
                     LinkedList<String> pila = voltear(producciones.get(0).getProduce());
@@ -495,7 +495,9 @@ public class Compilador implements ActionListener {
                     boolean ParamsFuncAUX = false;
                     boolean IDDF = false;
                     boolean REVISAR = false;
-                    LinkedList<Errores> listaAux;
+                    boolean POSPONER = false;
+                    boolean POSPONER2 = false;
+                    LinkedList<Errores> listaAux = new LinkedList();
                     ObjTemp temp = new ObjTemp();
                     Registro reg = new Registro();
                     Variable var = new Variable();
@@ -533,7 +535,6 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GREG":
                                 pila.removeLast();
-                                listaAux = gestor.gudarRegistro(reg);
                                 if (listaAux.isEmpty()) {
                                     listaAux = gestor.guadarItemRegistro(reg.getParams());
                                     for (Errores item : listaAux) {
@@ -571,6 +572,7 @@ public class Compilador implements ActionListener {
                                 simple.settArr(temp.gettArr());
                                 simple.setClase(temp.getClase());
                                 simple.setError(temp.isError());
+                                temp.setError(false);
                                 if (!temp.getId().isEmpty()) {
                                     simple.setId(temp.getId());
                                 }
@@ -613,18 +615,20 @@ public class Compilador implements ActionListener {
                             case "GFUNC":
                                 pila.removeLast();
                                 listaAux = gestor.guardarFuncion(func);
-                                if (listaAux.isEmpty()) {
-                                    listaAux = gestor.guadarItemRegistro(func.getParams());
-                                    for (Errores item : listaAux) {
-                                        err.add(new Errores(item));
-                                        ambitosTotales.get(item.getAmb()).setErrores();
+                                if (!func.isError()) {
+                                    if (listaAux.isEmpty()) {
+                                        listaAux = gestor.guadarItemRegistro(func.getParams());
+                                        for (Errores item : listaAux) {
+                                            err.add(new Errores(item));
+                                            ambitosTotales.get(item.getAmb()).setErrores();
+                                        }
+                                    } else {
+                                        for (Errores item : listaAux) {
+                                            err.add(new Errores(item));
+                                            ambitosTotales.get(item.getAmb()).setErrores();
+                                        }
+                                        ambitosTotales.removeLast();
                                     }
-                                } else {
-                                    for (Errores item : listaAux) {
-                                        err.add(new Errores(item));
-                                        ambitosTotales.get(item.getAmb()).setErrores();
-                                    }
-                                    ambitosTotales.removeLast();
                                 }
                                 func = new Funcion();
                                 break;
@@ -668,13 +672,14 @@ public class Compilador implements ActionListener {
                                 var.setTipo("BOOL");
                                 break;
                         }
+                        System.out.println(pila.getLast() + " vs " + tonk.getFirst().getSintaxis());
                         entradaDePila = entrada(pila.getLast());
                         entradaDeTokens = entrada(tonk.getFirst().getSintaxis());
                         if (entradaDePila < 0 && entradaDeTokens >= 0) {
                             valor = matrizSintaxis[getFila(pila.getLast())][entradaDeTokens];
                             if (valor > 0 && valor < 599 && valor != 11) {
                                 --valor;
-                                //System.out.println("Convertir: " + pila.getLast() + " -> " + producciones.get(valor).getProduce());
+                                System.out.println("Convertir: " + pila.getLast() + " -> " + producciones.get(valor).getProduce());
                                 pila.removeLast();
                                 pila = juntar(pila, voltear(producciones.get(valor).getProduce()));
                                 /*for (String p : pila) {
@@ -682,7 +687,7 @@ public class Compilador implements ActionListener {
                                 }
                                 System.out.println("");*/
                             } else if (valor == 11) {
-                                //System.out.println("Se va de la pila: " + pila.getLast());
+                                System.out.println("Se va de la pila: " + pila.getLast());
                                 pila.removeLast();
                             } else if (valor > 599) {
                                 String desc = erroresSintaxis(valor);
@@ -694,7 +699,7 @@ public class Compilador implements ActionListener {
                             }
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
                                 && entradaDePila == entradaDeTokens) {
-                            //System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
+                            System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
                             String aux = tonk.getFirst().getLexema();
                             int linea = tonk.getFirst().getLiena();
                             if (IDDF) {
@@ -710,6 +715,7 @@ public class Compilador implements ActionListener {
                                 }
                                 func.setTipo(temp.getTipo());
                                 func.setError(temp.isError());
+                                temp.setError(false);
                                 func.setId(aux);
                                 func.setLinea(linea);
                                 tempAux = false;
@@ -736,6 +742,7 @@ public class Compilador implements ActionListener {
                                 reg.setLinea(linea);
                                 reg.setId(aux);
                                 IDREG = false;
+                                listaAux = gestor.gudarRegistro(reg);
                             }
                             if (IDTIPO) {
                                 LinkedList<Integer> auxAmb = new LinkedList();
@@ -798,13 +805,30 @@ public class Compilador implements ActionListener {
                                     reg.getParams().getLast().setNoPar(reg.getParams().size());
                                     reg.getParams().getLast().setAmb(amb.getLast());
                                     reg.getParams().getLast().setError(temp.isError());
+                                    temp.setError(false);
                                 }
                                 GID = false;
                                 ParamsTipoRegAUX = false;
                             }
+                            if (POSPONER) {
+                                POSPONER = false;
+                                reg.getParams().getLast().setTipo(temp.getTipo());
+                                reg.getParams().getLast().setClase("REG/Item");
+                            }
+                            if (POSPONER2) {
+                                POSPONER2 = false;
+                                func.getParams().getLast().setError(temp.isError());
+                                temp.setError(false);
+                                func.getParams().getLast().setTipo(temp.getTipo());
+                                func.getParams().getLast().setClase("REG/Param");
+                            }
                             if (ParamsTipoReg) {
                                 reg.getParams().add(new Variable());
-                                reg.getParams().getLast().setTipo(aux);
+                                if (!aux.equals("REG")) {
+                                    reg.getParams().getLast().setTipo(aux);
+                                } else {
+                                    POSPONER = true;
+                                }
                                 reg.getParams().getLast().settPar(reg.getId());
                                 reg.getParams().getLast().setClase("Item");
                                 ParamsTipoReg = false;
@@ -812,7 +836,11 @@ public class Compilador implements ActionListener {
                             }
                             if (ParamsFunc) {
                                 func.getParams().add(new Variable());
-                                func.getParams().getLast().setTipo(aux);
+                                if (!aux.equals("REG")) {
+                                    func.getParams().getLast().setTipo(aux);
+                                } else {
+                                    POSPONER2 = true;
+                                }
                                 func.getParams().getLast().settPar(func.getId());
                                 func.getParams().getLast().setClase("Param");
                                 func.getParams().getLast().setNoPar(func.getParams().size());

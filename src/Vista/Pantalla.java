@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 public class Pantalla extends JFrame {
 
     private final JScrollPane scroll = new JScrollPane();
+    private JScrollPane scrollCodigo;
     private final JPanel panel = new JPanel();
     private JTextArea codigo, numeroLinea;
     private JTable contadores, errores, tokens;
@@ -58,7 +59,9 @@ public class Pantalla extends JFrame {
     }
 
     private void codigo() {
-        JScrollPane scrollCodigo = new JScrollPane();
+        scrollCodigo = new JScrollPane();
+        getScrollCodigo().getVerticalScrollBar().setValueIsAdjusting(false);
+
         panelCodigo = new JPanel();
         panelCodigo.setLayout(null);
 
@@ -168,10 +171,9 @@ public class Pantalla extends JFrame {
                 tituloContadores.getBounds().width, scrollErrores.getSize().height);
         scrollCont.setViewportView(contadores);
 
-        codigo.addKeyListener(new Area(codigo, numeroLinea, panelCodigo, d));
+        codigo.addKeyListener(new Area(codigo, numeroLinea, panelCodigo, d, getScrollCodigo()));
         ejecutar.addActionListener(new Compilador(this));
         generar.addActionListener(new Action(this));
-        //generar.addActionListener(new GenerarExcel(this));
         cargar.setPreferredSize(new Dimension(cargar.getBounds().width, cargar.getBounds().height));
         cargar.addActionListener(new Cargar(codigo, numeroLinea, panelCodigo, d));
         limpiar.addActionListener(new Limpiar(this, d));
@@ -246,6 +248,18 @@ public class Pantalla extends JFrame {
 
     public void setAmb(LinkedList<Ambito> amb) {
         this.amb = amb;
+    }
+
+    public JScrollPane getScrollCodigo() {
+        return scrollCodigo;
+    }
+
+    public void setScrollCodigo(JScrollPane scrollCodigo) {
+        this.scrollCodigo = scrollCodigo;
+    }
+
+    public void setY(int value) {
+        this.scrollCodigo.getVerticalScrollBar().setValue(value);
     }
 
 }
