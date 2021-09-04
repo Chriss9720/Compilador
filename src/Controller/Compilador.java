@@ -765,7 +765,10 @@ public class Compilador implements ActionListener {
                             if (DimARR) {
                                 String dim;
                                 if (ParamsTipoRegAUX) {
-                                    reg.getParams().getLast().setClase("Item/Arr");
+                                    if (reg.getParams().getLast().getClase().contains("REG"))
+                                        reg.getParams().getLast().setClase("Item/REG/Arr");
+                                    else
+                                        reg.getParams().getLast().setClase("Item/Arr");
                                     dim = reg.getParams().getLast().getDimArr();
                                     if (dim.isEmpty()) {
                                         dim = aux;
@@ -776,7 +779,10 @@ public class Compilador implements ActionListener {
                                     }
                                     reg.getParams().getLast().setDimArr(dim);
                                 } else if (tempAux) {
-                                    temp.setClase("Arr");
+                                    if (temp.getClase().contains("REG")) 
+                                        temp.setClase("REG/Arr");
+                                    else
+                                        temp.setClase("Arr");
                                     dim = temp.getDimArr();
                                     if (dim.isEmpty()) {
                                         dim = aux;
@@ -787,7 +793,10 @@ public class Compilador implements ActionListener {
                                     }
                                     temp.setDimArr(dim);
                                 } else if (ParamsFuncAUX) {
-                                    func.getParams().getLast().setClase("Param/Arr");
+                                    if (func.getParams().getLast().getClase().contains("REG"))
+                                        func.getParams().getLast().setClase("Param/REG/Arr");
+                                    else
+                                        func.getParams().getLast().setClase("Param/Arr");
                                     dim = func.getParams().getLast().getDimArr();
                                     if (dim.isEmpty()) {
                                         dim = aux;
