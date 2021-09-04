@@ -756,7 +756,7 @@ public class Compilador implements ActionListener {
                                 } else {
                                     err.add(new Errores(linea, 707,
                                             aux, "No esta declarado el registro",
-                                            "Sintaxis:Ambito", amb.getLast()));
+                                            "Ambito", amb.getLast()));
                                     ambitosTotales.getLast().setErrores();
                                     temp.setError(true);
                                 }
@@ -868,7 +868,7 @@ public class Compilador implements ActionListener {
                                 } else {
                                     err.add(new Errores(linea, 706,
                                             aux, "No esta declarada la variable",
-                                            "Sintaxis:Ambito", amb.getLast()));
+                                            "Ambito", amb.getLast()));
                                     ambitosTotales.getLast().setErrores();
                                 }
                             }

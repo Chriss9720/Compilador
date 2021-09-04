@@ -40,7 +40,7 @@ public class Gestor {
         auxAmb.add(reg.amb);
         if (existe(reg.getId(), auxAmb)) {
             err.add(new Errores(reg.getLinea(), 700, reg.getId(),
-                    "Se repitio el registro", "Sintaxis:Ambito", reg.getAmb()));
+                    "Se repitio el registro", "Ambito", reg.getAmb()));
         } else {
             abrir();
             try {
@@ -82,7 +82,7 @@ public class Gestor {
                         if (this.existe(lista.getFirst().getId().getFirst(), auxAmb)) {
                             err.add(new Errores(lista.getFirst().getLinea(),
                                     701, lista.getFirst().getId().getFirst(),
-                                    "Se repitio el item", "Sintaxis:Ambito", lista.getFirst().getAmb()));
+                                    "Se repitio el item", "Ambito", lista.getFirst().getAmb()));
                             lista.getFirst().getId().removeFirst();
                         } else {
                             abrir();
@@ -103,7 +103,7 @@ public class Gestor {
                                 lista.getFirst().getId().removeFirst();
                                 err.add(new Errores(lista.getFirst().getLinea(),
                                         701, lista.getFirst().getId().getFirst(),
-                                        "Se repitio el item", "Sintaxis:Ambito", lista.getFirst().getAmb()));
+                                        "Se repitio el item", "Ambito", lista.getFirst().getAmb()));
                             }
                             param++;
                         }
@@ -131,7 +131,7 @@ public class Gestor {
                 } else {
                     if (this.existe(v.getId().getFirst(), auxAmb)) {
                         err.add(new Errores(v.getLinea(), 702, v.getId().getFirst(),
-                                "Se repitio la variable", "Sintaxis:Ambito", v.getAmb()));
+                                "Se repitio la variable", "Ambito", v.getAmb()));
                         v.getId().removeFirst();
                     } else {
                         abrir();
@@ -150,7 +150,7 @@ public class Gestor {
                             v.getId().removeFirst();
                         } else {
                             err.add(new Errores(v.getLinea(), 702, v.getId().getFirst(),
-                                    "Se repitio la variable", "Sintaxis:Ambito", v.getAmb()));
+                                    "Se repitio la variable", "Ambito", v.getAmb()));
                         }
                     }
                 }
@@ -170,7 +170,7 @@ public class Gestor {
             auxAmb.add(v.getAmb());
             if (this.existe(v.getId().getFirst(), auxAmb)) {
                 err.add(new Errores(v.getLinea(), 703, v.getId().getFirst(),
-                        "Se repitio la constante", "Sintaxis:Ambito", v.getAmb()));
+                        "Se repitio la constante", "Ambito", v.getAmb()));
             } else {
                 abrir();
                 sql = "INSERT INTO ids(id, tipo, clase, amb, tarr, "
@@ -188,7 +188,7 @@ public class Gestor {
                 cerrar();
                 if (!aux) {
                     err.add(new Errores(v.getLinea(), 703, v.getId().getFirst(),
-                            "Se repitio la constante", "Sintaxis:Ambito", v.getAmb()));
+                            "Se repitio la constante", "Ambito", v.getAmb()));
                 }
             }
         } catch (Exception e) {
@@ -205,7 +205,7 @@ public class Gestor {
         if (!func.isError()) {
             if (existe(func.getId(), auxAmb)) {
                 err.add(new Errores(func.getLinea(), 704, func.getId(),
-                        "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
+                        "Se repitio el item", "Ambito", func.getAmb()));
             } else {
                 if (!func.isError()) {
                     abrir();
@@ -225,7 +225,7 @@ public class Gestor {
                             cerrar();
                         } else {
                             err.add(new Errores(func.getLinea(), 704, func.getId(),
-                                    "Se repitio el item", "Sintaxis:Ambito", func.getAmb()));
+                                    "Se repitio el item", "Ambito", func.getAmb()));
                         }
                     } catch (Exception e) {
                         System.out.println("Fallo al registrar la funcion: " + e);
