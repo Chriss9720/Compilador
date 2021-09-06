@@ -15,6 +15,15 @@ public class Ids {
     protected int noPar;
     protected String tPar;
     protected boolean error;
+    protected boolean variant;
+
+    public boolean isVariant() {
+        return variant;
+    }
+
+    public void setVariant(boolean variant) {
+        this.variant = variant;
+    }
 
     public boolean isError() {
         return error;

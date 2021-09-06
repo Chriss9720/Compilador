@@ -223,7 +223,7 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("F3", ", EXP_PASCAL F3"));
         producciones.add(new Producciones("F1", "ARREGLO F4"));
         producciones.add(new Producciones("F1", "F4"));
-        producciones.add(new Producciones("F4", "ASIGNACION EXP_PASCAL"));
+        producciones.add(new Producciones("F4", "INIAS ASIGNACION EXP_PASCAL FINAS"));
         producciones.add(new Producciones("CONSTANTE_S/SIGNO", "Cont_real"));
         producciones.add(new Producciones("CONSTANTE_S/SIGNO", "Cont_cadena"));
         producciones.add(new Producciones("CONSTANTE_S/SIGNO", "Cont_caracter")); //'f'
@@ -346,11 +346,9 @@ public class Compilador implements ActionListener {
         reservadas.add(new Reservadas("getcolorb", -84));
         reservadas.add(new Reservadas("getcolorf", -85));
         reservadas.add(new Reservadas("~", -86));
-
         //otras cosas
         reservadas.add(new Reservadas("=>", -89));
         reservadas.add(new Reservadas("=<", -90));
-
         reservadas.add(new Reservadas("repeat", -91));
         reservadas.add(new Reservadas("return", -92));
         reservadas.add(new Reservadas("break", -93));
@@ -467,9 +465,9 @@ public class Compilador implements ActionListener {
                     cargarTokens();
                     carcarContadores();
                     //codido de sintaxis
-                    String prod = "";
-                    prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
-                    System.out.println("La produccion final es: " + prod);
+                    //String prod = "";
+                    //prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
+                    //System.out.println("La produccion final es: " + prod);
                     int entradaDePila, entradaDeTokens;
                     remover();
                     LinkedList<String> pila = voltear(producciones.get(0).getProduce());
@@ -507,6 +505,10 @@ public class Compilador implements ActionListener {
                     ambitosTotales = new LinkedList();
                     ambitosTotales.add(new Ambito(0));
                     amb.add(ambitosTotales.getLast().getAmbito());
+                    //Sematica:1
+                    boolean INIAS = false;
+                    LinkedList<Variable> ids = new LinkedList();
+                    LinkedList<String> operadores = new LinkedList();
                     while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
                         switch (pila.getLast()) {
                             case "REGISTRO":
@@ -535,7 +537,7 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GREG":
                                 pila.removeLast();
-                                if (listaAux.isEmpty()) {
+                                if (!reg.isError()) {
                                     listaAux = gestor.guadarItemRegistro(reg.getParams());
                                     for (Errores item : listaAux) {
                                         err.add(new Errores(item));
@@ -572,7 +574,6 @@ public class Compilador implements ActionListener {
                                 simple.settArr(temp.gettArr());
                                 simple.setClase(temp.getClase());
                                 simple.setError(temp.isError());
-                                temp.setError(false);
                                 if (!temp.getId().isEmpty()) {
                                     simple.setId(temp.getId());
                                 }
@@ -580,13 +581,16 @@ public class Compilador implements ActionListener {
                                 break;
                             case "GBDIDSIMPLE":
                                 pila.removeLast();
-                                listaAux = gestor.guadarSimples(simple);
-                                if (!listaAux.isEmpty()) {
-                                    for (Errores item : listaAux) {
-                                        err.add(new Errores(item));
-                                        ambitosTotales.get(item.getAmb()).setErrores();
+                                if (!simple.isError()) {
+                                    listaAux = gestor.guadarSimples(simple);
+                                    if (!listaAux.isEmpty()) {
+                                        for (Errores item : listaAux) {
+                                            err.add(new Errores(item));
+                                            ambitosTotales.get(item.getAmb()).setErrores();
+                                        }
                                     }
                                 }
+                                temp.setError(false);
                                 simple = new Variable();
                                 break;
                             case "FUNC":
@@ -655,33 +659,74 @@ public class Compilador implements ActionListener {
                                 break;
                             case "Cont_real":
                                 var.setTipo("REAL");
+                                if (INIAS) {
+                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "REAL"));
+                                }
                                 break;
                             case "Cont_exponencial":
                                 var.setTipo("EXP");
+                                if (INIAS) {
+                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "EXP"));
+                                }
                                 break;
                             case "Cont_cadena":
                                 var.setTipo("CHAR");
                                 var.setClase("Constante/Arr");
+                                if (INIAS) {
+                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "CHAR"));
+                                    ids.getLast().setClase("Arr");
+                                }
                                 break;
                             case "Cont_caracter":
                                 var.setTipo("CHAR");
+                                if (INIAS) {
+                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "INT"));
+                                }
                                 break;
                             case "Cont_entero":
                                 var.setTipo("INT");
+                                if (INIAS) {
+                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "INT"));
+                                }
                                 break;
                             case "Cont_true":
                             case "Cont_false":
                                 var.setTipo("BOOL");
+                                if (INIAS) {
+                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "BOOL"));
+                                }
+                                break;
+                            case "INIAS":
+                                if (!INIAS) {
+                                    Variable auxVar = ids.getLast();
+                                    ids = new LinkedList();
+                                    ids.add(auxVar);
+                                }
+                                INIAS = true;
+                                pila.removeLast();
+                                break;
+                            case "FINAS":
+                                INIAS = false;
+                                pila.removeLast();
+                                for (Variable v : ids) {
+                                    System.out.print(v.getTipo() + "\t");
+                                }
                                 break;
                         }
-                        System.out.println(pila.getLast() + " vs " + tonk.getFirst().getSintaxis());
+                        //System.out.println(pila.getLast() + " vs " + tonk.getFirst().getSintaxis());
                         entradaDePila = entrada(pila.getLast());
                         entradaDeTokens = entrada(tonk.getFirst().getSintaxis());
                         if (entradaDePila < 0 && entradaDeTokens >= 0) {
                             valor = matrizSintaxis[getFila(pila.getLast())][entradaDeTokens];
                             if (valor > 0 && valor < 599 && valor != 11) {
                                 --valor;
-                                System.out.println("Convertir: " + pila.getLast() + " -> " + producciones.get(valor).getProduce());
+                                //System.out.println("Convertir: " + pila.getLast() + " -> " + producciones.get(valor).getProduce());
                                 pila.removeLast();
                                 pila = juntar(pila, voltear(producciones.get(valor).getProduce()));
                                 /*for (String p : pila) {
@@ -689,7 +734,7 @@ public class Compilador implements ActionListener {
                                 }
                                 System.out.println("");*/
                             } else if (valor == 11) {
-                                System.out.println("Se va de la pila: " + pila.getLast());
+                                //System.out.println("Se va de la pila: " + pila.getLast());
                                 pila.removeLast();
                             } else if (valor > 599) {
                                 String desc = erroresSintaxis(valor);
@@ -701,7 +746,7 @@ public class Compilador implements ActionListener {
                             }
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
                                 && entradaDePila == entradaDeTokens) {
-                            System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
+                            //System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
                             String aux = tonk.getFirst().getLexema();
                             int linea = tonk.getFirst().getLiena();
                             if (IDDF) {
@@ -745,6 +790,9 @@ public class Compilador implements ActionListener {
                                 reg.setId(aux);
                                 IDREG = false;
                                 listaAux = gestor.gudarRegistro(reg);
+                                if (!listaAux.isEmpty()) {
+                                    reg.setError(true);
+                                }
                             }
                             if (IDTIPO) {
                                 LinkedList<Integer> auxAmb = new LinkedList();
@@ -765,10 +813,11 @@ public class Compilador implements ActionListener {
                             if (DimARR) {
                                 String dim;
                                 if (ParamsTipoRegAUX) {
-                                    if (reg.getParams().getLast().getClase().contains("REG"))
+                                    if (reg.getParams().getLast().getClase().contains("REG")) {
                                         reg.getParams().getLast().setClase("Item/REG/Arr");
-                                    else
+                                    } else {
                                         reg.getParams().getLast().setClase("Item/Arr");
+                                    }
                                     dim = reg.getParams().getLast().getDimArr();
                                     if (dim.isEmpty()) {
                                         dim = aux;
@@ -779,10 +828,11 @@ public class Compilador implements ActionListener {
                                     }
                                     reg.getParams().getLast().setDimArr(dim);
                                 } else if (tempAux) {
-                                    if (temp.getClase().contains("REG")) 
+                                    if (temp.getClase().contains("REG")) {
                                         temp.setClase("REG/Arr");
-                                    else
+                                    } else {
                                         temp.setClase("Arr");
+                                    }
                                     dim = temp.getDimArr();
                                     if (dim.isEmpty()) {
                                         dim = aux;
@@ -793,10 +843,11 @@ public class Compilador implements ActionListener {
                                     }
                                     temp.setDimArr(dim);
                                 } else if (ParamsFuncAUX) {
-                                    if (func.getParams().getLast().getClase().contains("REG"))
+                                    if (func.getParams().getLast().getClase().contains("REG")) {
                                         func.getParams().getLast().setClase("Param/REG/Arr");
-                                    else
+                                    } else {
                                         func.getParams().getLast().setClase("Param/Arr");
+                                    }
                                     dim = func.getParams().getLast().getDimArr();
                                     if (dim.isEmpty()) {
                                         dim = aux;
@@ -863,14 +914,19 @@ public class Compilador implements ActionListener {
                                 REVISAR = false;
                                 LinkedList<Integer> auxAmb = new LinkedList();
                                 amb.forEach(i -> auxAmb.add(i));
-                                if (gestor.existe(aux, auxAmb)) {
-                                    System.out.println("ok");
+                                Variable varAux = gestor.existe(aux, auxAmb);
+                                if (varAux != null) {
+                                    varAux.setVariant(false);
                                 } else {
+                                    varAux = new Variable();
+                                    varAux.setId(aux);
+                                    varAux.setVariant(true);
                                     err.add(new Errores(linea, 706,
                                             aux, "No esta declarada la variable",
                                             "Ambito", amb.getLast()));
                                     ambitosTotales.getLast().setErrores();
                                 }
+                                ids.add(varAux);
                             }
                             pila.removeLast();
                             tonk.removeFirst();
@@ -910,6 +966,14 @@ public class Compilador implements ActionListener {
             }
         };
         e.start();
+    }
+
+    private Variable getConstante(String aux, int linea, String tipo) {
+        Variable auxVar = new Variable();
+        auxVar.setId(aux);
+        auxVar.setLinea(linea);
+        auxVar.setTipo(tipo);
+        return auxVar;
     }
 
     private void remover() {

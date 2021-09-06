@@ -38,7 +38,7 @@ public class Gestor {
         err = new LinkedList();
         LinkedList<Integer> auxAmb = new LinkedList();
         auxAmb.add(reg.amb);
-        if (existe(reg.getId(), auxAmb)) {
+        if (existe(reg.getId(), auxAmb) != null) {
             err.add(new Errores(reg.getLinea(), 700, reg.getId(),
                     "Se repitio el registro", "Ambito", reg.getAmb()));
         } else {
@@ -79,7 +79,7 @@ public class Gestor {
                     if (lista.getFirst().isError()) {
                         lista.getFirst().getId().removeFirst();
                     } else {
-                        if (this.existe(lista.getFirst().getId().getFirst(), auxAmb)) {
+                        if (this.existe(lista.getFirst().getId().getFirst(), auxAmb) != null) {
                             err.add(new Errores(lista.getFirst().getLinea(),
                                     701, lista.getFirst().getId().getFirst(),
                                     "Se repitio el item", "Ambito", lista.getFirst().getAmb()));
@@ -129,7 +129,7 @@ public class Gestor {
                 if (v.isError()) {
                     v.getId().removeFirst();
                 } else {
-                    if (this.existe(v.getId().getFirst(), auxAmb)) {
+                    if (this.existe(v.getId().getFirst(), auxAmb) != null) {
                         err.add(new Errores(v.getLinea(), 702, v.getId().getFirst(),
                                 "Se repitio la variable", "Ambito", v.getAmb()));
                         v.getId().removeFirst();
@@ -168,7 +168,7 @@ public class Gestor {
         try {
             LinkedList<Integer> auxAmb = new LinkedList();
             auxAmb.add(v.getAmb());
-            if (this.existe(v.getId().getFirst(), auxAmb)) {
+            if (this.existe(v.getId().getFirst(), auxAmb) != null) {
                 err.add(new Errores(v.getLinea(), 703, v.getId().getFirst(),
                         "Se repitio la constante", "Ambito", v.getAmb()));
             } else {
@@ -203,7 +203,7 @@ public class Gestor {
         LinkedList<Integer> auxAmb = new LinkedList();
         auxAmb.add(func.amb);
         if (!func.isError()) {
-            if (existe(func.getId(), auxAmb)) {
+            if (existe(func.getId(), auxAmb) != null) {
                 err.add(new Errores(func.getLinea(), 704, func.getId(),
                         "Se repitio el item", "Ambito", func.getAmb()));
             } else {
@@ -225,7 +225,8 @@ public class Gestor {
                             cerrar();
                         } else {
                             err.add(new Errores(func.getLinea(), 704, func.getId(),
-                                    "Se repitio el item", "Ambito", func.getAmb()));
+                                    "Se repitio la variable (nombre de "
+                                    + "la funcion)", "Ambito", func.getAmb()));
                         }
                     } catch (Exception e) {
                         System.out.println("Fallo al registrar la funcion: " + e);
@@ -237,16 +238,21 @@ public class Gestor {
         return err;
     }
 
-    public boolean existe(String id, LinkedList<Integer> amb) {
+    public Variable existe(String id, LinkedList<Integer> amb) {
         abrir();
-        boolean r = false;
+        boolean r;
+        Variable v = new Variable();
         try {
             do {
                 if (amb.isEmpty()) {
                     cerrar();
-                    return false;
+                    return null;
                 }
-                sql = "select * from ids where id = ? and amb = ? and tipo is not null";
+                sql = "select TRIM(id) as id, TRIM(tipo) as tipo, "
+                        + "TRIM(clase) as clase, TRIM(amb) as amb, "
+                        + "TRIM(tarr) as tarr, TRIM(dimArr) as dimArr, "
+                        + "TRIM(noPar) as noPar, TRIM(tPar) as tPar "
+                        + "from ids where id = ? and amb = ? and tipo is not null";
                 pst = con.prepareCall(sql);
                 pst.setString(1, id);
                 pst.setString(2, tS(amb.getLast()));
@@ -254,12 +260,17 @@ public class Gestor {
                 r = rs.next();
                 amb.removeLast();
             } while (!r);
+            if (r) {
+                v.Cargar(rs);
+            } else {
+                return null;
+            }
             cerrar();
         } catch (Exception e) {
             System.out.println("Fallo al verificar si existe: " + e);
         }
         cerrar();
-        return r;
+        return v;
     }
 
     public boolean validarREG(String id, LinkedList<Integer> amb) {

@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.ResultSet;
 import java.util.LinkedList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.LinkedList;
 public class Variable extends Ids {
 
     private final LinkedList<String> id;
-    
+
     public Variable() {
         this.id = new LinkedList();
         this.tipo = "";
@@ -19,6 +20,23 @@ public class Variable extends Ids {
         this.dimArr = "";
         this.noPar = 0;
         this.tPar = "";
+    }
+
+    public Variable Cargar(ResultSet rs) {
+        try {
+            this.id.add(rs.getString("id"));
+            this.tipo = rs.getString("tipo");
+            this.clase = rs.getString("clase");
+            this.amb = rs.getInt("amb");
+            this.tArr = rs.getInt("tarr");
+            this.dimArr = rs.getString("dimArr");
+            this.noPar = rs.getInt("noPar");
+            this.tPar = rs.getString("tPar");
+        } catch (Exception e) {
+            System.out.println("Error al cargar: " + e);
+        }
+
+        return this;
     }
 
     public LinkedList<String> getId() {
