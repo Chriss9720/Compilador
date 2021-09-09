@@ -22,6 +22,17 @@ public class Variable extends Ids {
         this.tPar = "";
     }
 
+    public Variable(LinkedList<String> id) {
+        this.id = id;
+    }
+
+    public Variable(Variable v) {
+        super(v.getClase(), v.getTipo(), v.getDimArr(), v.getAmb(),
+                v.getLinea(), v.gettArr(), v.getNoPar(), v.gettPar(),
+                v.isError(), v.isVariant());
+        this.id = v.getId();
+    }
+
     public Variable Cargar(ResultSet rs) {
         try {
             this.id.add(rs.getString("id"));

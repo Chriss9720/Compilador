@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Semantica.Etapa_1;
 import Model.*;
 import Vista.Pantalla;
 import java.awt.event.ActionEvent;
@@ -495,6 +496,8 @@ public class Compilador implements ActionListener {
                     boolean REVISAR = false;
                     boolean POSPONER = false;
                     boolean POSPONER2 = false;
+                    Etapa_1 sE_1 = new Etapa_1();
+                    sE_1.Reiniciar();
                     LinkedList<Errores> listaAux = new LinkedList();
                     ObjTemp temp = new ObjTemp();
                     Registro reg = new Registro();
@@ -505,10 +508,7 @@ public class Compilador implements ActionListener {
                     ambitosTotales = new LinkedList();
                     ambitosTotales.add(new Ambito(0));
                     amb.add(ambitosTotales.getLast().getAmbito());
-                    //Sematica:1
                     boolean INIAS = false;
-                    LinkedList<Variable> ids = new LinkedList();
-                    LinkedList<String> operadores = new LinkedList();
                     while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
                         switch (pila.getLast()) {
                             case "REGISTRO":
@@ -660,14 +660,14 @@ public class Compilador implements ActionListener {
                             case "Cont_real":
                                 var.setTipo("REAL");
                                 if (INIAS) {
-                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "REAL"));
                                 }
                                 break;
                             case "Cont_exponencial":
                                 var.setTipo("EXP");
                                 if (INIAS) {
-                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "EXP"));
                                 }
                                 break;
@@ -675,22 +675,22 @@ public class Compilador implements ActionListener {
                                 var.setTipo("CHAR");
                                 var.setClase("Constante/Arr");
                                 if (INIAS) {
-                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "CHAR"));
-                                    ids.getLast().setClase("Arr");
+                                    sE_1.getIds().getLast().setClase("Arr");
                                 }
                                 break;
                             case "Cont_caracter":
                                 var.setTipo("CHAR");
                                 if (INIAS) {
-                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "INT"));
                                 }
                                 break;
                             case "Cont_entero":
                                 var.setTipo("INT");
                                 if (INIAS) {
-                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "INT"));
                                 }
                                 break;
@@ -698,24 +698,25 @@ public class Compilador implements ActionListener {
                             case "Cont_false":
                                 var.setTipo("BOOL");
                                 if (INIAS) {
-                                    ids.add(getConstante(tonk.getFirst().getLexema(),
+                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "BOOL"));
                                 }
                                 break;
                             case "INIAS":
                                 if (!INIAS) {
-                                    Variable auxVar = ids.getLast();
-                                    ids = new LinkedList();
-                                    ids.add(auxVar);
+                                    Variable auxVar = sE_1.getIds().getLast();
+                                    sE_1.Reiniciar();
+                                    sE_1.getIds().add(auxVar);
                                 }
                                 INIAS = true;
                                 pila.removeLast();
                                 break;
                             case "FINAS":
-                                INIAS = false;
                                 pila.removeLast();
-                                for (Variable v : ids) {
-                                    System.out.print(v.getTipo() + "\t");
+                                if (Buscar(pila)) {
+                                    INIAS = false;
+                                    sE_1.mostrarEcuacion();
+                                    sE_1.Resolver().forEach(e -> err.add(new Errores(e)));
                                 }
                                 break;
                         }
@@ -746,6 +747,50 @@ public class Compilador implements ActionListener {
                             }
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
                                 && entradaDePila == entradaDeTokens) {
+                            if (INIAS) {
+                                switch (pila.getLast()) {
+                                    case "=":
+                                        sE_1.getOperadores().add("=");
+                                        break;
+                                    case "+=":
+                                        sE_1.getOperadores().add("=");
+                                        sE_1.getIds().add(sE_1.getIds().getLast());
+                                        sE_1.getOperadores().add("+");
+                                        break;
+                                    case "/=":
+                                        sE_1.getOperadores().add("=");
+                                        sE_1.getIds().add(sE_1.getIds().getLast());
+                                        sE_1.getOperadores().add("/");
+                                        break;
+                                    case "*=":
+                                        sE_1.getOperadores().add("=");
+                                        sE_1.getIds().add(sE_1.getIds().getLast());
+                                        sE_1.getOperadores().add("*");
+                                        break;
+                                    case "-=":
+                                        sE_1.getOperadores().add("=");
+                                        sE_1.getIds().add(sE_1.getIds().getLast());
+                                        sE_1.getOperadores().add("-");
+                                        break;
+                                    case "+":
+                                    case "-":
+                                    case "*":
+                                    case "<":
+                                    case ">=":
+                                    case "=>":
+                                    case "<=":
+                                    case "=<":
+                                    case "!=":
+                                    case ">":
+                                    case "/":
+                                    case "#":
+                                    case "%":
+                                    case "&":
+                                    case "&&":
+                                        sE_1.getOperadores().add(pila.getLast());
+                                        break;
+                                }
+                            }
                             //System.out.println("Se va de ambos: " + pila.getLast() + " <-> " + tonk.getFirst().getSintaxis());
                             String aux = tonk.getFirst().getLexema();
                             int linea = tonk.getFirst().getLiena();
@@ -921,12 +966,14 @@ public class Compilador implements ActionListener {
                                     varAux = new Variable();
                                     varAux.setId(aux);
                                     varAux.setVariant(true);
+                                    varAux.setAmb(amb.getLast());
                                     err.add(new Errores(linea, 706,
                                             aux, "No esta declarada la variable",
                                             "Ambito", amb.getLast()));
                                     ambitosTotales.getLast().setErrores();
                                 }
-                                ids.add(varAux);
+                                varAux.setLinea(linea);
+                                sE_1.getIds().add(varAux);
                             }
                             pila.removeLast();
                             tonk.removeFirst();
@@ -966,6 +1013,12 @@ public class Compilador implements ActionListener {
             }
         };
         e.start();
+    }
+
+    private boolean Buscar(LinkedList<String> p) {
+        int total = 0;
+        total = p.stream().filter(item -> (item.equals("FINAS"))).map(_item -> 1).reduce(total, Integer::sum);
+        return total == 0;
     }
 
     private Variable getConstante(String aux, int linea, String tipo) {

@@ -17,6 +17,23 @@ public class Ids {
     protected boolean error;
     protected boolean variant;
 
+    public Ids() {
+
+    }
+
+    public Ids(String clase, String tipo, String dimArr, int amb, int linea, int tArr, int noPar, String tPar, boolean error, boolean variant) {
+        this.clase = clase;
+        this.tipo = tipo;
+        this.dimArr = dimArr;
+        this.amb = amb;
+        this.linea = linea;
+        this.tArr = tArr;
+        this.noPar = noPar;
+        this.tPar = tPar;
+        this.error = error;
+        this.variant = variant;
+    }
+
     public boolean isVariant() {
         return variant;
     }
@@ -40,7 +57,7 @@ public class Ids {
     public void settPar(String tPar) {
         this.tPar = tPar;
     }
-    
+
     public int getNoPar() {
         return noPar;
     }

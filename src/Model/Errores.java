@@ -56,4 +56,14 @@ public class Errores {
     public String getLexema() {
         return lexema;
     }
+
+    @Override
+    public String toString() {
+        return "linea: " + liena
+                + "\nnumero: " + numero
+                + "\nlexema: " + lexema
+                + "\nDesc: " + Desc
+                + "\ntipo: " + tipo
+                + "\namb: " + amb;
+    }
 }
