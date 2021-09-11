@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Ambito;
 import Model.Gestor;
+import Model.Semantica_E_1;
 import Vista.Pantalla;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,16 +25,18 @@ public class GenerarExcel {
     private final JTable tokens;
     private final LinkedList<Ambito> ambitos;
     private final Gestor gestor = new Gestor();
+    private final LinkedList<Semantica_E_1> sE_1;
 
     public GenerarExcel(Pantalla p) {
         this.contadores = p.getContadores();
         this.errores = p.getErrores();
         this.tokens = p.getTokens();
         this.ambitos = p.getAmb();
+        this.sE_1 = p.getsE_1();
     }
 
     public void ejecutar() {
-        String nombreArchivo = "src/Excel/18130159.xlsx";
+        String nombreArchivo = "src/Excel/Yañez_Gonzalez_Christian_Emmanuel.xlsx";
         XSSFWorkbook libro = new XSSFWorkbook();
 
         XSSFSheet hoja1 = libro.createSheet("Tokens");
@@ -124,6 +127,36 @@ public class GenerarExcel {
             }
         }
 
+        XSSFSheet hoja5 = libro.createSheet("Semtica_Etapa_1");
+        head = new String[]{"Linea", "Tch", "TS", "TE", "TR", "TB", "TX",
+            "TR", "TO", "TF", "TV", "Asignacion", "Errores"};
+
+        row = hoja5.createRow(0);
+        for (int i = 0; i < head.length; i++) {
+            cell = row.createCell(i);
+            cell.setCellValue(head[i]);
+        }
+        for (int i = 0, j = 1; i < sE_1.size(); i++, j++) {
+            String ext = "";
+            row = hoja5.createRow(j);
+            cell = row.createCell(0);
+            cell.setCellValue(sE_1.get(i).getLinea());
+            ext = evaluar(ext, sE_1.get(i).gettC(), row.createCell(1));
+            ext = evaluar(ext, sE_1.get(i).gettS(), row.createCell(2));
+            ext = evaluar(ext, sE_1.get(i).gettE(), row.createCell(3));
+            ext = evaluar(ext, sE_1.get(i).gettR(), row.createCell(4));
+            ext = evaluar(ext, sE_1.get(i).gettB(), row.createCell(5));
+            ext = evaluar(ext, sE_1.get(i).gettX(), row.createCell(6));
+            ext = evaluar(ext, sE_1.get(i).gettG(), row.createCell(7));
+            ext = evaluar(ext, sE_1.get(i).gettO(), row.createCell(8));
+            ext = evaluar(ext, sE_1.get(i).gettF(), row.createCell(9));
+            ext = evaluar(ext, sE_1.get(i).gettV(), row.createCell(10));
+            cell = row.createCell(11);
+            cell.setCellValue(sE_1.get(i).getAsig() + ext);
+            cell = row.createCell(12);
+            cell.setCellValue(sE_1.get(i).getErr());
+        }
+
         File file = new File(nombreArchivo);
         try (FileOutputStream fileOuS = new FileOutputStream(file)) {
             if (file.exists()) {
@@ -136,6 +169,14 @@ public class GenerarExcel {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al crear el excel:\n" + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private String evaluar(String ext, int c, XSSFCell cell) {
+        cell.setCellValue(c);
+        if (c > 0) {
+            ext += " TC" + c;
+        }
+        return ext;
     }
 
     private int tI(Object o) {

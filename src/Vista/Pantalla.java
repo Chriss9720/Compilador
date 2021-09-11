@@ -7,6 +7,7 @@ import Controller.Limpiar;
 import Model.Action;
 import Model.Ambito;
 import Model.Keys;
+import Model.Semantica_E_1;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -36,6 +37,7 @@ public class Pantalla extends JFrame {
     private JPanel panelCodigo;
     private final JLabel tiempo = new JLabel("0000");
     private LinkedList<Ambito> amb = new LinkedList();
+    private LinkedList<Semantica_E_1> sE_1 = new LinkedList();
 
     public Pantalla() {
         init();
@@ -260,6 +262,14 @@ public class Pantalla extends JFrame {
 
     public void setY(int value) {
         this.scrollCodigo.getVerticalScrollBar().setValue(value);
+    }
+
+    public LinkedList<Semantica_E_1> getsE_1() {
+        return sE_1;
+    }
+
+    public void setsE_1() {
+        this.sE_1 = new LinkedList();
     }
 
 }

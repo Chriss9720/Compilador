@@ -429,7 +429,7 @@ public class Compilador implements ActionListener {
                                     || est == -12 || est == -15) {
                                 String desc = "Caracter cambiado para la sintaxis";
                                 err.add(new Errores(line, est, lex, desc, "Léxico", 0));
-                                contar(500);
+                                contar(501);
                             } else {
                                 if (est == -1) {
                                     est = esReservada(lex);
@@ -450,7 +450,7 @@ public class Compilador implements ActionListener {
                                 }
                             } else {
                                 tonk.add(new Tokens(line, aux, c));
-                                contar(est);
+                                contar(aux);
                             }
                             est = 0;
                             lex = "";
@@ -464,7 +464,6 @@ public class Compilador implements ActionListener {
                         }
                     }
                     cargarTokens();
-                    carcarContadores();
                     //codido de sintaxis
                     //String prod = "";
                     //prod = tonk.stream().map(t -> t.getSintaxis() + " ").reduce(prod, String::concat);
@@ -496,7 +495,8 @@ public class Compilador implements ActionListener {
                     boolean REVISAR = false;
                     boolean POSPONER = false;
                     boolean POSPONER2 = false;
-                    Etapa_1 sE_1 = new Etapa_1();
+                    setSemanticaE_1();
+                    Etapa_1 sE_1 = new Etapa_1(pantalla);
                     sE_1.Reiniciar();
                     LinkedList<Errores> listaAux = new LinkedList();
                     ObjTemp temp = new ObjTemp();
@@ -541,11 +541,13 @@ public class Compilador implements ActionListener {
                                     listaAux = gestor.guadarItemRegistro(reg.getParams());
                                     for (Errores item : listaAux) {
                                         err.add(new Errores(item));
+                                        contar(502);
                                         ambitosTotales.get(item.getAmb()).setErrores();
                                     }
                                 } else {
                                     for (Errores item : listaAux) {
                                         err.add(new Errores(item));
+                                        contar(503);
                                         ambitosTotales.get(item.getAmb()).setErrores();
                                     }
                                     ambitosTotales.removeLast();
@@ -586,6 +588,7 @@ public class Compilador implements ActionListener {
                                     if (!listaAux.isEmpty()) {
                                         for (Errores item : listaAux) {
                                             err.add(new Errores(item));
+                                            contar(504);
                                             ambitosTotales.get(item.getAmb()).setErrores();
                                         }
                                     }
@@ -624,11 +627,13 @@ public class Compilador implements ActionListener {
                                         listaAux = gestor.guadarItemRegistro(func.getParams());
                                         for (Errores item : listaAux) {
                                             err.add(new Errores(item));
+                                            contar(505);
                                             ambitosTotales.get(item.getAmb()).setErrores();
                                         }
                                     } else {
                                         for (Errores item : listaAux) {
                                             err.add(new Errores(item));
+                                            contar(506);
                                             ambitosTotales.get(item.getAmb()).setErrores();
                                         }
                                         ambitosTotales.removeLast();
@@ -652,6 +657,7 @@ public class Compilador implements ActionListener {
                                 if (!listaAux.isEmpty()) {
                                     for (Errores item : listaAux) {
                                         err.add(item);
+                                        contar(507);
                                         ambitosTotales.get(var.getAmb()).setErrores();
                                     }
                                 }
@@ -676,7 +682,7 @@ public class Compilador implements ActionListener {
                                 var.setClase("Constante/Arr");
                                 if (INIAS) {
                                     sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                            tonk.getFirst().getLiena(), "CHAR"));
+                                            tonk.getFirst().getLiena(), "CHAR[]"));
                                     sE_1.getIds().getLast().setClase("Arr");
                                 }
                                 break;
@@ -707,6 +713,9 @@ public class Compilador implements ActionListener {
                                     Variable auxVar = sE_1.getIds().getLast();
                                     sE_1.Reiniciar();
                                     sE_1.getIds().add(auxVar);
+                                    getSemanticaE_1().add(new Semantica_E_1());
+                                    getSemanticaE_1().getLast().setLinea(auxVar.getLinea());
+                                    getSemanticaE_1().getLast().setAsig(auxVar.getId().getLast());
                                 }
                                 INIAS = true;
                                 pila.removeLast();
@@ -716,7 +725,10 @@ public class Compilador implements ActionListener {
                                 if (Buscar(pila)) {
                                     INIAS = false;
                                     sE_1.mostrarEcuacion();
-                                    sE_1.Resolver().forEach(e -> err.add(new Errores(e)));
+                                    sE_1.Resolver().forEach(e -> {
+                                        err.add(new Errores(e));
+                                        contar(509);
+                                    });
                                 }
                                 break;
                         }
@@ -741,6 +753,7 @@ public class Compilador implements ActionListener {
                                 String desc = erroresSintaxis(valor);
                                 err.add(new Errores(tonk.getFirst().getLiena(), valor,
                                         tonk.getFirst().getLexema(), desc, "Sintaxis", 0));
+                                contar(510);
                                 //System.out.println("Error " + pila.getLast() + " vs " + tonk.getFirst().getSintaxis() + " " + valor);
                                 pila.removeLast();
                                 tonk.removeFirst();
@@ -749,9 +762,6 @@ public class Compilador implements ActionListener {
                                 && entradaDePila == entradaDeTokens) {
                             if (INIAS) {
                                 switch (pila.getLast()) {
-                                    case "=":
-                                        sE_1.getOperadores().add("=");
-                                        break;
                                     case "+=":
                                         sE_1.getOperadores().add("=");
                                         sE_1.getIds().add(sE_1.getIds().getLast());
@@ -787,6 +797,7 @@ public class Compilador implements ActionListener {
                                     case "%":
                                     case "&":
                                     case "&&":
+                                    case "=":
                                         sE_1.getOperadores().add(pila.getLast());
                                         break;
                                 }
@@ -850,6 +861,7 @@ public class Compilador implements ActionListener {
                                     err.add(new Errores(linea, 707,
                                             aux, "No esta declarado el registro",
                                             "Ambito", amb.getLast()));
+                                    contar(511);
                                     ambitosTotales.getLast().setErrores();
                                     temp.setError(true);
                                 }
@@ -970,6 +982,7 @@ public class Compilador implements ActionListener {
                                     err.add(new Errores(linea, 706,
                                             aux, "No esta declarada la variable",
                                             "Ambito", amb.getLast()));
+                                    contar(512);
                                     ambitosTotales.getLast().setErrores();
                                 }
                                 varAux.setLinea(linea);
@@ -985,6 +998,7 @@ public class Compilador implements ActionListener {
                             err.add(new Errores(tonk.getFirst().getLiena(), 628,
                                     tonk.getFirst().getLexema(),
                                     "Error de fuerza bruta", "Sintaxis", amb.getLast()));
+                            contar(513);
                             //System.out.println("FB");
                             //System.out.println(pila.getLast() + " " + tonk.getFirst().getSintaxis());
                         }
@@ -998,8 +1012,10 @@ public class Compilador implements ActionListener {
                             m1 += p + " ";
                         }
                         err.add(new Errores(linea, 629, v, m1, "Sintaxis", 0));
+                        contar(514);
                     }
                     cargarErrores();
+                    carcarContadores();
                     time = false;
                     if (err.isEmpty()) {
                         JOptionPane.showMessageDialog(pantalla, "Procesado con exito, sin errores", "Exito", JOptionPane.INFORMATION_MESSAGE);
@@ -1396,6 +1412,14 @@ public class Compilador implements ActionListener {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(tcr);
         }
+    }
+
+    public LinkedList<Semantica_E_1> getSemanticaE_1() {
+        return pantalla.getsE_1();
+    }
+
+    public void setSemanticaE_1() {
+        this.pantalla.setsE_1();
     }
 
 }

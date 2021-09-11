@@ -1,7 +1,9 @@
 package Controller.Semantica;
 
 import Model.Errores;
+import Model.Semantica_E_1;
 import Model.Variable;
+import Vista.Pantalla;
 import java.util.LinkedList;
 
 /**
@@ -87,6 +89,23 @@ public class Etapa_1 {
         {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR"},
         {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR"}
     };
+//Residuos
+    private final String[][] matrizResiduos = new String[][]{
+        {"INT", "ERROR", "ERROR", "INT", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
+        {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
+        {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
+        {"INT", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
+        {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
+        {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
+        {"REG", "REG", "REG", "REG", "REG", "REG", "REG", "ERROR", "ERROR"},
+        {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
+        {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"}
+    };
+    private final Pantalla pantalla;
+
+    public Etapa_1(Pantalla pantalla) {
+        this.pantalla = pantalla;
+    }
 
     public void Reiniciar() {
         this.ids = new LinkedList();
@@ -113,32 +132,63 @@ public class Etapa_1 {
     public LinkedList<Errores> Resolver() {
         LinkedList<Errores> err = new LinkedList();
         String[] operador = new String[]{"/", "*", "+", "-", "<", ">=", "=>",
-            "<=", "=<", "!=", ">", "=", "#", "&", "&&", "||", "|"};
+            "<=", "=<", "!=", ">", "==", "#", "&", "&&", "||", "|"};
         for (String i : operador) {
             buscarOperador(err, i);
         }
-        igualar(err);
+        buscarIguales(err);
         return err;
     }
 
-    private void igualar(LinkedList<Errores> err) {
-        operadores.removeLast();
-        String id1 = ids.getFirst().getId().getFirst();
-        String id2 = ids.getLast().getId().getFirst();
-        String t1 = ids.getFirst().getTipo();
-        String t2 = ids.getLast().getTipo();
+    private void buscarIguales(LinkedList<Errores> err) {
+        int p = buscar("=");
+        while (p != -1) {
+            igualar(err, p);
+            p = buscar("=");
+        }
+    }
+
+    private void igualar(LinkedList<Errores> err, int p) {
+        operadores.remove(p);
+        Variable v = new Variable();
+        int aux = p + 1;
+        String id1 = ids.get(p).getId().getFirst();
+        String id2 = ids.get(aux).getId().getFirst();
+        String t1 = ids.get(p).getTipo();
+        String t2 = ids.get(aux).getTipo();
         int amb = ids.getFirst().getAmb();
-        if (!ids.getLast().isVariant()) {
-            if (!id2.equals(id1)) {
-                int l = ids.getFirst().getLinea();
+        boolean v1 = ids.get(p).isVariant();
+        boolean v2 = ids.get(aux).isVariant();
+        if (!v1 && !v2) {
+            if (!t1.equals(t2)) {
+                v.setId("V");
+                v.setVariant(true);
+                int l = ids.get(p).getLinea();
                 String lex = id1 + "=" + id2;
                 String msj = "No se puede igualar un: " + t1 + " a " + t2;
-                err.add(new Errores(l, 806, lex, msj, "Semantica:Etapa 1", amb));
+                err.add(new Errores(l, 807, lex, msj, "Semantica:Etapa 1", amb));
+                this.getSemanticaE_1().setErr();
+            } else {
+                v.setId("R");
+                v.setVariant(false);
             }
+        } else if (v1 && v2) {
+            v.setId("R");
+            v.setVariant(true);
+        } else if (v1 && !v2) {
+            v.setId("R");
+            v.setVariant(false);
+            v.setTipo(t1);
+        } else if (!v1 && v2) {
+            v.setId("R");
+            v.setVariant(false);
+            v.setTipo(t2);
+        } else {
+            System.err.println("oh oh");
         }
-        while (!ids.isEmpty()) {
-            ids.removeLast();
-        }
+        ids.remove(aux);
+        ids.remove(p);
+        ids.add(v);
     }
 
     private void buscarOperador(LinkedList<Errores> err, String op) {
@@ -170,17 +220,19 @@ public class Etapa_1 {
                 tipo(tipo, v, c, op, t);
             } else {
                 v.setVariant(true);
+                this.getSemanticaE_1().settV();
             }
         } else {
             tipo(t1, t2, v, c, op, t);
-
         }
         if (v.getTipo().equals("ERROR")) {
             int l = ids.get(p).getLinea();
             int amb = ids.get(p).getAmb();
             String msj = "No se puede desarrollar una " + op + " de " + tipo;
             err.add(new Errores(l, t, id1 + c + id2, msj, "Semantica:Etapa 1", amb));
+            this.getSemanticaE_1().setErr();
             v.setVariant(true);
+            this.getSemanticaE_1().settV();
         }
         ids.remove(aux);
         ids.remove(p);
@@ -232,7 +284,7 @@ public class Etapa_1 {
             case "=<":
             case "!=":
             case ">":
-            case "="://igual o ==
+            case "=="://igual o ==
                 op = "relacional";
                 t = 804;
                 v.setTipo(matrizRelacionales[fila][col]);
@@ -246,7 +298,16 @@ public class Etapa_1 {
                 t = 805;
                 v.setTipo(matrizLogicos[fila][col]);
                 break;
+            case "%":
+                op = "residuo";
+                t = 806;
+                v.setTipo(matrizResiduos[fila][col]);
+                break;
+            case "ERROR":
+                v.setVariant(true);
+                break;
         }
+        this.getSemanticaE_1().calcularTipo(v.getTipo());
     }
 
     private int sacarFilaColumaMD(String in) {
@@ -276,6 +337,14 @@ public class Etapa_1 {
 
     public LinkedList<String> getOperadores() {
         return operadores;
+    }
+
+    public Semantica_E_1 getSemanticaE_1() {
+        return pantalla.getsE_1().getLast();
+    }
+
+    public void setSemanticaE_1() {
+        this.pantalla.setsE_1();
     }
 
 }
