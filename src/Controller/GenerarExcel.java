@@ -141,16 +141,16 @@ public class GenerarExcel {
             row = hoja5.createRow(j);
             cell = row.createCell(0);
             cell.setCellValue(sE_1.get(i).getLinea());
-            ext = evaluar(ext, sE_1.get(i).gettC(), row.createCell(1));
-            ext = evaluar(ext, sE_1.get(i).gettS(), row.createCell(2));
-            ext = evaluar(ext, sE_1.get(i).gettE(), row.createCell(3));
-            ext = evaluar(ext, sE_1.get(i).gettR(), row.createCell(4));
-            ext = evaluar(ext, sE_1.get(i).gettB(), row.createCell(5));
-            ext = evaluar(ext, sE_1.get(i).gettX(), row.createCell(6));
-            ext = evaluar(ext, sE_1.get(i).gettG(), row.createCell(7));
-            ext = evaluar(ext, sE_1.get(i).gettO(), row.createCell(8));
-            ext = evaluar(ext, sE_1.get(i).gettF(), row.createCell(9));
-            ext = evaluar(ext, sE_1.get(i).gettV(), row.createCell(10));
+            ext = evaluar(ext, sE_1.get(i).gettC(), row.createCell(1), "CH");
+            ext = evaluar(ext, sE_1.get(i).gettS(), row.createCell(2), "S");
+            ext = evaluar(ext, sE_1.get(i).gettE(), row.createCell(3), "E");
+            ext = evaluar(ext, sE_1.get(i).gettR(), row.createCell(4), "R");
+            ext = evaluar(ext, sE_1.get(i).gettB(), row.createCell(5), "B");
+            ext = evaluar(ext, sE_1.get(i).gettX(), row.createCell(6), "X");
+            ext = evaluar(ext, sE_1.get(i).gettG(), row.createCell(7), "G");
+            ext = evaluar(ext, sE_1.get(i).gettO(), row.createCell(8), "O");
+            ext = evaluar(ext, sE_1.get(i).gettF(), row.createCell(9), "F");
+            ext = evaluar(ext, sE_1.get(i).gettV(), row.createCell(10), "V");
             cell = row.createCell(11);
             cell.setCellValue(sE_1.get(i).getAsig() + ext);
             cell = row.createCell(12);
@@ -171,10 +171,10 @@ public class GenerarExcel {
         }
     }
 
-    private String evaluar(String ext, int c, XSSFCell cell) {
+    private String evaluar(String ext, int c, XSSFCell cell, String l) {
         cell.setCellValue(c);
         if (c > 0) {
-            ext += " TC" + c;
+            ext += " T" + l + c;
         }
         return ext;
     }

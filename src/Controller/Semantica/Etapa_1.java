@@ -119,33 +119,59 @@ public class Etapa_1 {
         this.getIds().forEach(i -> idsAux.add(new Variable(i)));
         this.getOperadores().forEach(i -> operadoresAux.add(i));
         while (!idsAux.isEmpty()) {
-            e += idsAux.getLast().getId().getFirst();
+            e += idsAux.getFirst().getId().getFirst();
             if (!operadoresAux.isEmpty()) {
-                e += " " + operadoresAux.getLast() + " ";
-                operadoresAux.removeLast();
+                e += " " + operadoresAux.getFirst() + " ";
+                operadoresAux.removeFirst();
             }
-            idsAux.removeLast();
+            idsAux.removeFirst();
         }
         System.out.println(e + " ->  SE_1");
     }
 
     public LinkedList<Errores> Resolver() {
         LinkedList<Errores> err = new LinkedList();
-        String[] operador = new String[]{"/", "*", "+", "-", "<", ">=", "=>",
-            "<=", "=<", "!=", ">", "==", "#", "&", "&&", "||", "|"};
-        for (String i : operador) {
-            buscarOperador(err, i);
-        }
-        buscarIguales(err);
+        ResolverEcuacion(err);
         return err;
     }
 
-    private void buscarIguales(LinkedList<Errores> err) {
-        int p = buscar("=");
+    private void ResolverEcuacion(LinkedList<Errores> err) {
+        int p = BuscarOp("/", "*");
+        while (p != -1) {
+            ejecutar(p, err, operadores.get(p));
+            p = BuscarOp("/", "*");
+        }
+        p = BuscarOp("+", "-");
+        while (p != -1) {
+            ejecutar(p, err, operadores.get(p));
+            p = BuscarOp("+", "-");
+        }
+        p = BuscarIguales();
         while (p != -1) {
             igualar(err, p);
-            p = buscar("=");
+            p = BuscarIguales();
         }
+    }
+
+    private int BuscarOp(String op1, String op2) {
+        for (int i = 0; i < operadores.size(); i++) {
+            if (operadores.get(i).equals(op1) || operadores.get(i).equals(op2)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int BuscarIguales() {
+        LinkedList<String> aux = new LinkedList();
+        operadores.forEach(i -> aux.add(i));
+        while (!aux.isEmpty()) {
+            if (aux.getLast().equals("=")) {
+                return aux.size() - 1;
+            }
+            aux.removeLast();
+        }
+        return -1;
     }
 
     private void igualar(LinkedList<Errores> err, int p) {
@@ -161,16 +187,37 @@ public class Etapa_1 {
         boolean v2 = ids.get(aux).isVariant();
         if (!v1 && !v2) {
             if (!t1.equals(t2)) {
-                v.setId("V");
-                v.setVariant(true);
                 int l = ids.get(p).getLinea();
                 String lex = id1 + "=" + id2;
                 String msj = "No se puede igualar un: " + t1 + " a " + t2;
-                err.add(new Errores(l, 807, lex, msj, "Semantica:Etapa 1", amb));
-                this.getSemanticaE_1().setErr();
+                boolean error;
+                switch (t1) {
+                    case "EXP":
+                        error = !(t2.equals("REAL") || t2.equals("INT") || t2.equals("CHAR"));
+                        break;
+                    case "REAL":
+                        error = !(t2.equals("INT") || t2.equals("CHAR"));
+                        break;
+                    case "INT":
+                        error = !(t2.equals("CHAR"));
+                        break;
+                    default:
+                        error = true;
+                }
+                if (error) {
+                    v.setId("V");
+                    v.setVariant(true);
+                    err.add(new Errores(l, 807, lex, msj, "Semantica:Etapa 1", amb));
+                    this.getSemanticaE_1().setErr();
+                } else {
+                    v.setId("R");
+                    v.setVariant(false);
+                    v.setTipo(t1);
+                }
             } else {
                 v.setId("R");
                 v.setVariant(false);
+                v.setTipo(t1);
             }
         } else if (v1 && v2) {
             v.setId("R");
@@ -189,14 +236,6 @@ public class Etapa_1 {
         ids.remove(aux);
         ids.remove(p);
         ids.add(v);
-    }
-
-    private void buscarOperador(LinkedList<Errores> err, String op) {
-        int p = buscar(op);
-        while (p != -1) {
-            ejecutar(p, err, op);
-            p = buscar(op);
-        }
     }
 
     private void ejecutar(int p, LinkedList<Errores> err, String c) {
@@ -315,18 +354,6 @@ public class Etapa_1 {
             if (entradas[i].equals(in)) {
                 return i;
             }
-        }
-        return -1;
-    }
-
-    private int buscar(String op) {
-        LinkedList<String> aux = new LinkedList();
-        operadores.forEach(i -> aux.add(i));
-        while (!aux.isEmpty()) {
-            if (aux.getLast().equals(op)) {
-                return aux.size() - 1;
-            }
-            aux.removeLast();
         }
         return -1;
     }

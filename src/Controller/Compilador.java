@@ -135,10 +135,10 @@ public class Compilador implements ActionListener {
         {615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 615, 11, 52, 47, 11, 11, 11, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 11, 11, 11, 11, 11, 11, 53, 11, 11, 53, 53, 53, 53, 11, 11, 11, 11, 11, 11, 11, 11, 11, 48, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615, 615},
         {616, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 49, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 616, 50},
         {604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 51, 604, 604, 604, 604, 11, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604},
-        {617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 617, 11, 617, 617, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 11, 11, 11, 11, 54, 617, 617, 54, 54, 54, 54, 11, 11, 11, 11, 11, 11, 11, 11, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617},
+        {617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 617, 11, 617, 617, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 11, 11, 11, 11, 54, 11, 617, 54, 54, 54, 54, 11, 11, 11, 11, 11, 11, 11, 11, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617},
         {618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 55, 56, 57, 58, 59, 60, 61, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618},
         {607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 62, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607},
-        {607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 607, 11, 63, 607, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 11, 11, 11, 11, 11, 11, 11, 607, 607, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607},
+        {607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 607, 11, 63, 607, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 607, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607},
         {612, 64, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 64, 612, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 64},
         {619, 11, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 11, 619, 65, 66, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 11},
         {620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 620, 11, 620, 620, 11, 69, 69, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 11, 11, 11, 11, 11, 11, 11, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 67, 68, 11, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 620, 620, 620, 620},
@@ -232,7 +232,7 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("CONSTANTE_S/SIGNO", "Cont_true"));
         producciones.add(new Producciones("CONSTANTE_S/SIGNO", "Cont_false"));
         producciones.add(new Producciones("CONSTANTE_S/SIGNO", "Cont_exponencial")); //21312e+45
-        producciones.add(new Producciones("ARREGLO", "[ EXP_PASCAL ] G1"));
+        producciones.add(new Producciones("ARREGLO", "ISARR [ EXP_PASCAL ] G1 ISARR"));
         producciones.add(new Producciones("G1", "[ EXP_PASCAL ] G1"));
         producciones.add(new Producciones("SIMPLE_EXP_PASCAL", "H1 TERMINO_PASCAL H2"));
         producciones.add(new Producciones("H1", "+"));
@@ -495,6 +495,7 @@ public class Compilador implements ActionListener {
                     boolean REVISAR = false;
                     boolean POSPONER = false;
                     boolean POSPONER2 = false;
+                    boolean ISARR = false;
                     setSemanticaE_1();
                     Etapa_1 sE_1 = new Etapa_1(pantalla);
                     sE_1.Reiniciar();
@@ -665,14 +666,14 @@ public class Compilador implements ActionListener {
                                 break;
                             case "Cont_real":
                                 var.setTipo("REAL");
-                                if (INIAS) {
+                                if (INIAS && !ISARR) {
                                     sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "REAL"));
                                 }
                                 break;
                             case "Cont_exponencial":
                                 var.setTipo("EXP");
-                                if (INIAS) {
+                                if (INIAS && !ISARR) {
                                     sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "EXP"));
                                 }
@@ -680,7 +681,7 @@ public class Compilador implements ActionListener {
                             case "Cont_cadena":
                                 var.setTipo("CHAR");
                                 var.setClase("Constante/Arr");
-                                if (INIAS) {
+                                if (INIAS && !ISARR) {
                                     sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "CHAR[]"));
                                     sE_1.getIds().getLast().setClase("Arr");
@@ -688,14 +689,14 @@ public class Compilador implements ActionListener {
                                 break;
                             case "Cont_caracter":
                                 var.setTipo("CHAR");
-                                if (INIAS) {
+                                if (INIAS && !ISARR) {
                                     sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "INT"));
                                 }
                                 break;
                             case "Cont_entero":
                                 var.setTipo("INT");
-                                if (INIAS) {
+                                if (INIAS && !ISARR) {
                                     sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "INT"));
                                 }
@@ -703,7 +704,7 @@ public class Compilador implements ActionListener {
                             case "Cont_true":
                             case "Cont_false":
                                 var.setTipo("BOOL");
-                                if (INIAS) {
+                                if (INIAS && !ISARR) {
                                     sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                             tonk.getFirst().getLiena(), "BOOL"));
                                 }
@@ -730,6 +731,9 @@ public class Compilador implements ActionListener {
                                         contar(509);
                                     });
                                 }
+                                break;
+                            case "ISARR":
+                                ISARR = !ISARR;
                                 break;
                         }
                         //System.out.println(pila.getLast() + " vs " + tonk.getFirst().getSintaxis());
@@ -760,7 +764,7 @@ public class Compilador implements ActionListener {
                             }
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
                                 && entradaDePila == entradaDeTokens) {
-                            if (INIAS) {
+                            if (INIAS && !ISARR) {
                                 switch (pila.getLast()) {
                                     case "+=":
                                         sE_1.getOperadores().add("=");
@@ -986,7 +990,9 @@ public class Compilador implements ActionListener {
                                     ambitosTotales.getLast().setErrores();
                                 }
                                 varAux.setLinea(linea);
-                                sE_1.getIds().add(varAux);
+                                if (!ISARR) {
+                                    sE_1.getIds().add(varAux);
+                                }
                             }
                             pila.removeLast();
                             tonk.removeFirst();
