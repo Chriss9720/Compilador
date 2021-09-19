@@ -89,7 +89,7 @@ public class Etapa_1 {
         {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR"},
         {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR"}
     };
-//Residuos
+    //Residuos
     private final String[][] matrizResiduos = new String[][]{
         {"INT", "ERROR", "ERROR", "INT", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
         {"ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "REG", "ERROR", "ERROR"},
@@ -162,7 +162,6 @@ public class Etapa_1 {
             igualar(err, p);
             p = BuscarIguales();
         }
-
     }
 
     private int BuscarOp(String[] opers) {
@@ -272,17 +271,16 @@ public class Etapa_1 {
         if (v1 || v2) {
             if (!v1 && v2) {
                 tipo = t1;
-                tipo(tipo, v, c);
+                v = tipo(tipo, v, c);
             } else if (v1 && !v2) {
                 tipo = t2;
-                tipo(tipo, v, c);
+                v = tipo(tipo, v, c);
             } else {
                 v.setVariant(true);
                 this.getSemanticaE_1().settV();
             }
         } else {
-            tipo = t1;
-            tipo(t1, t2, v, c);
+            v = tipo(t1, t2, v, c);
         }
         if (v.getTipo().equals("ERROR")) {
             int l = ids.get(p).getLinea();
