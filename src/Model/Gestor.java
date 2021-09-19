@@ -241,7 +241,7 @@ public class Gestor {
     public Variable existe(String id, LinkedList<Integer> amb) {
         abrir();
         boolean r;
-        Variable v = new Variable();
+        Variable v null;
         try {
             do {
                 if (amb.isEmpty()) {
@@ -259,18 +259,18 @@ public class Gestor {
                 rs = pst.executeQuery();
                 r = rs.next();
                 amb.removeLast();
+                if (r) {
+                    v = new Variable();
+                    v.Cargar(rs);
+                    cerrar();
+                    return v;
+                }
             } while (!r);
-            if (r) {
-                v.Cargar(rs);
-            } else {
-                return null;
-            }
-            cerrar();
         } catch (Exception e) {
             System.out.println("Fallo al verificar si existe: " + e);
         }
         cerrar();
-        return v;
+        return null;
     }
 
     public boolean validarREG(String id, LinkedList<Integer> amb) {
