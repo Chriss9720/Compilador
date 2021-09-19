@@ -10,6 +10,8 @@ import java.util.LinkedList;
 public class Variable extends Ids {
     
     private final LinkedList<String> id;
+    private String op;
+    private int TE;
     
     public Variable() {
         this.id = new LinkedList();
@@ -20,6 +22,24 @@ public class Variable extends Ids {
         this.dimArr = "";
         this.noPar = 0;
         this.tPar = "";
+        this.op = "";
+        this.TE = 800;
+    }
+
+    public String getOp() {
+        return op;
+    }
+
+    public void setOp(String op) {
+        this.op = op;
+    }
+
+    public int getTE() {
+        return TE;
+    }
+
+    public void setTE(int TE) {
+        this.TE = TE;
     }
     
     public Variable(LinkedList<String> id) {

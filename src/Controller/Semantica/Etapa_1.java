@@ -16,7 +16,7 @@ public class Etapa_1 {
     private LinkedList<String> operadores = new LinkedList();
 
     private final String[] entradas = new String[]{
-        "INT", "REAL", "EXP", "CHAR", "CHAR[]", "BOOL", "REG", "VOID ", "FILE"};
+        "INT", "REAL", "EXP", "CHAR", "CHAR[]", "BOOL", "REG", "VOID", "FILE"};
     //Para la suma
     private final String[][] matrizSuma = new String[][]{
         {"INT", "REAL", "EXP", "INT", "CHAR[]", "ERROR", "REG", "ERROR", "ERROR"},
@@ -132,34 +132,55 @@ public class Etapa_1 {
     public LinkedList<Errores> Resolver() {
         LinkedList<Errores> err = new LinkedList();
         ResolverEcuacion(err);
+        ids.forEach(v -> System.out.print(v.getId().getLast() + "\t"));
+        System.out.println("");
+        operadores.forEach(o -> System.out.print(o + "\t"));
         return err;
     }
 
     private void ResolverEcuacion(LinkedList<Errores> err) {
-        int p = BuscarOp("/", "*");
+        String[] oprs = new String[]{"/", "*", "#", "&", "%", "&&"};
+        int p = BuscarOp(oprs);
         while (p != -1) {
             ejecutar(p, err, operadores.get(p));
-            p = BuscarOp("/", "*");
+            p = BuscarOp(oprs);
         }
-        p = BuscarOp("+", "-");
+        oprs = new String[]{"+", "-", "|", "||"};
+        p = BuscarOp(oprs);
         while (p != -1) {
             ejecutar(p, err, operadores.get(p));
-            p = BuscarOp("+", "-");
+            p = BuscarOp(oprs);
+        }
+        oprs = new String[]{"<", ">=", "=>", "<=", "=<", "!=", "==", ">"};
+        p = BuscarOp(oprs);
+        while (p != -1) {
+            ejecutar(p, err, operadores.get(p));
+            p = BuscarOp(oprs);
         }
         p = BuscarIguales();
         while (p != -1) {
             igualar(err, p);
             p = BuscarIguales();
         }
+
     }
 
-    private int BuscarOp(String op1, String op2) {
+    private int BuscarOp(String[] opers) {
         for (int i = 0; i < operadores.size(); i++) {
-            if (operadores.get(i).equals(op1) || operadores.get(i).equals(op2)) {
+            if (BuscarOper(opers, operadores.get(i))) {
                 return i;
             }
         }
         return -1;
+    }
+
+    private boolean BuscarOper(String[] opers, String c) {
+        for (String op : opers) {
+            if (op.equals(c)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private int BuscarIguales() {
@@ -240,7 +261,6 @@ public class Etapa_1 {
 
     private void ejecutar(int p, LinkedList<Errores> err, String c) {
         Variable v = new Variable();
-        int t = 800;
         int aux = p + 1;
         boolean v1 = ids.get(p).isVariant();
         boolean v2 = ids.get(aux).isVariant();
@@ -249,26 +269,26 @@ public class Etapa_1 {
         String t1 = ids.get(p).getTipo();
         String t2 = ids.get(aux).getTipo();
         String tipo = "";
-        String op = "";
         if (v1 || v2) {
             if (!v1 && v2) {
                 tipo = t1;
-                tipo(tipo, v, c, op, t);
+                tipo(tipo, v, c);
             } else if (v1 && !v2) {
                 tipo = t2;
-                tipo(tipo, v, c, op, t);
+                tipo(tipo, v, c);
             } else {
                 v.setVariant(true);
                 this.getSemanticaE_1().settV();
             }
         } else {
-            tipo(t1, t2, v, c, op, t);
+            tipo = t1;
+            tipo(t1, t2, v, c);
         }
         if (v.getTipo().equals("ERROR")) {
             int l = ids.get(p).getLinea();
             int amb = ids.get(p).getAmb();
-            String msj = "No se puede desarrollar una " + op + " de " + tipo;
-            err.add(new Errores(l, t, id1 + c + id2, msj, "Semantica:Etapa 1", amb));
+            String msj = "No se puede desarrollar una " + v.getOp() + " de " + tipo;
+            err.add(new Errores(l, v.getTE(), id1 + c + id2, msj, "Semantica:Etapa 1", amb));
             this.getSemanticaE_1().setErr();
             v.setVariant(true);
             this.getSemanticaE_1().settV();
@@ -280,41 +300,41 @@ public class Etapa_1 {
         operadores.remove(p);
     }
 
-    private Variable tipo(String t1, String t2, Variable v, String c, String op, int t) {
+    private Variable tipo(String t1, String t2, Variable v, String c) {
         int fila = sacarFilaColumaMD(t1);
         int col = sacarFilaColumaMD(t2);
-        ponerTipo(v, c, fila, col, op, t);
+        ponerTipo(v, c, fila, col);
         return v;
     }
 
-    private Variable tipo(String t1, Variable v, String c, String op, int t) {
+    private Variable tipo(String t1, Variable v, String c) {
         int fila = sacarFilaColumaMD(t1);
         int col = sacarFilaColumaMD(t1);
-        ponerTipo(v, c, fila, col, op, t);
+        ponerTipo(v, c, fila, col);
         return v;
     }
 
-    private void ponerTipo(Variable v, String c, int fila, int col, String op, int t) {
+    private void ponerTipo(Variable v, String c, int fila, int col) {
         switch (c) {
             case "/":
                 v.setTipo(matrizDiv[fila][col]);
-                op = "division";
-                t = 800;
+                v.setOp("division");
+                v.setTE(800);
                 break;
             case "*":
                 v.setTipo(matrizMultiplicacion[fila][col]);
-                op = "multiplicacion";
-                t = 801;
+                v.setOp("multiplicacion");
+                v.setTE(801);
                 break;
             case "+":
-                op = "suma";
-                t = 802;
                 v.setTipo(matrizSuma[fila][col]);
+                v.setOp("suma");
+                v.setTE(802);
                 break;
             case "-":
-                op = "resta";
-                t = 803;
                 v.setTipo(matrizResta[fila][col]);
+                v.setOp("resta");
+                v.setTE(803);
                 break;
             case "<":
             case ">=":
@@ -324,26 +344,28 @@ public class Etapa_1 {
             case "!=":
             case ">":
             case "=="://igual o ==
-                op = "relacional";
-                t = 804;
                 v.setTipo(matrizRelacionales[fila][col]);
+                v.setOp("relacional");
+                v.setTE(804);
                 break;
             case "#":
             case "&":
             case "&&":
             case "||":
             case "|":
-                op = "logicos";
-                t = 805;
                 v.setTipo(matrizLogicos[fila][col]);
+                v.setOp("logicos");
+                v.setTE(805);
                 break;
             case "%":
-                op = "residuo";
-                t = 806;
                 v.setTipo(matrizResiduos[fila][col]);
+                v.setOp("residuo");
+                v.setTE(806);
                 break;
             case "ERROR":
                 v.setVariant(true);
+                v.setOp(c);
+                v.setTE(807);
                 break;
         }
         this.getSemanticaE_1().calcularTipo(v.getTipo());

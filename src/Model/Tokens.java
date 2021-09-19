@@ -97,7 +97,7 @@ public class Tokens {
             case -39:
                 return ">=";
             case -40: //==
-                return "";
+                return "==";
             case -41:
                 return "!=";
             case -42:
