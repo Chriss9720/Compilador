@@ -241,7 +241,7 @@ public class Gestor {
     public Variable existe(String id, LinkedList<Integer> amb) {
         abrir();
         boolean r;
-        Variable v null;
+        Variable v;
         try {
             do {
                 if (amb.isEmpty()) {

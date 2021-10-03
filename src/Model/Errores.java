@@ -6,11 +6,12 @@ package Model;
  */
 public class Errores {
 
-    private final int liena, numero;
+    private final int liena;
     private final String lexema;
     private final String Desc;
     private final String tipo;
     private int amb;
+    private int numero;
 
     public Errores(int liena, int numero, String lexema, String Desc, String tipo, int amb) {
         this.liena = liena;
@@ -27,6 +28,10 @@ public class Errores {
         this.lexema = err.getLexema();
         this.Desc = err.getDesc();
         this.tipo = err.getTipo();
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public int getAmb() {

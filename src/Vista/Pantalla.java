@@ -8,6 +8,7 @@ import Model.Action;
 import Model.Ambito;
 import Model.Keys;
 import Model.Semantica_E_1;
+import Model.Semantica_E_2;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,6 +39,7 @@ public class Pantalla extends JFrame {
     private final JLabel tiempo = new JLabel("0000");
     private LinkedList<Ambito> amb = new LinkedList();
     private LinkedList<Semantica_E_1> sE_1 = new LinkedList();
+    private LinkedList<Semantica_E_2> sE_2 = new LinkedList();
 
     public Pantalla() {
         init();
@@ -270,6 +272,14 @@ public class Pantalla extends JFrame {
 
     public void setsE_1() {
         this.sE_1 = new LinkedList();
+    }
+
+    public LinkedList<Semantica_E_2> getsE_2() {
+        return sE_2;
+    }
+
+    public void setsE_2() {
+        this.sE_2 = new LinkedList();
     }
 
 }

@@ -1,6 +1,7 @@
 package Controller;
 
 import Controller.Semantica.Etapa_1;
+import Controller.Semantica.Etapa_2;
 import Model.*;
 import Vista.Pantalla;
 import java.awt.event.ActionEvent;
@@ -150,7 +151,7 @@ public class Compilador implements ActionListener {
         {604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 11, 81, 604, 11, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604},
         {607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 607, 11, 83, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607},
         {604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 11, 84, 604, 11, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604},
-        {624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 11, 624, 624, 11, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 11, 86, 624, 624},
+        {624, 11, 624, 624, 624, 624, 624, 624, 624, 624, 624, 11, 11, 624, 11, 624, 11, 11, 624, 624, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 624, 11, 624, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 86, 624, 11},
         {603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 88, 603, 603, 11, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603, 603},
         {612, 91, 612, 612, 612, 612, 612, 612, 612, 612, 612, 11, 612, 612, 612, 612, 91, 612, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 91},
         {604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 11, 92, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604, 604},
@@ -255,18 +256,18 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("ESTATUTOS", "<< I1 REVISAR id I3 I4"));
         producciones.add(new Producciones("I3", "ARREGLO"));
         producciones.add(new Producciones("I4", ", REVISAR id I3 I4"));
-        producciones.add(new Producciones("ESTATUTOS", "if ( EXP_PASCAL ) ESTATUTOS I5"));
+        producciones.add(new Producciones("ESTATUTOS", "if ( 1010I EXP_PASCAL 1010F ) ESTATUTOS I5"));
         producciones.add(new Producciones("I5", "else ESTATUTOS"));
         producciones.add(new Producciones("ESTATUTOS", "{ ESTATUTOS I6 }"));
         producciones.add(new Producciones("I6", "; ESTATUTOS I6"));
-        producciones.add(new Producciones("ESTATUTOS", "repeat ESTATUTOS until ( EXP_PASCAL )"));
+        producciones.add(new Producciones("ESTATUTOS", "repeat ESTATUTOS until ( 1012I EXP_PASCAL 1012F )"));
         producciones.add(new Producciones("ESTATUTOS", "for ( I7 ; I9 ; I10 ) ESTATUTOS"));
         producciones.add(new Producciones("I7", "EXP_PASCAL I8"));
         producciones.add(new Producciones("I8", ", EXP_PASCAL I8"));
         producciones.add(new Producciones("I9", "EXP_PASCAL"));
         producciones.add(new Producciones("I10", "ESTATUTOS I11"));
         producciones.add(new Producciones("I11", ", ESTATUTOS I11"));
-        producciones.add(new Producciones("ESTATUTOS", "while ( EXP_PASCAL ) ESTATUTOS , CONSTANTE_S/SIGNO ∶ ESTATUTOS I12 }"));
+        producciones.add(new Producciones("ESTATUTOS", "while ( 1011I EXP_PASCAL 1011F ) ESTATUTOS , CONSTANTE_S/SIGNO ∶ ESTATUTOS I12 }"));
         producciones.add(new Producciones("I12", "default ∶ ESTATUTOS"));
         producciones.add(new Producciones("I12", "break ; case CONSTANTE_S/SIGNO I13 ∶ ESTATUTOS I12"));
         producciones.add(new Producciones("I13", ", CONSTANTE_S/SIGNO I13"));
@@ -495,21 +496,27 @@ public class Compilador implements ActionListener {
                     boolean REVISAR = false;
                     boolean POSPONER = false;
                     boolean POSPONER2 = false;
+                    boolean INIAS = false;
                     boolean ISARR = false;
+                    boolean paraBool = false;
+                    boolean paraBoolAux = false;
+                    int clave = 1010;
                     setSemanticaE_1();
+                    setSemanticaE_2();
                     Etapa_1 sE_1 = new Etapa_1(pantalla);
+                    Etapa_2 sE_2 = new Etapa_2();
                     sE_1.Reiniciar();
-                    LinkedList<Errores> listaAux = new LinkedList();
+                    Variable auxSe2;
                     ObjTemp temp = new ObjTemp();
                     Registro reg = new Registro();
                     Variable var = new Variable();
                     Variable simple = new Variable();
                     Funcion func = new Funcion();
+                    LinkedList<Errores> listaAux = new LinkedList();
                     LinkedList<Integer> amb = new LinkedList();
                     ambitosTotales = new LinkedList();
                     ambitosTotales.add(new Ambito(0));
                     amb.add(ambitosTotales.getLast().getAmbito());
-                    boolean INIAS = false;
                     while (!pila.isEmpty() && !tonk.isEmpty() && EFB && VR) {
                         switch (pila.getLast()) {
                             case "REGISTRO":
@@ -666,47 +673,80 @@ public class Compilador implements ActionListener {
                                 break;
                             case "Cont_real":
                                 var.setTipo("REAL");
-                                if (INIAS && !ISARR) {
-                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                            tonk.getFirst().getLiena(), "REAL"));
+                                if (!ISARR) {
+                                    if (INIAS || paraBool) {
+                                        sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
+                                                tonk.getFirst().getLiena(), "REAL"));
+                                        sE_1.getIds().getLast().setClave(clave);
+                                        sE_1.getIds().getLast().setTope("Cont_real");
+                                    }
                                 }
                                 break;
                             case "Cont_exponencial":
                                 var.setTipo("EXP");
-                                if (INIAS && !ISARR) {
-                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                            tonk.getFirst().getLiena(), "EXP"));
+                                if (!ISARR) {
+                                    if (INIAS || paraBool) {
+                                        sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
+                                                tonk.getFirst().getLiena(), "EXP"));
+                                        sE_1.getIds().getLast().setClave(clave);
+                                        sE_1.getIds().getLast().setTope("Cont_exponencial");
+                                    }
                                 }
                                 break;
                             case "Cont_cadena":
                                 var.setTipo("CHAR");
                                 var.setClase("Constante/Arr");
-                                if (INIAS && !ISARR) {
-                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                            tonk.getFirst().getLiena(), "CHAR[]"));
-                                    sE_1.getIds().getLast().setClase("Arr");
+                                if (!ISARR) {
+                                    if (INIAS || paraBool) {
+                                        sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
+                                                tonk.getFirst().getLiena(), "CHAR[]"));
+                                        sE_1.getIds().getLast().setClase("Arr");
+                                        sE_1.getIds().getLast().setClave(clave);
+                                        sE_1.getIds().getLast().setTope("Cont_exponencial");
+                                    }
                                 }
                                 break;
                             case "Cont_caracter":
                                 var.setTipo("CHAR");
-                                if (INIAS && !ISARR) {
-                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                            tonk.getFirst().getLiena(), "INT"));
+                                if (!ISARR) {
+                                    if (INIAS || paraBool) {
+                                        sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
+                                                tonk.getFirst().getLiena(), "INT"));
+                                        sE_1.getIds().getLast().setClave(clave);
+                                        sE_1.getIds().getLast().setTope("Cont_caracter");
+                                    }
                                 }
                                 break;
                             case "Cont_entero":
                                 var.setTipo("INT");
-                                if (INIAS && !ISARR) {
-                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                            tonk.getFirst().getLiena(), "INT"));
+                                if (!ISARR) {
+                                    if (INIAS || paraBool) {
+                                        sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
+                                                tonk.getFirst().getLiena(), "INT"));
+                                        sE_1.getIds().getLast().setClave(clave);
+                                        sE_1.getIds().getLast().setTope("Cont_entero");
+                                    }
                                 }
                                 break;
                             case "Cont_true":
                             case "Cont_false":
+                                String topeAux = "";
+                                switch (pila.getLast()) {
+                                    case "Cont_true":
+                                        topeAux = "Cont_true";
+                                        break;
+                                    case "Cont_false":
+                                        topeAux = "Cont_false";
+                                        break;
+                                }
                                 var.setTipo("BOOL");
-                                if (INIAS && !ISARR) {
-                                    sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                            tonk.getFirst().getLiena(), "BOOL"));
+                                if (!ISARR) {
+                                    if (INIAS || paraBool) {
+                                        sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
+                                                tonk.getFirst().getLiena(), "BOOL"));
+                                        sE_1.getIds().getLast().setClave(clave);
+                                        sE_1.getIds().getLast().setTope(topeAux);
+                                    }
                                 }
                                 break;
                             case "INIAS":
@@ -725,15 +765,75 @@ public class Compilador implements ActionListener {
                                 pila.removeLast();
                                 if (Buscar(pila)) {
                                     INIAS = false;
+                                    boolean acept = true;
                                     sE_1.mostrarEcuacion();
-                                    sE_1.Resolver().forEach(e -> {
-                                        err.add(new Errores(e));
+                                    for (Errores i : sE_1.Resolver()) {
+                                        if (i.getNumero() == 807 && acept) {
+                                            acept = false;
+                                        }
+                                        i.setNumero(clave);
+                                        err.add(new Errores(i));
                                         contar(509);
-                                    });
+                                    }
+                                    auxSe2 = sE_1.getIds().getFirst();
+                                    auxSe2.setTope("id");
+                                    if (acept) {
+                                        getSemanticaE_2().add(new Semantica_E_2(
+                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
+                                            auxSe2.getLinea(), "Acept", auxSe2.getAmb()));
+                                    } else {
+                                        getSemanticaE_2().add(new Semantica_E_2(
+                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
+                                            auxSe2.getLinea(), "ERROR", auxSe2.getAmb()));
+                                    }
+                                    getSemanticaE_2().forEach(item -> System.out.println(item.toString()));
                                 }
                                 break;
                             case "ISARR":
                                 ISARR = !ISARR;
+                                break;
+                            case "1010I":
+                            case "1011I":
+                            case "1012I":
+                                paraBoolAux = true;
+                                switch (pila.getLast()) {
+                                    case "1010I":
+                                        clave = 1010;
+                                        break;
+                                    case "1011I":
+                                        clave = 1011;
+                                        break;
+                                    case "1012I":
+                                        clave = 1012;
+                                        break;
+                                }
+                                pila.removeLast();
+                                paraBool = true;
+                                sE_1.Reiniciar();
+                                setSemanticaE_2();
+                                break;
+                            case "1010F":
+                            case "1011F":
+                            case "1012F":
+                                pila.removeLast();
+                                sE_1.mostrarEcuacion();
+                                sE_1.Resolver().forEach(e -> {
+                                    err.add(new Errores(e));
+                                    contar(509);
+                                });
+                                auxSe2 = sE_1.getIds().getFirst();
+                                if (sE_2.Filtro(clave, auxSe2.getTipo())) {
+                                    getSemanticaE_2().add(new Semantica_E_2(
+                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
+                                            auxSe2.getLinea(), "Acept", auxSe2.getAmb()));
+                                } else {
+                                    err.add(new Errores(auxSe2.getLinea(), clave,
+                                            auxSe2.getTope(), "Debe de ser un BOOL lo que este entre ()",
+                                            "Semantica Etapa 2", auxSe2.getAmb()));
+                                    getSemanticaE_2().add(new Semantica_E_2(
+                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
+                                            auxSe2.getLinea(), "ERROR", auxSe2.getAmb()));
+                                }
                                 break;
                         }
                         //System.out.println(pila.getLast() + " vs " + tonk.getFirst().getSintaxis());
@@ -764,27 +864,35 @@ public class Compilador implements ActionListener {
                             }
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
                                 && entradaDePila == entradaDeTokens) {
-                            if (INIAS && !ISARR) {
+                            if ((INIAS || paraBool) && !ISARR) {
                                 switch (pila.getLast()) {
                                     case "+=":
+                                        clave = 1021;
                                         sE_1.getOperadores().add("=");
                                         sE_1.getIds().add(sE_1.getIds().getLast());
                                         sE_1.getOperadores().add("+");
                                         break;
                                     case "/=":
+                                        clave = 1022;
                                         sE_1.getOperadores().add("=");
                                         sE_1.getIds().add(sE_1.getIds().getLast());
                                         sE_1.getOperadores().add("/");
                                         break;
                                     case "*=":
+                                        clave = 1022;
                                         sE_1.getOperadores().add("=");
                                         sE_1.getIds().add(sE_1.getIds().getLast());
                                         sE_1.getOperadores().add("*");
                                         break;
                                     case "-=":
+                                        clave = 1022;
                                         sE_1.getOperadores().add("=");
                                         sE_1.getIds().add(sE_1.getIds().getLast());
                                         sE_1.getOperadores().add("-");
+                                        break;
+                                    case "=":
+                                        clave = 1020;
+                                        sE_1.getOperadores().add(pila.getLast());
                                         break;
                                     case "+":
                                     case "-":
@@ -802,7 +910,6 @@ public class Compilador implements ActionListener {
                                     case "%":
                                     case "&":
                                     case "&&":
-                                    case "=":
                                         sE_1.getOperadores().add(pila.getLast());
                                         break;
                                 }
@@ -990,9 +1097,17 @@ public class Compilador implements ActionListener {
                                     contar(512);
                                     ambitosTotales.getLast().setErrores();
                                 }
+                                varAux.setTope("id");
                                 varAux.setLinea(linea);
                                 if (!ISARR) {
                                     sE_1.getIds().add(varAux);
+                                }
+                                if (paraBoolAux) {
+                                    paraBoolAux = false;
+                                    Variable auxVar = sE_1.getIds().getLast();
+                                    sE_1.Reiniciar();
+                                    sE_1.getIds().add(auxVar);
+                                    sE_1.getIds().getLast().setClave(clave);
                                 }
                             }
                             pila.removeLast();
@@ -1057,10 +1172,10 @@ public class Compilador implements ActionListener {
     private void remover() {
         for (int i = tonk.size() - 1; i > -1; i--) {
             if (tonk.get(i).getToken() == -2 || tonk.get(i).getToken() == -3
-                    || tonk.get(i).getToken() == -29 || tonk.get(i).getToken() == -5 
-                    || tonk.get(i).getToken() == -7 || tonk.get(i).getToken() == -9 
-                    || tonk.get(i).getToken() == -10 || tonk.get(i).getToken() == -12 
-                    || tonk.get(i).getToken() == -13 || tonk.get(i).getToken() == -14 
+                    || tonk.get(i).getToken() == -29 || tonk.get(i).getToken() == -5
+                    || tonk.get(i).getToken() == -7 || tonk.get(i).getToken() == -9
+                    || tonk.get(i).getToken() == -10 || tonk.get(i).getToken() == -12
+                    || tonk.get(i).getToken() == -13 || tonk.get(i).getToken() == -14
                     || tonk.get(i).getToken() == -15 || tonk.get(i).getToken() == -16) {
                 tonk.remove(i);
             }
@@ -1428,6 +1543,14 @@ public class Compilador implements ActionListener {
 
     public void setSemanticaE_1() {
         this.pantalla.setsE_1();
+    }
+
+    public LinkedList<Semantica_E_2> getSemanticaE_2() {
+        return pantalla.getsE_2();
+    }
+
+    public void setSemanticaE_2() {
+        this.pantalla.setsE_2();
     }
 
 }

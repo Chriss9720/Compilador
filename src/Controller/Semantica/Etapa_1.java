@@ -14,6 +14,7 @@ public class Etapa_1 {
 
     private LinkedList<Variable> ids = new LinkedList();
     private LinkedList<String> operadores = new LinkedList();
+    private int clave;
 
     private final String[] entradas = new String[]{
         "INT", "REAL", "EXP", "CHAR", "CHAR[]", "BOOL", "REG", "VOID", "FILE"};
@@ -132,8 +133,6 @@ public class Etapa_1 {
     public LinkedList<Errores> Resolver() {
         LinkedList<Errores> err = new LinkedList();
         ResolverEcuacion(err);
-        ids.forEach(v -> System.out.print(v.getId().getLast() + "\t"));
-        System.out.println("");
         operadores.forEach(o -> System.out.print(o + "\t"));
         return err;
     }
@@ -205,6 +204,7 @@ public class Etapa_1 {
         int amb = ids.getFirst().getAmb();
         boolean v1 = ids.get(p).isVariant();
         boolean v2 = ids.get(aux).isVariant();
+        int linea = ids.get(p).getLinea();
         if (!v1 && !v2) {
             if (!t1.equals(t2)) {
                 int l = ids.get(p).getLinea();
@@ -225,34 +225,30 @@ public class Etapa_1 {
                         error = true;
                 }
                 if (error) {
-                    v.setId("V");
                     v.setVariant(true);
                     err.add(new Errores(l, 807, lex, msj, "Semantica:Etapa 1", amb));
                     this.getSemanticaE_1().setErr();
                 } else {
-                    v.setId("R");
                     v.setVariant(false);
                     v.setTipo(t1);
                 }
             } else {
-                v.setId("R");
                 v.setVariant(false);
                 v.setTipo(t1);
             }
         } else if (v1 && v2) {
-            v.setId("R");
             v.setVariant(true);
         } else if (v1 && !v2) {
-            v.setId("R");
             v.setVariant(false);
             v.setTipo(t1);
         } else if (!v1 && v2) {
-            v.setId("R");
             v.setVariant(false);
             v.setTipo(t2);
         } else {
             System.err.println("oh oh");
         }
+        v.setLinea(linea);
+        v.setId(id1);
         ids.remove(aux);
         ids.remove(p);
         ids.add(v);
@@ -268,6 +264,9 @@ public class Etapa_1 {
         String t1 = ids.get(p).getTipo();
         String t2 = ids.get(aux).getTipo();
         String tipo = "";
+        String tope = ids.get(p).getTope();
+        int linea = ids.get(p).getLinea();
+        clave = ids.get(p).getClave();
         if (v1 || v2) {
             if (!v1 && v2) {
                 tipo = t1;
@@ -294,6 +293,8 @@ public class Etapa_1 {
         ids.remove(aux);
         ids.remove(p);
         v.setId(id1);
+        v.setTope(tope);
+        v.setLinea(linea);
         ids.add(p, v);
         operadores.remove(p);
     }
@@ -366,7 +367,9 @@ public class Etapa_1 {
                 v.setTE(807);
                 break;
         }
-        this.getSemanticaE_1().calcularTipo(v.getTipo());
+        if (clave != 1010 && clave != 1011 && clave != 1012) {
+            this.getSemanticaE_1().calcularTipo(v.getTipo());
+        }
     }
 
     private int sacarFilaColumaMD(String in) {

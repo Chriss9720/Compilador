@@ -12,6 +12,8 @@ public class Variable extends Ids {
     private final LinkedList<String> id;
     private String op;
     private int TE;
+    private int clave;
+    private String tope;
     
     public Variable() {
         this.id = new LinkedList();
@@ -24,6 +26,24 @@ public class Variable extends Ids {
         this.tPar = "";
         this.op = "";
         this.TE = 800;
+        this.clave = 0;
+        tope = "";
+    }
+
+    public String getTope() {
+        return tope;
+    }
+
+    public void setTope(String tope) {
+        this.tope = tope;
+    }
+
+    public int getClave() {
+        return clave;
+    }
+
+    public void setClave(int clave) {
+        this.clave = clave;
     }
 
     public String getOp() {
