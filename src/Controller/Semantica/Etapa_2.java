@@ -11,6 +11,7 @@ public class Etapa_2 {
             case 1010: return tipo.equals("BOOL");
             case 1011: return tipo.equals("BOOL");
             case 1012: return tipo.equals("BOOL");
+            case 1040: return tipo.equals("INT");
         }
         return false;
     }

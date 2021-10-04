@@ -139,7 +139,7 @@ public class Compilador implements ActionListener {
         {617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 617, 11, 617, 617, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 11, 11, 11, 11, 11, 11, 54, 11, 11, 617, 54, 54, 54, 54, 11, 11, 11, 11, 11, 11, 11, 11, 11, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617, 617},
         {618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 55, 56, 57, 58, 59, 60, 61, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618, 618},
         {607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 62, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607},
-        {607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 607, 11, 63, 607, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 11, 11, 11, 11, 11, 11, 607, 11, 11, 607, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607},
+        {607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 607, 11, 63, 607, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 11, 11, 11, 11, 11, 11, 11, 11, 11, 607, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607, 607},
         {612, 64, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 64, 612, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 612, 64},
         {619, 11, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 11, 619, 65, 66, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 619, 11},
         {620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 620, 11, 620, 620, 11, 69, 69, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 11, 11, 11, 11, 620, 11, 11, 11, 620, 620, 620, 620, 620, 620, 620, 620, 620, 620, 67, 68, 11, 620, 620, 620, 620, 620, 620, 620, 620, 620, 11, 11, 620, 620, 620, 620},
@@ -501,6 +501,7 @@ public class Compilador implements ActionListener {
                     boolean paraBool = false;
                     boolean paraBoolAux = false;
                     int clave = 1010;
+                    int dimArr = 0;
                     setSemanticaE_1();
                     setSemanticaE_2();
                     Etapa_1 sE_1 = new Etapa_1(pantalla);
@@ -514,6 +515,7 @@ public class Compilador implements ActionListener {
                     Funcion func = new Funcion();
                     LinkedList<Errores> listaAux = new LinkedList();
                     LinkedList<Integer> amb = new LinkedList();
+                    LinkedList<Variable> vars = new LinkedList();
                     ambitosTotales = new LinkedList();
                     ambitosTotales.add(new Ambito(0));
                     amb.add(ambitosTotales.getLast().getAmbito());
@@ -584,6 +586,11 @@ public class Compilador implements ActionListener {
                                 simple.settArr(temp.gettArr());
                                 simple.setClase(temp.getClase());
                                 simple.setError(temp.isError());
+                                if (simple.getClase().isEmpty()) {
+                                    simple.setClase("Var");
+                                } else {
+                                    simple.setClase(simple.getClase() + "/Var");
+                                }
                                 if (!temp.getId().isEmpty()) {
                                     simple.setId(temp.getId());
                                 }
@@ -680,6 +687,13 @@ public class Compilador implements ActionListener {
                                         sE_1.getIds().getLast().setClave(clave);
                                         sE_1.getIds().getLast().setTope("Cont_real");
                                     }
+                                } else {
+                                    vars.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "REAL"));
+                                    vars.getLast().setClave(clave);
+                                    vars.getLast().setTope("Cont_real");
+                                    sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                    vars.removeLast();
                                 }
                                 break;
                             case "Cont_exponencial":
@@ -691,6 +705,13 @@ public class Compilador implements ActionListener {
                                         sE_1.getIds().getLast().setClave(clave);
                                         sE_1.getIds().getLast().setTope("Cont_exponencial");
                                     }
+                                } else {
+                                    vars.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "EXP"));
+                                    vars.getLast().setClave(clave);
+                                    vars.getLast().setTope("Cont_exponencial");
+                                    sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                    vars.removeLast();
                                 }
                                 break;
                             case "Cont_cadena":
@@ -702,8 +723,16 @@ public class Compilador implements ActionListener {
                                                 tonk.getFirst().getLiena(), "CHAR[]"));
                                         sE_1.getIds().getLast().setClase("Arr");
                                         sE_1.getIds().getLast().setClave(clave);
-                                        sE_1.getIds().getLast().setTope("Cont_exponencial");
+                                        sE_1.getIds().getLast().setTope("Cont_cadena");
                                     }
+                                } else {
+                                    vars.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "CHAR[]"));
+                                    vars.getLast().setClase("Arr");
+                                    vars.getLast().setClave(clave);
+                                    vars.getLast().setTope("Cont_cadena");
+                                    sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                    vars.removeLast();
                                 }
                                 break;
                             case "Cont_caracter":
@@ -711,10 +740,17 @@ public class Compilador implements ActionListener {
                                 if (!ISARR) {
                                     if (INIAS || paraBool) {
                                         sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
-                                                tonk.getFirst().getLiena(), "INT"));
+                                                tonk.getFirst().getLiena(), "CHAR"));
                                         sE_1.getIds().getLast().setClave(clave);
                                         sE_1.getIds().getLast().setTope("Cont_caracter");
                                     }
+                                } else {
+                                    vars.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "CHAR"));
+                                    vars.getLast().setClave(clave);
+                                    vars.getLast().setTope("Cont_caracter");
+                                    sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                    vars.removeLast();
                                 }
                                 break;
                             case "Cont_entero":
@@ -726,6 +762,13 @@ public class Compilador implements ActionListener {
                                         sE_1.getIds().getLast().setClave(clave);
                                         sE_1.getIds().getLast().setTope("Cont_entero");
                                     }
+                                } else {
+                                    vars.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "INT"));
+                                    vars.getLast().setClave(clave);
+                                    vars.getLast().setTope("Cont_entero");
+                                    sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                    vars.removeLast();
                                 }
                                 break;
                             case "Cont_true":
@@ -747,6 +790,13 @@ public class Compilador implements ActionListener {
                                         sE_1.getIds().getLast().setClave(clave);
                                         sE_1.getIds().getLast().setTope(topeAux);
                                     }
+                                } else {
+                                    vars.add(getConstante(tonk.getFirst().getLexema(),
+                                            tonk.getFirst().getLiena(), "BOOL"));
+                                    vars.getLast().setClave(clave);
+                                    vars.getLast().setTope(topeAux);
+                                    sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                    vars.removeLast();
                                 }
                                 break;
                             case "INIAS":
@@ -763,7 +813,7 @@ public class Compilador implements ActionListener {
                                 break;
                             case "FINAS":
                                 pila.removeLast();
-                                if (Buscar(pila)) {
+                                if (Buscar(pila, "FINAS")) {
                                     INIAS = false;
                                     boolean acept = true;
                                     sE_1.mostrarEcuacion();
@@ -777,20 +827,70 @@ public class Compilador implements ActionListener {
                                     }
                                     auxSe2 = sE_1.getIds().getFirst();
                                     auxSe2.setTope("id");
-                                    if (acept) {
-                                        getSemanticaE_2().add(new Semantica_E_2(
-                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
-                                            auxSe2.getLinea(), "Acept", auxSe2.getAmb()));
-                                    } else {
-                                        getSemanticaE_2().add(new Semantica_E_2(
-                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
-                                            auxSe2.getLinea(), "ERROR", auxSe2.getAmb()));
-                                    }
-                                    getSemanticaE_2().forEach(item -> System.out.println(item.toString()));
+                                    EstatusSe2(auxSe2, clave, (acept) ? "Acept" : "Error");
                                 }
                                 break;
                             case "ISARR":
+                                pila.removeLast();
                                 ISARR = !ISARR;
+                                if (Buscar(pila, "ISARR")) {
+                                    auxSe2 = vars.getLast();
+                                    auxSe2.setClave(1040);
+                                    if (auxSe2.getClase().contains("Arr")) {
+                                        if (dimArr == auxSe2.gettArr()) {
+                                            boolean[] res = new boolean[dimArr];
+                                            boolean[] isEc = new boolean[dimArr];
+                                            for (int i = 0; i < dimArr; i++) {
+                                                res[i] = true;
+                                                isEc[i] = false;
+                                            }
+                                            for (int i = 0; i < dimArr; i++) {
+                                                boolean error;
+                                                if (!sE_1.getOperadoresArr().isEmpty()) {
+                                                    if (i < sE_1.getOperadoresArr().size()) {
+                                                        isEc[i] = !sE_1.getOperadoresArr().get(i).getOperadoresArr().isEmpty();
+                                                    }
+                                                }
+                                                LinkedList<Errores> errAux = sE_1.Resolver(i);
+                                                if (!errAux.isEmpty()) {
+                                                    error = true;
+                                                    errAux.forEach(e -> {
+                                                        err.add(new Errores(e));
+                                                        contar(509);
+                                                    });
+                                                } else {
+                                                    error = sE_2.Filtro(1040, sE_1.getIdsArr().get(i).getIdsArr().getFirst().getTipo());
+                                                }
+                                                res[i] = res[i] && error;
+                                            }
+                                            for (int i = 0; i < dimArr; i++) {
+                                                auxSe2 = sE_1.getIdsArr().get(i).getIdsArr().getFirst();
+                                                if (res[i] && !isEc[i]) {
+                                                    int size = tI(vars.getLast().getDimArr().split(",")[i]);
+                                                    int cant = tI(auxSe2.getId().getFirst());
+                                                    if (cant < size) {
+                                                        EstatusSe2(auxSe2, 1050, "Acept");
+                                                    } else {
+                                                        ErroresSe2(auxSe2, 1050, "Debe de ser menor al tamaño del arreglo", false, "");
+                                                    }
+                                                } else if (res[i] && isEc[i]) {
+                                                    EstatusSe2(auxSe2, clave, "Acept");
+                                                } else if (!res[i] && !isEc[i]) {
+                                                    ErroresSe2(auxSe2, clave, "Debe de ser un INT lo que este entre []", false, "");
+                                                }
+                                            }
+                                        } else {
+                                            ErroresSe2(auxSe2, 1030,
+                                                    "Las dimensiones no son validas: " + dimArr + " y " + auxSe2.gettArr(),
+                                                    true, vars.getLast().getId().getLast());
+                                        }
+                                    } else {
+                                        ErroresSe2(auxSe2, 1030, "No es arreglo", true, vars.getLast().getId().getLast());
+                                    }
+                                    dimArr = 0;
+                                    sE_1.ReinicarArr();
+                                    vars.removeLast();
+                                }
                                 break;
                             case "1010I":
                             case "1011I":
@@ -823,18 +923,15 @@ public class Compilador implements ActionListener {
                                 });
                                 auxSe2 = sE_1.getIds().getFirst();
                                 if (sE_2.Filtro(clave, auxSe2.getTipo())) {
-                                    getSemanticaE_2().add(new Semantica_E_2(
-                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
-                                            auxSe2.getLinea(), "Acept", auxSe2.getAmb()));
+                                    EstatusSe2(auxSe2, clave, "Acept");
                                 } else {
-                                    err.add(new Errores(auxSe2.getLinea(), clave,
-                                            auxSe2.getTope(), "Debe de ser un BOOL lo que este entre ()",
-                                            "Semantica Etapa 2", auxSe2.getAmb()));
-                                    getSemanticaE_2().add(new Semantica_E_2(
-                                            clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
-                                            auxSe2.getLinea(), "ERROR", auxSe2.getAmb()));
+                                    ErroresSe2(auxSe2, clave, "Debe de ser un BOOL lo que este entre ()", false, "");
                                 }
                                 break;
+                            case "G1":
+                                ++dimArr;
+                                break;
+
                         }
                         //System.out.println(pila.getLast() + " vs " + tonk.getFirst().getSintaxis());
                         entradaDePila = entrada(pila.getLast());
@@ -864,35 +961,67 @@ public class Compilador implements ActionListener {
                             }
                         } else if (entradaDePila >= 0 && entradaDeTokens >= 0
                                 && entradaDePila == entradaDeTokens) {
-                            if ((INIAS || paraBool) && !ISARR) {
+                            if (INIAS || paraBool || ISARR) {
                                 switch (pila.getLast()) {
                                     case "+=":
                                         clave = 1021;
-                                        sE_1.getOperadores().add("=");
-                                        sE_1.getIds().add(sE_1.getIds().getLast());
-                                        sE_1.getOperadores().add("+");
+                                        if (!ISARR) {
+                                            sE_1.getOperadores().add("=");
+                                            sE_1.getIds().add(sE_1.getIds().getLast());
+                                            sE_1.getOperadores().add("+");
+                                        } else {
+                                            sE_1.AgregarOperadorArr("=", dimArr);
+                                            sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                            sE_1.AgregarOperadorArr("+", dimArr);
+                                            vars.removeLast();
+                                        }
                                         break;
                                     case "/=":
                                         clave = 1022;
-                                        sE_1.getOperadores().add("=");
-                                        sE_1.getIds().add(sE_1.getIds().getLast());
-                                        sE_1.getOperadores().add("/");
+                                        if (!ISARR) {
+                                            sE_1.getOperadores().add("=");
+                                            sE_1.getIds().add(sE_1.getIds().getLast());
+                                            sE_1.getOperadores().add("/");
+                                        } else {
+                                            sE_1.AgregarOperadorArr("=", dimArr);
+                                            sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                            sE_1.AgregarOperadorArr("/", dimArr);
+                                            vars.removeLast();
+                                        }
                                         break;
                                     case "*=":
                                         clave = 1022;
-                                        sE_1.getOperadores().add("=");
-                                        sE_1.getIds().add(sE_1.getIds().getLast());
-                                        sE_1.getOperadores().add("*");
+                                        if (!ISARR) {
+                                            sE_1.getOperadores().add("=");
+                                            sE_1.getIds().add(sE_1.getIds().getLast());
+                                            sE_1.getOperadores().add("*");
+                                        } else {
+                                            sE_1.AgregarOperadorArr("=", dimArr);
+                                            sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                            sE_1.AgregarOperadorArr("*", dimArr);
+                                            vars.removeLast();
+                                        }
                                         break;
                                     case "-=":
                                         clave = 1022;
-                                        sE_1.getOperadores().add("=");
-                                        sE_1.getIds().add(sE_1.getIds().getLast());
-                                        sE_1.getOperadores().add("-");
+                                        if (!ISARR) {
+                                            sE_1.getOperadores().add("=");
+                                            sE_1.getIds().add(sE_1.getIds().getLast());
+                                            sE_1.getOperadores().add("-");
+                                        } else {
+                                            sE_1.AgregarOperadorArr("=", dimArr);
+                                            sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                            sE_1.AgregarOperadorArr("-", dimArr);
+                                            vars.removeLast();
+                                        }
                                         break;
                                     case "=":
                                         clave = 1020;
-                                        sE_1.getOperadores().add(pila.getLast());
+                                        if (!ISARR) {
+                                            sE_1.getOperadores().add(pila.getLast());
+                                        } else {
+                                            sE_1.AgregarOperadorArr(pila.getLast(), dimArr);
+                                        }
                                         break;
                                     case "+":
                                     case "-":
@@ -910,7 +1039,11 @@ public class Compilador implements ActionListener {
                                     case "%":
                                     case "&":
                                     case "&&":
-                                        sE_1.getOperadores().add(pila.getLast());
+                                        if (!ISARR) {
+                                            sE_1.getOperadores().add(pila.getLast());
+                                        } else {
+                                            sE_1.AgregarOperadorArr(pila.getLast(), dimArr);
+                                        }
                                         break;
                                 }
                             }
@@ -1083,30 +1216,34 @@ public class Compilador implements ActionListener {
                                 REVISAR = false;
                                 LinkedList<Integer> auxAmb = new LinkedList();
                                 amb.forEach(i -> auxAmb.add(i));
-                                Variable varAux = gestor.existe(aux, auxAmb);
-                                if (varAux != null) {
-                                    varAux.setVariant(false);
+                                auxSe2 = gestor.existe(aux, auxAmb);
+                                if (auxSe2 != null) {
+                                    auxSe2.setVariant(false);
                                 } else {
-                                    varAux = new Variable();
-                                    varAux.setId(aux);
-                                    varAux.setVariant(true);
-                                    varAux.setAmb(amb.getLast());
+                                    auxSe2 = new Variable();
+                                    auxSe2.setId(aux);
+                                    auxSe2.setVariant(true);
+                                    auxSe2.setAmb(amb.getLast());
                                     err.add(new Errores(linea, 706,
                                             aux, "No esta declarada la variable",
                                             "Ambito", amb.getLast()));
                                     contar(512);
                                     ambitosTotales.getLast().setErrores();
                                 }
-                                varAux.setTope("id");
-                                varAux.setLinea(linea);
+                                auxSe2.setTope("id");
+                                auxSe2.setLinea(linea);
+                                vars.add(auxSe2);
                                 if (!ISARR) {
-                                    sE_1.getIds().add(varAux);
+                                    sE_1.getIds().add(auxSe2);
+                                } else {
+                                    sE_1.AgregarIdArr(vars.getLast(), dimArr);
+                                    vars.removeLast();
                                 }
                                 if (paraBoolAux) {
                                     paraBoolAux = false;
-                                    Variable auxVar = sE_1.getIds().getLast();
+                                    auxSe2 = sE_1.getIds().getLast();
                                     sE_1.Reiniciar();
-                                    sE_1.getIds().add(auxVar);
+                                    sE_1.getIds().add(auxSe2);
                                     sE_1.getIds().getLast().setClave(clave);
                                 }
                             }
@@ -1155,9 +1292,22 @@ public class Compilador implements ActionListener {
         e.start();
     }
 
-    private boolean Buscar(LinkedList<String> p) {
+    public void ErroresSe2(Variable auxSe2, int clave, String error, boolean id, String id2) {
+        err.add(new Errores(auxSe2.getLinea(), clave,
+                (id) ? id2 : auxSe2.getTope(), error,
+                "Semantica Etapa 2", auxSe2.getAmb()));
+        this.EstatusSe2(auxSe2, clave, "ERROR");
+    }
+
+    public void EstatusSe2(Variable auxSe2, int clave, String status) {
+        getSemanticaE_2().add(new Semantica_E_2(
+                clave, auxSe2.getTope(), auxSe2.getId().getFirst(),
+                auxSe2.getLinea(), status, auxSe2.getAmb()));
+    }
+
+    private boolean Buscar(LinkedList<String> p, String cadena) {
         int total = 0;
-        total = p.stream().filter(item -> (item.equals("FINAS"))).map(_item -> 1).reduce(total, Integer::sum);
+        total = p.stream().filter(item -> (item.equals(cadena))).map(_item -> 1).reduce(total, Integer::sum);
         return total == 0;
     }
 
