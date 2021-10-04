@@ -14,6 +14,7 @@ public class Variable extends Ids {
     private int TE;
     private int clave;
     private String tope;
+    private boolean isR;
     
     public Variable() {
         this.id = new LinkedList();
@@ -28,6 +29,15 @@ public class Variable extends Ids {
         this.TE = 800;
         this.clave = 0;
         tope = "";
+        isR = true;
+    }
+
+    public boolean isIsR() {
+        return isR;
+    }
+
+    public void setIsR() {
+        this.isR = true;
     }
 
     public String getTope() {

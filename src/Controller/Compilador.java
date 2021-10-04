@@ -261,9 +261,9 @@ public class Compilador implements ActionListener {
         producciones.add(new Producciones("ESTATUTOS", "{ ESTATUTOS I6 }"));
         producciones.add(new Producciones("I6", "; ESTATUTOS I6"));
         producciones.add(new Producciones("ESTATUTOS", "repeat ESTATUTOS until ( 1012I EXP_PASCAL 1012F )"));
-        producciones.add(new Producciones("ESTATUTOS", "for ( I7 ; I9 ; I10 ) ESTATUTOS"));
-        producciones.add(new Producciones("I7", "EXP_PASCAL I8"));
-        producciones.add(new Producciones("I8", ", EXP_PASCAL I8"));
+        producciones.add(new Producciones("ESTATUTOS", "1080I for ( I7 P1F ; I9 ; I10 ) ESTATUTOS"));
+        producciones.add(new Producciones("I7", "P1I EXP_PASCAL P1F1 I8"));
+        producciones.add(new Producciones("I8", ", P1I EXP_PASCAL P1F1 I8"));
         producciones.add(new Producciones("I9", "EXP_PASCAL"));
         producciones.add(new Producciones("I10", "ESTATUTOS I11"));
         producciones.add(new Producciones("I11", ", ESTATUTOS I11"));
@@ -500,6 +500,9 @@ public class Compilador implements ActionListener {
                     boolean ISARR = false;
                     boolean paraBool = false;
                     boolean paraBoolAux = false;
+                    boolean isFor = false;
+                    boolean isForStatus = false;
+                    boolean forAsig = false;
                     int clave = 1010;
                     int dimArr = 0;
                     setSemanticaE_1();
@@ -681,7 +684,7 @@ public class Compilador implements ActionListener {
                             case "Cont_real":
                                 var.setTipo("REAL");
                                 if (!ISARR) {
-                                    if (INIAS || paraBool) {
+                                    if (INIAS || paraBool || isFor) {
                                         sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                                 tonk.getFirst().getLiena(), "REAL"));
                                         sE_1.getIds().getLast().setClave(clave);
@@ -699,7 +702,7 @@ public class Compilador implements ActionListener {
                             case "Cont_exponencial":
                                 var.setTipo("EXP");
                                 if (!ISARR) {
-                                    if (INIAS || paraBool) {
+                                    if (INIAS || paraBool || isFor) {
                                         sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                                 tonk.getFirst().getLiena(), "EXP"));
                                         sE_1.getIds().getLast().setClave(clave);
@@ -718,7 +721,7 @@ public class Compilador implements ActionListener {
                                 var.setTipo("CHAR");
                                 var.setClase("Constante/Arr");
                                 if (!ISARR) {
-                                    if (INIAS || paraBool) {
+                                    if (INIAS || paraBool || isFor) {
                                         sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                                 tonk.getFirst().getLiena(), "CHAR[]"));
                                         sE_1.getIds().getLast().setClase("Arr");
@@ -738,7 +741,7 @@ public class Compilador implements ActionListener {
                             case "Cont_caracter":
                                 var.setTipo("CHAR");
                                 if (!ISARR) {
-                                    if (INIAS || paraBool) {
+                                    if (INIAS || paraBool || isFor) {
                                         sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                                 tonk.getFirst().getLiena(), "CHAR"));
                                         sE_1.getIds().getLast().setClave(clave);
@@ -756,7 +759,7 @@ public class Compilador implements ActionListener {
                             case "Cont_entero":
                                 var.setTipo("INT");
                                 if (!ISARR) {
-                                    if (INIAS || paraBool) {
+                                    if (INIAS || paraBool || isFor) {
                                         sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                                 tonk.getFirst().getLiena(), "INT"));
                                         sE_1.getIds().getLast().setClave(clave);
@@ -784,7 +787,7 @@ public class Compilador implements ActionListener {
                                 }
                                 var.setTipo("BOOL");
                                 if (!ISARR) {
-                                    if (INIAS || paraBool) {
+                                    if (INIAS || paraBool || isFor) {
                                         sE_1.getIds().add(getConstante(tonk.getFirst().getLexema(),
                                                 tonk.getFirst().getLiena(), "BOOL"));
                                         sE_1.getIds().getLast().setClave(clave);
@@ -809,6 +812,7 @@ public class Compilador implements ActionListener {
                                     getSemanticaE_1().getLast().setAsig(auxVar.getId().getLast());
                                 }
                                 INIAS = true;
+                                forAsig = true;
                                 pila.removeLast();
                                 break;
                             case "FINAS":
@@ -867,11 +871,20 @@ public class Compilador implements ActionListener {
                                                 auxSe2 = sE_1.getIdsArr().get(i).getIdsArr().getFirst();
                                                 if (res[i] && !isEc[i]) {
                                                     int size = tI(vars.getLast().getDimArr().split(",")[i]);
-                                                    int cant = tI(auxSe2.getId().getFirst());
-                                                    if (cant < size) {
-                                                        EstatusSe2(auxSe2, 1050, "Acept");
-                                                    } else {
-                                                        ErroresSe2(auxSe2, 1050, "Debe de ser menor al tamaño del arreglo", false, "");
+                                                    int cant;
+                                                    try {
+                                                        cant = tI(auxSe2.getId().getFirst());
+                                                        if (cant < size) {
+                                                            EstatusSe2(auxSe2, 1050, "Acept");
+                                                        } else {
+                                                            ErroresSe2(auxSe2, 1050, "Debe de ser menor al tamaño del arreglo", false, "");
+                                                        }
+                                                    } catch (Exception e) {
+                                                        if (sE_2.Filtro(1040, auxSe2.getTipo())) {
+                                                            EstatusSe2(auxSe2, clave, "Acept");
+                                                        } else {
+                                                            ErroresSe2(auxSe2, clave, "Debe de ser un INT lo que este entre []", false, "");
+                                                        }
                                                     }
                                                 } else if (res[i] && isEc[i]) {
                                                     EstatusSe2(auxSe2, clave, "Acept");
@@ -889,7 +902,9 @@ public class Compilador implements ActionListener {
                                     }
                                     dimArr = 0;
                                     sE_1.ReinicarArr();
-                                    vars.removeLast();
+                                    while (!vars.isEmpty() && vars.getLast().isIsR()) {
+                                        vars.removeLast();
+                                    }
                                 }
                                 break;
                             case "1010I":
@@ -931,7 +946,48 @@ public class Compilador implements ActionListener {
                             case "G1":
                                 ++dimArr;
                                 break;
-
+                            case "1080I":
+                                pila.removeLast();
+                                isFor = true;
+                                break;
+                            case "P1I":
+                                pila.removeLast();
+                                forAsig = false;
+                                if (isForStatus) {
+                                    vars.removeLast();
+                                }
+                                isForStatus = true;
+                                break;
+                            case "P1F1":
+                                pila.removeLast();
+                                if (!forAsig) {
+                                    auxSe2 = sE_1.getIds().getFirst();
+                                    err.add(new Errores(auxSe2.getLinea(), 1080,
+                                            auxSe2.getId().getFirst(),
+                                            "No es una asginacion", "Semantica 2", auxSe2.getAmb()));
+                                }
+                                sE_1.Reiniciar();
+                                sE_1.ReinicarArr();
+                                break;
+                            case "P1F":
+                                pila.removeLast();
+                                if (forAsig) {
+                                    auxSe2 = vars.getLast();
+                                    vars.removeLast();
+                                } else {
+                                    auxSe2 = new Variable();
+                                    auxSe2.getId().add("Elemento nulo");
+                                    auxSe2.setLinea(tonk.getFirst().getLiena());
+                                    auxSe2.setAmb(amb.getLast());
+                                    System.out.println("nulo");
+                                }
+                                if (isForStatus) {
+                                    EstatusSe2(auxSe2, 1080, "Acept");
+                                } else {
+                                    EstatusSe2(auxSe2, 1083, "Acept");
+                                }
+                                isForStatus = false;
+                                break;
                         }
                         //System.out.println(pila.getLast() + " vs " + tonk.getFirst().getSintaxis());
                         entradaDePila = entrada(pila.getLast());
@@ -1232,12 +1288,14 @@ public class Compilador implements ActionListener {
                                 }
                                 auxSe2.setTope("id");
                                 auxSe2.setLinea(linea);
+                                if (ISARR) {
+                                    auxSe2.setIsR();
+                                }
                                 vars.add(auxSe2);
                                 if (!ISARR) {
                                     sE_1.getIds().add(auxSe2);
                                 } else {
                                     sE_1.AgregarIdArr(vars.getLast(), dimArr);
-                                    vars.removeLast();
                                 }
                                 if (paraBoolAux) {
                                     paraBoolAux = false;
